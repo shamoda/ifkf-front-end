@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+    .long_text {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .short_text {
+      display: none;
+    }
+  
+    .toolbar__logo {
+      margin-left: 0;
+    }
+  }

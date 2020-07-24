@@ -11,7 +11,7 @@ class Footer extends Component {
             <Navbar fixed="bottom" bg="dark" variant="dark">
                 <Container>
                     <Col lg={12} className="text-center text-muted">
-                        <div>{fullYear}-{fullYear+1}, All Rights Reserved by ITP2020_S2_06_G11</div>
+                        <div>{fullYear}-{fullYear+1}, All Rights Reserved by IFKF - Sri Lanka</div>
                     </Col>
                 </Container>
             </Navbar>
