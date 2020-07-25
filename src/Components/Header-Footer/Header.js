@@ -4,63 +4,81 @@ import './Header.css';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faBook, faUserCircle, faUsers, faChartLine, faSignInAlt, faSignOutAlt, faCalendarAlt, faHandshake,faBars, faImages, faPencilRuler, faCalendarCheck, faCheck, faShoppingBag, faCreditCard } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
+import AuthenticationService from '../Authentication/AuthenticationService';
 
 
 class Header extends Component {
     state = {  }
     render() { 
 
-        const isUserLoggedIn = true//AuthenticationService.isUserLoggedIn();
-        const loggedAsOperator = true
-        //const loggedAsInstructor = true
-        //const loggedAsStudent = true
+        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+        const loggedUserRole = AuthenticationService.loggedUserRole();
+
+        let loggedAsOperator = false;
+        let loggedAsInstructor = false;
+        let loggedAsStudent = false;
+
+        if(loggedUserRole != null && loggedUserRole === 'Operator'){
+            loggedAsOperator = true;
+        }
+        if(loggedUserRole != null && loggedUserRole === 'Instructor'){
+            loggedAsInstructor = true;
+        }
+        if(loggedUserRole != null && loggedUserRole === 'Student'){
+            loggedAsStudent = true;
+        }
+        
 
         return ( 
 
             <div>
                     
-                    <Navbar bg="dark" variant="dark" expand="lg">
-                    <Navbar.Brand className="long_text" href="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> International Fumonkai Karate-do Federation - Sri Lanka</Navbar.Brand>
-                    <Navbar.Brand className="short_text" href="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> IFKF - Sri Lanka</Navbar.Brand>
+                    <Navbar bg="dark" variant="dark" expand="lg" style={{marginBottom:10}}>
+                    <Link className="navbar-brand long_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> International Fumonkai Karate-do Federation - Sri Lanka</Link>
+                    <Link className="navbar-brand short_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> IFKF - Sri Lanka</Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="ml-auto"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                        <Nav.Link href="/"><FontAwesomeIcon icon={faHome} /> Home</Nav.Link>
-                        <Nav.Link href="History"><FontAwesomeIcon icon={faBook} /> History</Nav.Link>
-                        <Nav.Link href="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Nav.Link>
-                        <Nav.Link href="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Nav.Link>
-                        <Nav.Link href="getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Nav.Link>
+                        <Link className="nav-link" to="/"><FontAwesomeIcon icon={faHome} /> Home</Link>
+                        <Link className="nav-link" to="History"><FontAwesomeIcon icon={faBook} /> History</Link>
+                        <Link className="nav-link" to="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Link>
+                        <Link className="nav-link" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                        <Link className="nav-link" to="getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Link>
                         {loggedAsOperator && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
-                            <NavDropdown.Item href="users"><FontAwesomeIcon icon={faUsers} /> Users</NavDropdown.Item>
-                            <NavDropdown.Item href="sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</NavDropdown.Item>
-                            <NavDropdown.Item href="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</NavDropdown.Item>
-                            <NavDropdown.Item href="equipments"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</NavDropdown.Item>
-                            <NavDropdown.Item href="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</NavDropdown.Item>
-                            <NavDropdown.Item href="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</NavDropdown.Item>
-                            <NavDropdown.Item href="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</NavDropdown.Item>
-                            <NavDropdown.Item href="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</NavDropdown.Item>
+                            <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
+                            <Link className="dropdown-item" to="sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</Link>
+                            <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="equipments"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
+                            <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
+                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="update"><FontAwesomeIcon icon={faUserCircle} /> Update</NavDropdown.Item>
+                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
 
-                        {/* {loggedAsInstructor && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
-                            <NavDropdown.Item href="users"><FontAwesomeIcon icon={faUsers} /> Users</NavDropdown.Item>
-                            <NavDropdown.Item href="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</NavDropdown.Item>
-                            <NavDropdown.Item href="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</NavDropdown.Item>
-                            <NavDropdown.Item href="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</NavDropdown.Item>
-                            <NavDropdown.Item href="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</NavDropdown.Item>
+                        {loggedAsInstructor && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
+                            <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
+                            <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
+                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="update"><FontAwesomeIcon icon={faUserCircle} /> Update</NavDropdown.Item>
-                        </NavDropdown>} */}
+                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                        </NavDropdown>}
 
-                        {/* {loggedAsStudent && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
-                            <NavDropdown.Item href="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</NavDropdown.Item>
-                            <NavDropdown.Item href="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</NavDropdown.Item>
+                        {loggedAsStudent && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown">
+                            <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="update"><FontAwesomeIcon icon={faUserCircle} /> Update</NavDropdown.Item>
-                        </NavDropdown>} */}
-                        {!isUserLoggedIn && <Nav.Link href="login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link>}
-                        {isUserLoggedIn && <Nav.Link href="logout"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Nav.Link>}
+                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                        </NavDropdown>}
+
+                        {!isUserLoggedIn && <Link className="nav-link" to="login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
+                        {isUserLoggedIn && <Link className="nav-link" to="logout" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
                         </Nav>
                     </Navbar.Collapse>
                     </Navbar>
@@ -73,4 +91,4 @@ class Header extends Component {
     }
 }
  
-export default Header;
+export default withRouter(Header);

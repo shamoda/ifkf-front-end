@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Footer from './Header-Footer/Footer';
 import Header from './Header-Footer/Header';
+import Login from './Login/Login';
+import Home from './Home/Home';
+import NotFound from './404NotFound/404NotFound';
 
 
 class FrontEnd extends Component {
@@ -20,7 +23,11 @@ class FrontEnd extends Component {
 
                     <Switch>
 
-                        <Route  />
+                        <Route path="/" exact component={Home} />
+                        <Route path="/login" component={Login} />
+
+
+                        <Route component={NotFound} />
 
                     </Switch>
 
