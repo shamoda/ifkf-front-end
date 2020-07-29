@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
+import SampleComponents from '../SampleComponents/SampleComponents';
 
 class Home extends Component {
     state = {  }
@@ -7,6 +8,7 @@ class Home extends Component {
         return ( 
             <div>
                 <h1>Home</h1>
+                <SampleComponents />
             </div>
          );
     }
