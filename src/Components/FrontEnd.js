@@ -6,6 +6,7 @@ import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 import ShopHome from './SHOP/Views/Home/ShopHome'
+import AddEquipment from './Equipment/AddEquipment';
 
 class FrontEnd extends Component {
 
@@ -25,6 +26,7 @@ class FrontEnd extends Component {
 
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
+                        <Route path="/equipment" component={AddEquipment} />
                         <Route path="/shop" component={ShopHome} />
 
 
