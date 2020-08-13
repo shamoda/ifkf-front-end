@@ -9,6 +9,12 @@ class EquipmentDataService{
         return axios.get('http://localhost:9090/IFKF/equipment');
     }
 
+
+    deleteEquipment(id){
+
+        return axios.delete(`http://localhost:9090/IFKF/equipment/${id}`)
+    }
+
 }
 
 export default new EquipmentDataService()

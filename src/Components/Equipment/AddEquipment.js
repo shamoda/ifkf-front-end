@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import EquipmentDataService from '../../API/EquipmentDataService'
-import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
+import { Card, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import { faList} from '@fortawesome/free-solid-svg-icons'
 
 class AddEquipment extends Component {
     constructor(props){
         super(props)
         this.state = {
-           equipments :  []
+           equipments :  [],
+           message : null
            
 
            }
            this.refreshEquipment = this.refreshEquipment.bind(this);
+           this.deleteEquipmentClicked = this.deleteEquipmentClicked.bind(this);
         }
 
         componentDidMount(){
@@ -41,6 +43,24 @@ class AddEquipment extends Component {
     
             )
         }
+
+
+        deleteEquipmentClicked(id){
+
+
+           EquipmentDataService.deleteEquipment(id)
+            .then(
+                response =>{
+    
+                this.setState({message : `Delete of Equipment ${id} Successful`});
+                this.refreshEquipment();
+                }
+    
+            )
+           
+    
+        }
+
         render() {
             return (
                 <div>
@@ -50,8 +70,8 @@ class AddEquipment extends Component {
                 <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header><FontAwesomeIcon icon={faList} /> List</Card.Header>
                 <Card.Body>
-                    <Table bordered hover striped variant="dark"  style={{textAlign:"center"}}>
-                    <thead>
+                    <Table bordered hover striped variant="dark"  >
+                    <thead style={{ height: 5 }}>
                         <tr>
                         <th>Type</th>
                         <th>Supplier</th>
@@ -65,25 +85,20 @@ class AddEquipment extends Component {
                         {
                             this.state.equipments.map(
                                 equipment =>
-                                <tr key ={equipment.id}>
-                                <td>{equipment.type}</td>
+                                <tr key ={equipment.id} style={{ height: 2 ,padding:0,margin:0 }}>
+                                <td >{equipment.type}</td>
                                 <td>{equipment.supplier}</td>
                                 <td>{equipment.quantity}</td>
                                 <td>{equipment.brand}</td>
 
 
-                                <td>
-                                    <ButtonGroup>
-                                
-                                        <Button size="sm" variant="primary" ><FontAwesomeIcon icon={faEdit} /></Button>
-                                    </ButtonGroup>
-                                </td>
-                                <td>
+                           
+                                <td><button className ="btn btn-success" style={{padding: 3}}>Update</button></td>
+                               
                                     
+                                <td><button className ="btn btn-warning" style={{padding: 3}} onClick={() => this.deleteEquipmentClicked(equipment.id)}>Delete</button></td>
 
-                                      <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
-
-                                </td>
+                                
 
                                 </tr>
 
