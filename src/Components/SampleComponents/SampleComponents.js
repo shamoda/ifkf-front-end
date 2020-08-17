@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import Rankings from '../Rankings-and-Perfomance-Management/Rankings/Rankings';
 
 
 
@@ -120,6 +121,13 @@ class SampleComponents extends Component {
             </Card>
 
                 </Container>   
+
+            <br />
+            <br />
+            <br/>
+            <br />
+
+                <Rankings />
 
             <br />
             <br />

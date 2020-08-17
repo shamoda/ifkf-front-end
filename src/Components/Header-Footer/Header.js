@@ -78,7 +78,7 @@ class Header extends Component {
                         </NavDropdown>}
 
                         {!isUserLoggedIn && <Link className="nav-link" to="login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
-                        {isUserLoggedIn && <Link className="nav-link" to="logout" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
+                        {isUserLoggedIn && <Link className="nav-link" to="login" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
                         </Nav>
                     </Navbar.Collapse>
                     </Navbar>
