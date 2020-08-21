@@ -3,6 +3,7 @@ import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bo
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import Rankings from '../Rankings-and-Perfomance-Management/Rankings/Rankings';
+import GradingExaminations from '../Rankings-and-Perfomance-Management/Grading Examinations/GradingExaminations';
 
 
 
@@ -128,6 +129,13 @@ class SampleComponents extends Component {
             <br />
 
                 <Rankings />
+
+            <br />
+            <br />
+            <br/>
+            <br />
+
+                <GradingExaminations />
 
             <br />
             <br />
