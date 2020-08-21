@@ -7,6 +7,7 @@ import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 import ShopHome from './SHOP/Views/Home/ShopHome'
 import AddEquipment from './Equipment/AddEquipment';
+import EventsMain from './Events/EventsMain';
 
 class FrontEnd extends Component {
 
@@ -28,6 +29,7 @@ class FrontEnd extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/equipment" component={AddEquipment} />
                         <Route path="/shop" component={ShopHome} />
+                        <Route exact path="/events" component={EventsMain} />
 
 
                         <Route component={NotFound} />

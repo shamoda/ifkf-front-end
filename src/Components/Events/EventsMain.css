@@ -1,0 +1,12 @@
+/*unvisited link*/
+.link {
+    color: #000000;
+    text-decoration: none;
+}
+
+/*hover over link*/
+.link:hover {
+    color: #000000;
+    text-decoration: none;
+    transform: scale(1.1);
+}
