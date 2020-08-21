@@ -11,7 +11,6 @@ export default class EventsMain extends Component {
         return(
             <div>
                 <div className="jumbotron jumbotron-fluid shadow-none" style={{position:'relative', top: '-5px'}}>
-
                     <div className={"col"}>
                         <div className={"row"}>
                             <div className={"col"}>
@@ -88,58 +87,55 @@ export default class EventsMain extends Component {
                         </div>
                         <div className={"col-9"} style={{padding:'0 4%'}}>
                             <div className={"card-deck py-3 px-1"}>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
-                                        <div style={{position:'relative', backgroundColor: '#808080'}}>
-                                            <img className={"card-img-top"} alt={"card-1"}
-                                                 src={require('../../Assets/events-bg1.jpg')}/>
-                                            <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                                backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
-                                                <h2>11</h2>
-                                                <h2>SEP</h2>
-                                            </div>
+                                <Link to={"/events/eventid"} className={"card link shadowC"} style={{width:'18rem'}}>
+                                    <div style={{position:'relative', backgroundColor: '#808080'}}>
+                                        <img className={"card-img-top"} alt={"card-1"}
+                                             src={require('../../Assets/events-bg1.jpg')}/>
+                                        <div className={"date"}>
+                                             <h2>11</h2>
+                                             <h2>SEP</h2>
                                         </div>
-                                        <div className={"card-body"}>
-                                            <h5 className="card-title">International Fumonkai Karate Championship 2020</h5>
-                                            <p className={"card-text"}>
-                                                <FontAwesomeIcon icon={faUsers}/>
-                                                &nbsp; International Karate-Do Federation
-                                            </p>
-                                            <p className={"card-text"}>
-                                                <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
-                                                    Tournament
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
-                                        <div style={{position:'relative', backgroundColor: '#808080'}}>
-                                            <img className={"card-img-top"} alt={"card-2"}
-                                                 src={require('../../Assets/events-bg4.jpg')}/>
-                                            <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                                backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
-                                                <h2>11</h2>
-                                                <h2>SEP</h2>
-                                            </div>
-                                        </div>
-                                        <div className={"card-body"}>
-                                            <h5 className="card-title">International Fumonkai Karate Championship 2020</h5>
-                                            <p className={"card-text"}>
-                                                <FontAwesomeIcon icon={faUsers}/>
-                                                &nbsp; International Karate-Do Federation
-                                            </p>
-                                            <p className={"card-text"}>
-                                                <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
-                                                    Tournament
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
+                                    </div>
+                                    <div className={"card-body"}>
+                                        <h5 className="card-title">International Fumonkai Karate Championship 2020</h5>
+                                        <p className={"card-text"}>
+                                            <FontAwesomeIcon icon={faUsers}/>
+                                            &nbsp; International Karate-Do Federation
+                                        </p>
+                                        <p className={"card-text"}>
+                                            <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
+                                                Tournament
+                                            </span>
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link to={"http://google.com"} className={"card link shadowC"} style={{width:'18rem'}}>
+                                    <div style={{position:'relative', backgroundColor: '#808080'}}>
+                                        <img className={"card-img-top"} alt={"card-2"}
+                                             src={require('../../Assets/events-bg4.jpg')}/>
+                                        <div className={"date"}>
+                                            <h2>11</h2>
+                                            <h2>SEP</h2>
+                                         </div>
+                                    </div>
+                                    <div className={"card-body"}>
+                                        <h5 className="card-title">International Fumonkai Karate Championship 2020</h5>
+                                        <p className={"card-text"}>
+                                            <FontAwesomeIcon icon={faUsers}/>
+                                            &nbsp; International Karate-Do Federation
+                                        </p>
+                                        <p className={"card-text"}>
+                                            <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
+                                                Tournament
+                                            </span>
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link to={"http://google.com"} className={"card link shadowC"} style={{width:'18rem'}}>
                                     <div style={{position:'relative', backgroundColor: '#808080'}}>
                                         <img className={"card-img-top"} alt={"card-3"}
                                              src={require('../../Assets/events-bg3.jpg')}/>
-                                        <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                             backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
+                                        <div className={"date"}>
                                             <h2>11</h2>
                                             <h2>SEP</h2>
                                         </div>
@@ -159,12 +155,11 @@ export default class EventsMain extends Component {
                                 </Link>
                             </div>
                             <div className={"card-deck py-3 px-1"}>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
+                                <Link to={"http://google.com"} className={"card link shadowC"} style={{width:'18rem'}}>
                                     <div style={{position:'relative', backgroundColor: '#808080'}}>
                                         <img className={"card-img-top"} alt={"card-4"}
                                              src={require('../../Assets/events-bg2.jpg')}/>
-                                        <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                            backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
+                                        <div className={"date"}>
                                             <h2>11</h2>
                                             <h2>SEP</h2>
                                         </div>
@@ -176,18 +171,17 @@ export default class EventsMain extends Component {
                                             &nbsp; International Karate-Do Federation
                                         </p>
                                         <p className={"card-text"}>
-                                                <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
-                                                    Tournament
-                                                </span>
+                                            <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
+                                                Tournament
+                                            </span>
                                         </p>
                                     </div>
                                 </Link>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
+                                <Link to={"http://google.com"} className={"card link shadowC"} style={{width:'18rem'}}>
                                     <div style={{position:'relative', backgroundColor: '#808080'}}>
                                         <img className={"card-img-top"} alt={"card-5"}
                                              src={require('../../Assets/events-bg5.jpg')}/>
-                                        <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                            backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
+                                        <div className={"date"}>
                                             <h2>11</h2>
                                             <h2>SEP</h2>
                                         </div>
@@ -199,18 +193,17 @@ export default class EventsMain extends Component {
                                             &nbsp; International Karate-Do Federation
                                         </p>
                                         <p className={"card-text"}>
-                                                <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
-                                                    Tournament
-                                                </span>
+                                            <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
+                                                Tournament
+                                            </span>
                                         </p>
                                     </div>
                                 </Link>
-                                <Link to={"http://google.com"} className={"card link"} style={{width:'20rem'}}>
+                                <Link to={"http://google.com"} className={"card link shadowC"} style={{width:'18rem'}}>
                                     <div style={{position:'relative', backgroundColor: '#808080'}}>
                                         <img className={"card-img-top"} alt={"card-6"}
                                              src={require('../../Assets/events-bg6.jpg')}/>
-                                        <div style={{position:'absolute', top:'0px', left:'20px', textAlign:'center',
-                                            backgroundColor: '#ffffff', padding:'15px', borderRadius:'0 0 5px 5px', boxShadow:'1px 2px 3px #808080' }}>
+                                        <div className={"date"}>
                                             <h2>11</h2>
                                             <h2>SEP</h2>
                                         </div>
@@ -222,9 +215,9 @@ export default class EventsMain extends Component {
                                             &nbsp; International Karate-Do Federation
                                         </p>
                                         <p className={"card-text"}>
-                                                <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
-                                                    Tournament
-                                                </span>
+                                            <span style={{borderRadius: '25px', padding:'7px 20px', backgroundColor: '#e0e0e0'}}>
+                                                Tournament
+                                            </span>
                                         </p>
                                     </div>
                                 </Link>
@@ -233,7 +226,6 @@ export default class EventsMain extends Component {
                         <div className={"col"}>
                         </div>
                     </div>
-
                 </div>
             </div>
         )

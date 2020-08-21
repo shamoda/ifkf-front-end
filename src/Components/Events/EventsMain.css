@@ -2,6 +2,7 @@
 .link {
     color: #000000;
     text-decoration: none;
+    transition: transform .3s;
 }
 
 /*hover over link*/
@@ -9,4 +10,22 @@
     color: #000000;
     text-decoration: none;
     transform: scale(1.1);
+}
+
+/*card shadow*/
+.shadowC {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    color: #3e3e3e;
+}
+
+/*date card styles*/
+.date {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 1px 2px 4px #808080;
 }
