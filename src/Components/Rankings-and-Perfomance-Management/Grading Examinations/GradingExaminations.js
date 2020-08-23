@@ -16,7 +16,7 @@ class GradingExaminations extends Component {
             updateClicked: null,
             disabled: false,
 
-            fCode:null,
+            fCode:'',
             fDescription:'',
             fDate : moment(new Date()).format('YYYY-MM-DD'),
             fMessage: null
@@ -106,7 +106,7 @@ class GradingExaminations extends Component {
     }
 
     resetExamRecord(){
-        this.setState({fCode:null, fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null, updateClicked: null, disabled:false})
+        this.setState({fCode:'', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null, updateClicked: null, disabled:false})
     }
 
     examChange = event =>{
@@ -123,7 +123,7 @@ class GradingExaminations extends Component {
 
     render() { 
 
-        const {fCode, fDate, fDescription, fMessage} = this.state;
+        const {fCode, fDate, fDescription} = this.state;
 
         return ( 
 
@@ -140,7 +140,7 @@ class GradingExaminations extends Component {
                                 <th>Exam Code</th>
                                 <th>Description</th>
                                 <th>Date</th>
-                                <th>Actions</th>
+                                <th style={{textAlign:"center"}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,7 +154,7 @@ class GradingExaminations extends Component {
                                         <td>{exam.examCode}</td>
                                         <td>{exam.description}</td>
                                         <td>{moment(exam.date).format('YYYY-MM-DD')}</td>
-                                        <td>
+                                        <td style={{textAlign:"center"}}>
                                             <ButtonGroup>
                                                 {/* <Link to={"edit/"+rank.id} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></Link> &nbsp;&nbsp; */}
                                                 <Button size="sm" variant="outline-light" onClick={() => this.updateExamRecordClicked(exam.examCode)}><FontAwesomeIcon icon={faFilePdf} /></Button> &nbsp;&nbsp;

@@ -4,6 +4,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import Rankings from '../Rankings-and-Perfomance-Management/Rankings/Rankings';
 import GradingExaminations from '../Rankings-and-Perfomance-Management/Grading Examinations/GradingExaminations';
+import Results from '../Rankings-and-Perfomance-Management/Results/Results';
+import StudentReport from '../Rankings-and-Perfomance-Management/Student Report/StudentReport';
 
 
 
@@ -13,7 +15,7 @@ class SampleComponents extends Component {
     render() { 
         return ( 
             <div>
-                <Container>
+                {/* <Container>
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><FontAwesomeIcon icon={faEdit} /> Add Entry</Card.Header>
                     <Form  method="post">
@@ -121,7 +123,7 @@ class SampleComponents extends Component {
                 </Card.Body>
             </Card>
 
-                </Container>   
+                </Container>    */}
 
             <br />
             <br />
@@ -136,6 +138,20 @@ class SampleComponents extends Component {
             <br />
 
                 <GradingExaminations />
+
+            <br />
+            <br />
+            <br/>
+            <br />
+
+            <Results />
+
+            <br />
+            <br />
+            <br/>
+            <br />
+
+            <StudentReport />
 
             <br />
             <br />

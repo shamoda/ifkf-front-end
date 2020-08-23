@@ -144,7 +144,7 @@ class Rankings extends Component {
                                 <th>Student ID</th>
                                 <th>Rank</th>
                                 <th>Date</th>
-                                <th>Actions</th>
+                                <th style={{textAlign:"center"}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -158,7 +158,7 @@ class Rankings extends Component {
                                         <td>{rank.studentId}</td>
                                         <td>{rank.rank}</td>
                                         <td>{moment(rank.date).format('YYYY-MM-DD')}</td>
-                                        <td>
+                                        <td style={{textAlign:"center"}}>
                                             <ButtonGroup>
                                                 {/* <Link to={"edit/"+rank.id} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></Link> &nbsp;&nbsp; */}
                                                 <Button size="sm" variant="outline-primary" onClick={() => this.updateRankingRecordClicked(rank.rankingsId)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;

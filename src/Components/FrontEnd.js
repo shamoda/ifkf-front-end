@@ -4,7 +4,9 @@ import Footer from './Header-Footer/Footer';
 import Header from './Header-Footer/Header';
 import Login from './Login/Login';
 import Home from './Home/Home';
+import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
 import NotFound from './404NotFound/404NotFound';
+import Results from './Rankings-and-Perfomance-Management/Results/Results';
 
 
 class FrontEnd extends Component {
@@ -25,6 +27,8 @@ class FrontEnd extends Component {
 
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
+                        <Route path="/resultsform/:id" component={ResultsForm} />
+                        <Route path="/results/:studentId" component={Results} />
 
 
                         <Route component={NotFound} />
