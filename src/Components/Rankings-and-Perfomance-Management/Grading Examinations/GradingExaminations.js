@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Container, Alert, Col, Form } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Container, Alert, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare, faFilePdf} from '@fortawesome/free-solid-svg-icons';
+import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare, faFilePdf, faFastBackward, faStepBackward, faStepForward, faFastForward, faSearch, faTimes} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 
 import GradingExaminationsDataService from './GradingExaminationsDataService';
@@ -19,7 +19,12 @@ class GradingExaminations extends Component {
             fCode:'',
             fDescription:'',
             fDate : moment(new Date()).format('YYYY-MM-DD'),
-            fMessage: null
+            fMessage: null,
+
+            currentPage : 1,
+            entriesPerPage : 5,
+            search:'',
+            searchMessage:null
         }
 
         this.deleteExamRecord = this.deleteExamRecord.bind(this);
@@ -50,7 +55,7 @@ class GradingExaminations extends Component {
                 response => {
                     this.setState({message : "Exam Record Deleted Successfully."})
                     this.refreshExams()
-                    this.setState({fMessage:null})
+                    this.setState({fMessage:null, searchMessage: null})
                 }
             )
     }
@@ -63,7 +68,8 @@ class GradingExaminations extends Component {
             fDescription : response.data.description,
             fDate : moment(response.data.date).format('YYYY-MM-DD'),
             updateClicked : 200,
-            disabled: true
+            disabled: true,
+            searchMessage: null
         }))
     }
 
@@ -82,7 +88,7 @@ class GradingExaminations extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Exam Record Added Successfully."})
-                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false})
+                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null})
                         this.refreshExams()
                     }
                 )
@@ -98,7 +104,7 @@ class GradingExaminations extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Exam Record Updated Successfully."})
-                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false})
+                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null})
                         this.refreshExams()
                     }
                 )
@@ -115,7 +121,73 @@ class GradingExaminations extends Component {
         });
     };
 
+
+    // =================================================================================================================
+
+    firstPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage : 1
+            });
+        }
+    };
+
+    prevPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage : this.state.currentPage - 1
+            });
+        }
+    };
+
+    lastPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.exams.length / this.state.entriesPerPage)) {
+            this.setState({
+                currentPage : Math.ceil(this.state.exams.length / this.state.entriesPerPage)
+            });
+        }
+    };
+
+    nextPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.exams.length / this.state.entriesPerPage)) {
+            this.setState({
+                currentPage : this.state.currentPage + 1
+            });
+        }
+    };
+
+    cancelSearch = () => {
+        this.setState({
+            search:'',
+            searchMessage: null,
+            fMessage:null
+        })
+        this.refreshExams();
+    }
+
+    searchData = () => {
+
+        if(this.state.search !== ''){
+            GradingExaminationsDataService.searchExams(this.state.search)
+                .then(
+                    response => {
+                        if(response.data.length >= 1){
+                            this.setState({exams : response.data,
+                                            searchMessage: null,
+                                            fMessage:null
+                            })
+                        }
+                        else{
+                            this.setState({searchMessage: "No Matching Record Found",
+                                            fMessage: null
+                        })
+                        }
+                    }
+                )
+        }
+    }
     
+
 
 
 
@@ -123,7 +195,23 @@ class GradingExaminations extends Component {
 
     render() { 
 
-        const {fCode, fDate, fDescription} = this.state;
+        const {fCode, fDate, fDescription, currentPage, entriesPerPage, exams, search} = this.state;
+        const lastIndex = currentPage * entriesPerPage;
+        const firstIndex = lastIndex - entriesPerPage;
+        const currentEntries = exams.slice(firstIndex, lastIndex);
+        const totalPages = exams.length / entriesPerPage;
+
+        const pageNumCss = {
+            width : "45px",
+            border : "1px solid #24a0ed",
+            color: "#24a0ed",
+            textAlign: "center",
+            fontWeight: "bold"
+        }
+
+        const searchBox = {
+            border : "1.5px solid #24a0ed"
+        }
 
         return ( 
 
@@ -131,8 +219,23 @@ class GradingExaminations extends Component {
 
                 <Container>
                     {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
+                    {this.state.searchMessage && <Alert variant="danger">{this.state.searchMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
-                        <Card.Header><FontAwesomeIcon icon={faList} /> Grading Examinations</Card.Header>
+                        <Card.Header>
+                            <div style={{float:"left"}}>
+                            <FontAwesomeIcon icon={faList} /> Grading Examinations
+                            </div>
+                            <div style={{float:"right"}}>
+                                <InputGroup size="sm">
+                                    <FormControl style={searchBox} autoComplete="off" placeholder="Search" name="search" value={search} className="bg-dark text-white" onChange={this.examChange}  />&nbsp;
+                                    <InputGroup.Append>
+                                        <Button size="sm" variant="outline-primary" type="button" onClick={this.searchData}><FontAwesomeIcon icon={faSearch} /></Button>&nbsp;
+                                        <Button size="sm" variant="outline-danger" type="button" onClick={this.cancelSearch}><FontAwesomeIcon icon={faTimes}  /></Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
+                            
+                        </Card.Header>
                         <Card.Body>
                             <Table bordered hover striped variant="dark">
                             <thead>
@@ -149,7 +252,7 @@ class GradingExaminations extends Component {
                                     <td colSpan="4" >No Grading Examination Records Available</td>
                                 </tr> :
 
-                                this.state.exams.map((exam) => (
+                                currentEntries.map((exam) => (
                                     <tr key={exam.examCode}>
                                         <td>{exam.examCode}</td>
                                         <td>{exam.description}</td>
@@ -168,6 +271,32 @@ class GradingExaminations extends Component {
                             </tbody>
                             </Table>
                         </Card.Body>
+                        <Card.Footer>
+                            <div style={{float:"left"}}>
+                                Showing Page {currentPage} of {Math.ceil(totalPages)}
+                            </div>
+                            <div style={{float:"right"}}>
+                                <InputGroup size="sm">
+                                    <InputGroup.Prepend>
+                                        <Button type="button" variant="outline-primary" disabled={currentPage === 1 ? true : false} onClick={this.firstPage}>
+                                        <FontAwesomeIcon icon={faFastBackward} /> First
+                                        </Button>
+                                        <Button type="button" variant="outline-primary" disabled={currentPage === 1 ? true : false} onClick={this.prevPage}>
+                                        <FontAwesomeIcon icon={faStepBackward} /> Prev
+                                        </Button>
+                                    </InputGroup.Prepend>
+                                    <FormControl style={pageNumCss} className="bg-dark" name="currentPage" value={currentPage} disabled />
+                                    <InputGroup.Append>
+                                        <Button type="button" variant="outline-primary" disabled={currentPage === totalPages ? true : false} onClick={this.nextPage}>
+                                            Next <FontAwesomeIcon icon={faStepForward} />
+                                        </Button>
+                                        <Button type="button" variant="outline-primary" disabled={currentPage === totalPages ? true : false} onClick={this.lastPage}>
+                                            Last <FontAwesomeIcon icon={faFastForward} />
+                                        </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
+                        </Card.Footer>
                     </Card>
                 </Container>
                 <br/>
