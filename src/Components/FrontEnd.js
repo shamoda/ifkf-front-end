@@ -6,7 +6,9 @@ import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 // import ShopHome from './SHOP/Views/Home/ShopHome'
-import AddEquipment from './Equipment/AddEquipment';
+import AddEquipment from  './Equipment/AddEquipment';
+import EditEquipment from './Equipment/EditEquipment';
+
 
 class FrontEnd extends Component {
 
@@ -18,7 +20,7 @@ class FrontEnd extends Component {
 
             <div className="FrontEnd">
 
-                <Router>
+                <Router >
 
                     <Header />
 
@@ -26,14 +28,17 @@ class FrontEnd extends Component {
 
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
-                        <Route path="/equipment" component={AddEquipment} />
-                        {/* <Route path="/shop" component={ShopHome} /> */}
+                        <Route path="/equipment/:id" component={EditEquipment} />
+                        <Route path="/equipment"  component={AddEquipment} />
+                       
+                   
 
 
                         <Route component={NotFound} />
 
                     </Switch>
-
+     
+                  
                     <Footer />
 
                 </Router>
@@ -44,4 +49,4 @@ class FrontEnd extends Component {
     }
 }
  
-export default FrontEnd;
+export default  FrontEnd;
