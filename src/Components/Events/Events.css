@@ -47,3 +47,19 @@
     color: #0a47ac;
     cursor: pointer;
 }
+
+/*Event List Table*/
+th{
+    background-color: #252c30;
+    color: #fff;
+}
+.tableFixHead, thead, th {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+.tableFixHead {
+    height: 500px;
+    overflow-y: auto;
+}
