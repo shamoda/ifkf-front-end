@@ -63,3 +63,23 @@ th{
     height: 500px;
     overflow-y: auto;
 }
+
+/*Date picker*/
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    border-radius: 0 5px 5px 0;
+}
+
+/*override original width*/
+.react-datepicker__input-container input {
+    width: 120%;
+}
+
+/*override original style by 1px*/
+.react-datepicker__input-time-container .react-datepicker-time__input-container .react-datepicker-time__input input {
+    width: 90px !important;
+}
+
+
