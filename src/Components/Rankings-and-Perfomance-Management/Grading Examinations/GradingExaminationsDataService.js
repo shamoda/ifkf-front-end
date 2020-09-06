@@ -26,6 +26,10 @@ class GradingExaminationsDataService{
         return axios.get(`http://localhost:8080/exams/search/${searchText}`);
     }
 
+    downloadExamReport(examCode){
+        return axios.get(`http://localhost:8080/results/examreport/${examCode}`);
+    }
+
 }
 
 export default new GradingExaminationsDataService();

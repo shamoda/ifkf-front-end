@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 import { Card, Table, Button, Container, Alert } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faSave, faFilePdf} from '@fortawesome/free-solid-svg-icons';
+import {faList, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import RankingsDataService from '../Rankings/RankingsDataService';
 import ResultsDataService from '../Results/ResultsDataService';
 import AthenticationService from '../../Authentication/AuthenticationService';
 import {withRouter} from 'react-router-dom';
+import StudentReportDataService from './StudentReportDataService';
 
 
 class StudentReport extends Component {
@@ -17,7 +18,9 @@ class StudentReport extends Component {
         this.state = {
             results:[],
             rankings:[],
-            studentId: AthenticationService.loggedUserId()
+            studentId: AthenticationService.loggedUserId(),
+            rankMessage:'',
+            resultsMessage:''
         }
 
         this.refreshResults = this.refreshResults.bind(this);
@@ -35,7 +38,13 @@ class StudentReport extends Component {
     }
 
     downloadResultsClicked = () => {
-        return this.props.history.push('/resultsform/'+this.state.studentId);
+        let studentId = AthenticationService.loggedUserId()
+        StudentReportDataService.downloadResultsReport(studentId)
+            .then(
+                response => {
+                    this.setState({resultsMessage : response.data, rankMessage:''})
+                }
+            )
     };
 
 
@@ -56,7 +65,13 @@ class StudentReport extends Component {
 
     
     downloadRanksClicked = () => {
-        return this.props.history.push('/resultsform/'+this.state.studentId);
+        let studentId = AthenticationService.loggedUserId()
+        StudentReportDataService.downloadRankingReport(studentId)
+            .then(
+                response => {
+                    this.setState({rankMessage : response.data, resultsMessage:''})
+                }
+            )
     };
 
 
@@ -75,7 +90,7 @@ class StudentReport extends Component {
                 <div>
 
                 <Container>
-                    {/* {this.state.message && <Alert variant="success">{this.state.message}</Alert>} */}
+                    {this.state.resultsMessage && <Alert variant="success">{this.state.resultsMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                         <Card.Header><FontAwesomeIcon icon={faList} /> Performance Report</Card.Header>
                         <Card.Body>
@@ -131,7 +146,7 @@ class StudentReport extends Component {
                 {/* ====================================================================================================================== */}
 
                 <Container>
-                    {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
+                    {this.state.rankMessage && <Alert variant="success">{this.state.rankMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                         <Card.Header><FontAwesomeIcon icon={faList} /> Rankings Report</Card.Header>
                         <Card.Body>

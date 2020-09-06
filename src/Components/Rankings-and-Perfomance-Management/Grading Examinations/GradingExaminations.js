@@ -48,6 +48,16 @@ class GradingExaminations extends Component {
     }
 
 
+    generateExamReportClicked(examCode){
+        GradingExaminationsDataService.downloadExamReport(examCode)
+            .then(
+                response => {
+                    this.setState({message : response.data, fMessage:''})
+                }
+            )
+    }
+
+
     deleteExamRecord(examCode){
 
         GradingExaminationsDataService.deleteExamRecord(examCode)
@@ -260,7 +270,7 @@ class GradingExaminations extends Component {
                                         <td style={{textAlign:"center"}}>
                                             <ButtonGroup>
                                                 {/* <Link to={"edit/"+rank.id} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></Link> &nbsp;&nbsp; */}
-                                                <Button size="sm" variant="outline-light" onClick={() => this.updateExamRecordClicked(exam.examCode)}><FontAwesomeIcon icon={faFilePdf} /></Button> &nbsp;&nbsp;
+                                                <Button size="sm" variant="outline-light" onClick={() => this.generateExamReportClicked(exam.examCode)}><FontAwesomeIcon icon={faFilePdf} /></Button> &nbsp;&nbsp;
                                                 <Button size="sm" variant="outline-primary" onClick={() => this.updateExamRecordClicked(exam.examCode)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;
                                                 <Button size="sm" variant="outline-danger" onClick={() => this.deleteExamRecord(exam.examCode)}><FontAwesomeIcon icon={faTrash} /></Button>
                                             </ButtonGroup>

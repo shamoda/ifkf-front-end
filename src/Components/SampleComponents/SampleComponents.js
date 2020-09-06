@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+// import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+// import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import Rankings from '../Rankings-and-Perfomance-Management/Rankings/Rankings';
 import GradingExaminations from '../Rankings-and-Perfomance-Management/Grading Examinations/GradingExaminations';
 import Results from '../Rankings-and-Perfomance-Management/Results/Results';
 import StudentReport from '../Rankings-and-Perfomance-Management/Student Report/StudentReport';
-
+ 
 
 
 
@@ -114,7 +114,7 @@ class SampleComponents extends Component {
                                 <td>
                                     <ButtonGroup>
                                         <a href="/" className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></a> &nbsp;&nbsp;
-                                        <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
+                                        // <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
                                     </ButtonGroup>
                                 </td>
                             </tr>

@@ -18,7 +18,8 @@ class Rankings extends Component {
             fStudentId:'',
             fRank: '',
             fDate : moment(new Date()).format('YYYY-MM-DD'),
-            fMessage: null
+            fMessage: null,
+            fErrorMessage: null
         }
 
         this.deleteRankingRecord = this.deleteRankingRecord.bind(this);
@@ -49,7 +50,7 @@ class Rankings extends Component {
         this.refreshRankings();
     }
 
-
+    // Delete a particular Ranking Record
     deleteRankingRecord(rankingsId){
 
         RankingsDataService.deleteRankingRecord(rankingsId)
@@ -57,12 +58,13 @@ class Rankings extends Component {
                 response => {
                     this.setState({message : "Ranking Record Deleted Successfully."})
                     this.refreshRankings()
-                    this.setState({fMessage:null})
+                    this.setState({fMessage:null, fErrorMessage: null})
                 }
             )
 
     }
 
+    // Load Ranking Data to the Form
     updateRankingRecordClicked(rankingsId){
 
         RankingsDataService.getRank(rankingsId)
@@ -70,7 +72,9 @@ class Rankings extends Component {
             fId : response.data.rankingsId,
             fStudentId : response.data.studentId,
             fRank : response.data.rank,
-            fDate : moment(response.data.date).format('YYYY-MM-DD')
+            fDate : moment(response.data.date).format('YYYY-MM-DD'),
+            fErrorMessage: null,
+            fMessage:null
             
         }))
     }
@@ -78,6 +82,18 @@ class Rankings extends Component {
     submitRankingRecord(event){
         event.preventDefault();
 
+        // Form Validations 
+        if(this.state.fRank === ''){
+            this.setState({fErrorMessage:'Please Select a Rank to Proceed.', fMessage:null})
+            return
+        }
+        if(moment(this.state.fDate).isSameOrBefore(new Date())){
+            this.setState({fErrorMessage:'Please Select a Valid Upcoming Date to Proceed.', fMessage:null})
+            return
+        }
+
+
+        // Check Whether the Rank is New Rank or Existing Rank
         if (this.state.fId === -1) {
 
             let rank = {
@@ -91,7 +107,7 @@ class Rankings extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Ranking Record Added Successfully."})
-                        this.setState({fId:-1, fStudentId:'', fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null})
+                        this.setState({fId:-1, fStudentId:'', fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, fErrorMessage: null})
                         this.refreshRankings()
                     }
                 )
@@ -108,15 +124,16 @@ class Rankings extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Ranking Record Updated Successfully."})
-                        this.setState({fId:-1, fStudentId:'', fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null})
+                        this.setState({fId:-1, fStudentId:'', fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, fErrorMessage: null})
                         this.refreshRankings()
                     }
                 )
         }
     }
 
+    // Reset Form
     resetRankingRecord(){
-        this.setState({fId:-1, fStudentId:'', fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null})
+        this.setState({fId:-1, fRank:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null, fErrorMessage: null})
     }
 
     rankChange = event =>{
@@ -183,6 +200,7 @@ class Rankings extends Component {
 
                 <Container>
                     {this.state.fMessage && <Alert variant="success">{this.state.fMessage}</Alert>}
+                    {this.state.fErrorMessage && <Alert variant="danger">{this.state.fErrorMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><FontAwesomeIcon icon={this.state.fId !== -1 ? faEdit : faPlusSquare} /> {this.state.fId !== -1 ? "Update Ranking Record" : "Add New Ranking Record"}</Card.Header>
                     <Form onReset={this.resetRankingRecord} onSubmit={this.submitRankingRecord} id="bookFormId" method="post">
@@ -196,7 +214,7 @@ class Rankings extends Component {
 
                             <Form.Group as={Col} controlId="formGridAuthor">
                             <Form.Label>Rank</Form.Label>
-                            <Form.Control as="select" name="fRank" value={fRank} onChange={this.rankChange} required className={"bg-dark text-white"}>
+                            <Form.Control as="select" name="fRank" value={fRank} onChange={this.rankChange} className={"bg-dark text-white"}>
                                 <option value="">-- Select --</option>
                                 <option>10th Kyu White Belt</option>
                                 <option>09th Kyu Orange Belt</option>

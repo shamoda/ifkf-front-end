@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ResultsDataService from './ResultsDataService';
 import { Card, Table, ButtonGroup, Button, Container, Alert} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faEdit, faTrash, faSave, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
+import {faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import AthenticationService from '../../Authentication/AuthenticationService';
 import {Link} from 'react-router-dom';
