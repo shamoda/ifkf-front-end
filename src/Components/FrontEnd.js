@@ -8,7 +8,8 @@ import NotFound from './404NotFound/404NotFound';
 // import ShopHome from './SHOP/Views/Home/ShopHome'
 import AddEquipment from  './Equipment/AddEquipment';
 import EditEquipment from './Equipment/EditEquipment';
-
+import EquipmentDashboard from './Equipment/EquipmentDashboard';
+import Donations from './Equipment/Donations';
 
 class FrontEnd extends Component {
 
@@ -28,8 +29,10 @@ class FrontEnd extends Component {
 
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
+                        <Route path="/equipmentDash" component={EquipmentDashboard} />
                         <Route path="/equipment/:id" component={EditEquipment} />
                         <Route path="/equipment"  component={AddEquipment} />
+                        <Route path="/donations"  component={Donations} />
                        
                    
 

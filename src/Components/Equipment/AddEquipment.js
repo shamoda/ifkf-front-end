@@ -30,7 +30,7 @@ class AddEquipment extends Component {
             
           }
 
-        refreshEquipments(){
+        retireveEquipments(){
 
             EquipmentDataService.retrieveAllEquipment()
             .then(
@@ -44,6 +44,7 @@ class AddEquipment extends Component {
 
          
         }
+        
 
       
         addEqClicked(){ 
