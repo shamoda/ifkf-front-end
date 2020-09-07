@@ -1,0 +1,24 @@
+.imageClass {
+    position: relative;
+    display: block;
+    max-width:530px;
+    max-height:495px;
+    width: auto;
+    height: auto;
+    border: black;
+}
+
+.itemNameText{
+    /*@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga&display=swap');*/
+    text-align: left;
+    font-size: 60px;
+    font-family: 'Lexend Giga', sans-serif;
+}
+
+.textAligns{
+    text-align: left;
+}
+
+.btnSize {
+    width: 100px;
+}
