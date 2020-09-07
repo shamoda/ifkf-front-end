@@ -1,10 +1,8 @@
 import React, {Component} from "react";
-// import Card from 'react-bootstrap/Card'
-// import Button from 'react-bootstrap/Button'
 import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCardImage} from 'mdbreact';
 import * as axios from "axios";
 
-// import MDBFileupload from 'mdb-react-fileupload';
+
 
 class UploadItems extends React.Component {
 
@@ -85,20 +83,13 @@ class UploadItems extends React.Component {
 
 
 
-        axios.post(`http://localhost:8080/product`, formData)
+        axios.post(`http://localhost:8080/productController/product`, formData)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
             })
-
-
     }
 
-    // componentDidMount(){
-    //     // this.refreshProducts();
-    //
-    // }
-    //
     onchangeFile(e) {
 
         // if (URL.createObjectURL(e.target.files[0]) !== ' ') {
@@ -130,8 +121,8 @@ class UploadItems extends React.Component {
             <div>
 
 
-                <MDBContainer center>
-                    <MDBCard style={{width: "55rem", marginTop: "1rem"}}>
+                <MDBContainer >
+                    <MDBCard style={{width: "70rem", marginTop: "1rem"}}>
                         <MDBCardHeader className="text-center" style={{backgroundColor: "gray", color: "white"}}>Add
                             Products</MDBCardHeader>
                         <MDBCardBody>
@@ -164,8 +155,8 @@ class UploadItems extends React.Component {
                                 </MDBRow>
                                 <br/>
                                 {/*//display photo*/}
-                                <MDBRow center={true}>
-                                    <MDBCol size="9">
+                                <MDBRow center>
+                                    <MDBCol size="5">
 
                                         <div className="input-group">
                                             <div className="input-group-prepend">
@@ -200,7 +191,7 @@ class UploadItems extends React.Component {
 
                                 {/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/}
                                 <MDBRow center={true}>
-                                    {/*<MDBCol md="1"></MDBCol>*/}
+
                                     <MDBCol md="10">
 
                                         {/*<p className="h4 text-center mb-4"></p>*/}
@@ -271,7 +262,7 @@ class UploadItems extends React.Component {
 
 
                                     </MDBCol>
-                                    {/*<MDBCol md="2"></MDBCol>*/}
+
 
                                 </MDBRow>
                             </form>

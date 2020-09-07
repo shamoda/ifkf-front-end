@@ -14,7 +14,8 @@ function App() {
         <div className="App">
             {/*shopui for user*/}
             <FrontEnd/>
-            <ProductList></ProductList>
+
+            {/*<ProductList></ProductList>*/}
 
 
             {/*<UploadItems></UploadItems>*/}

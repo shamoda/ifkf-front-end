@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../../../Header-Footer/Header'
 import '../../../Header-Footer/Header.css'
-// import {BrowserRouter, BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
 import NavbarPage from "../../Navigationbar/Nav";
 
 import CarouselPage from "./Carousel";

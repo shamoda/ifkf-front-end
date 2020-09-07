@@ -1,17 +1,18 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {
     MDBBtn,
     MDBCard,
-    MDBCardBody, MDBContainer, MDBIcon,
-    MDBInput,
+    MDBCardBody,
+    MDBIcon,
     MDBRow,
     MDBTable,
     MDBTableBody,
     MDBTableHead,
     MDBTooltip
 } from 'mdbreact';
-// import * as axios from "../../../../js/mdb.min";
-import * as axios from "axios";
+
+import axios from "axios";
+import Loader from 'react-loader-spinner';
 
 class productList extends React.Component {
 
@@ -21,34 +22,7 @@ class productList extends React.Component {
         this.state = {
             // add data to the row using constructor\
 
-            Product:[],
-            data:[
-                {
-                            // id: Product.,
-                            // src: "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg",
-                            // title: "iPhone",
-                            // subTitle: "Applenkvbdsvljgdfdfdf",
-                            // brand: "Whitexfcxcxc",
-                            // price: "800",
-                            // qty: "1"
-
-
-            }],
-
-            // data: [
-            //     {
-            //         id: "1",
-            //         src: "https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg",
-            //         title: "iPhone",
-            //         subTitle: "Applenkvbdsvljgdfdfdf",
-            //         brand: "Whitexfcxcxc",
-            //         price: "800",
-            //         qty: "1"
-            //     },
-            // ],
-
-
-
+            Product: [],
             //coulomns declare here
             columns: [
                 {
@@ -87,72 +61,77 @@ class productList extends React.Component {
             ]
         }
         this.getAllProducts = this.getAllProducts.bind(this);
-
     }
 
-    // QtyFunction=()=>{
-    //     this.setState({ qty: this.state.qty + 1 });
-    //     this.setState({ amount: this.state.qty * this.price });
-    //
-    //
-    // }
+    componentDidMount() {
+        this.getAllProducts();
+    }
 
     getAllProducts() {
-        axios.get(`http://localhost:8080/getAll`).then(response => {
-            this.setState({Product: response.data});
+        axios.get( 'http://localhost:8080/productController/getAll').then(response => {
 
-
+            this.setState({
+                Product: response.data
+            });
         }).catch(function (error) {
             console.log(error);
         })
-
     }
-
 
     render() {
 
         const rows = [];
-        const {columns, data} = this.state;
+        const {columns, Product} = this.state;
 
-        data.map(row => {
-            return rows.push(
-                {
-                    'id': row.id,
-                    'img': <img src={row.src} alt="" className="img-fluid z-depth-10"/>,
-                    'product': [<h6 className="mt-3" key={new Date().getDate + 1}><strong>{row.title}</strong></h6>,
-                        <p key={new
-                        Date().getDate} className="text-muted">{row.subTitle}</p>],
-                    'brand': row.brand,
-                    'price': `$${row.price}`,
-                    'qty': row.qty,
-                    'button':
-                        <MDBTooltip placement="top">
-                            <MDBBtn color="danger" size="sm">
-                                <MDBIcon icon="trash"/>
-                            </MDBBtn>
-                            <div>Remove item</div>
-                        </MDBTooltip>,
-                    'buttonEdit':
-                        <MDBTooltip placement="top">
-                            <MDBBtn color="info" size="sm">
-                                <MDBIcon far icon="edit"/>
-                            </MDBBtn>
-                            <div>Edit</div>
-                        </MDBTooltip>
+        {
+                Product.map(row => {
+                    console.log(row);
+                    // const base64String = btoa(new Uint8Array(row.picture).reduce(function (data, byte) {
+                    //     return data + String.fromCharCode(byte);
+                    // }, ''));
+                    return rows.push(
+                        {
+                            'id': row.id,
+
+                            'img': <img src={`data:image/jpeg;base64,${row.picture}`} alt=""
+                                        className="img-fluid z-depth-10"/>,
+                            'product': [<h6 className="mt-3" key={new Date().getDate + 1}><strong>{row.productname}</strong>
+                            </h6>,
+                                <p key={new
+                                Date().getDate} className="text-muted">{row.description}</p>],
+                            'brand': row.brand,
+                            'price': `$${row.price}`,
+                            'qty': row.qty,
+                            'button':
+                                <MDBTooltip placement="top">
+                                    <MDBBtn color="danger" size="sm">
+                                        <MDBIcon icon="trash"/>
+                                    </MDBBtn>
+                                    <div>Remove item</div>
+                                </MDBTooltip>,
+                            'buttonEdit':
+                                <MDBTooltip placement="top">
+                                    <MDBBtn color="info" size="sm">
+                                        <MDBIcon far icon="edit"/>
+                                    </MDBBtn>
+                                    <div>Edit</div>
+                                </MDBTooltip>
 
 
-                }
-            )
-        });
+                        }
+                    )
+                });
+        }
+
 
         return (
             <div>
                 <MDBRow center={true}>
-                    <MDBCard style={{width: "55rem", marginTop: "3rem"}}>
+                    <MDBCard style={{width: "60rem", marginTop: "2rem"}}>
                         <MDBCardBody>
                             <MDBTable className="product-table" striped hover responsive>
                                 <caption>List of All Product</caption>
-                                <MDBTableHead style={{
+                                <MDBTableHead stye={{
                                     backgroundColor: "rgba(28,26,26,0.56)",
                                     color: "white",
                                     fontFamily: "sans-serif"
