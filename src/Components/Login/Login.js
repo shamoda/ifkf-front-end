@@ -3,6 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import './Login.css'
 import { Link } from 'react-router-dom';
 import AuthenticationService from '../Authentication/AuthenticationService';
+import AthenticationDataService from '../Authentication/AuthenticationDataService';
 
 class Login extends Component {
 
@@ -25,17 +26,29 @@ class Login extends Component {
     }
 
     loginClicked() {
-        //admin,admin
-        if(this.state.userId === 'ST001' && this.state.password === 'admin'){
-            AuthenticationService.successfulLogin(this.state.userId, 'Shamoda', 'Student')
-            this.props.history.push("/")
-            this.setState({showSuccessMsg: true})
-            this.setState({hasLoginFailed: false})
-        }
-        else{
-            this.setState({showSuccessMsg: false})
-            this.setState({hasLoginFailed: true})
-        }
+
+        AthenticationDataService.getUser(this.state.userId)
+            .then(
+                response => {
+                    if(response.data != null){
+                        if(this.state.password === response.data.password){
+                            AuthenticationService.successfulLogin(response.data.userId, 'Name', response.data.role)
+                            this.props.history.push("/")
+                            this.setState({showSuccessMsg: true})
+                            this.setState({hasLoginFailed: false})
+                        }
+                        else{
+                            this.setState({showSuccessMsg: false})
+                            this.setState({hasLoginFailed: true})
+                        }
+                    }
+                    else{
+                        this.setState({showSuccessMsg: false})
+                        this.setState({hasLoginFailed: true})
+                    }
+                }
+            )
+
     }
 
     
