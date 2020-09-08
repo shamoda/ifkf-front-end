@@ -226,6 +226,8 @@ class GradingExaminations extends Component {
         return ( 
 
             <div>
+                <br></br>
+                <br></br>
 
                 <Container>
                     {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
@@ -352,6 +354,8 @@ class GradingExaminations extends Component {
                     </Form>
                     </Card>
                 </Container>
+                <br></br>
+                <br></br>
             </div>
          );
     }

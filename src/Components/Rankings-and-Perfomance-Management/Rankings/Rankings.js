@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import RankingsDataService from './RankingsDataService';
-import AthenticationService from '../../Authentication/AuthenticationService';
+import { withRouter} from 'react-router-dom';
 
 class Rankings extends Component {
     
@@ -36,7 +36,7 @@ class Rankings extends Component {
 
     refreshRankings(){
         //student id needs to be taken from props
-        let studentId = AthenticationService.loggedUserId()
+        let studentId = this.props.match.params.studentId;
         RankingsDataService.retrieveAllRankings(studentId)
             .then(
                 response => {
@@ -149,7 +149,8 @@ class Rankings extends Component {
 
         return ( 
             <div>
-
+                <br></br>
+                <br></br>
                 <Container>
                     {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
@@ -261,12 +262,13 @@ class Rankings extends Component {
 
                 </Container>
 
-
+                <br></br>
+                <br></br>
             </div>
          );
     }
 }
  
-export default Rankings;
+export default withRouter(Rankings);
 
 //need to sort data according to the date

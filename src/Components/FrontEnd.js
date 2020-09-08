@@ -7,6 +7,10 @@ import Home from './Home/Home';
 import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
 import NotFound from './404NotFound/404NotFound';
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
+import StudentList from './Rankings-and-Perfomance-Management/Student List/StudentList';
+import StudentReport from './Rankings-and-Perfomance-Management/Student Report/StudentReport';
+import Rankings from './Rankings-and-Perfomance-Management/Rankings/Rankings';
+import GradingExaminations from './Rankings-and-Perfomance-Management/Grading Examinations/GradingExaminations';
 
 
 class FrontEnd extends Component {
@@ -27,6 +31,11 @@ class FrontEnd extends Component {
 
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
+                        <Route path="/studentperformance" component={StudentList} />
+                        <Route path="/performance/:studentId" component={Results} />
+                        <Route path="/ranking/:studentId" component={Rankings} />
+                        <Route path="/myperformance" component={StudentReport} />
+                        <Route path="/exams" component={GradingExaminations} />
                         <Route path="/resultsform/:id" component={ResultsForm} />
                         <Route path="/results/:studentId" component={Results} />
 

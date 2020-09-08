@@ -4,7 +4,6 @@ import { Card, Table, ButtonGroup, Button, Container, Alert} from 'react-bootstr
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
-import AthenticationService from '../../Authentication/AuthenticationService';
 import {Link} from 'react-router-dom';
 import { withRouter} from 'react-router-dom';
 
@@ -26,7 +25,7 @@ class Results extends Component {
 
     refreshResults(){
         //student id needs to be taken from props
-        let studentId = AthenticationService.loggedUserId()
+        const studentId = this.props.match.params.studentId;
         ResultsDataService.retrieveAllResults(studentId)
             .then(
                 response => {
@@ -63,6 +62,9 @@ class Results extends Component {
         return ( 
 
             <div>
+                <br></br>
+                <br></br>
+                <br></br>
 
                 <Container>
                     {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
@@ -121,7 +123,8 @@ class Results extends Component {
 
                     </Card>
                 </Container>
-                <br/>
+                <br></br>
+                <br></br>
             </div>
          );
     }

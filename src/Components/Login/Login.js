@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 import './Login.css'
 import { Link } from 'react-router-dom';
 import AuthenticationService from '../Authentication/AuthenticationService';
@@ -54,6 +54,11 @@ class Login extends Component {
     
     render() { 
         return ( 
+            <Container style={{width:600}}>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             <div className="form">
                 <Form>
                     <Form.Label style={{fontWeight:"bold", fontSize:30, paddingBottom:20}}>LOGIN</Form.Label>
@@ -83,6 +88,10 @@ class Login extends Component {
                     </Form.Group>
                 </Form>
             </div>
+                <br></br>
+                <br></br>
+                <br></br>
+            </Container>
          );
     }
 }

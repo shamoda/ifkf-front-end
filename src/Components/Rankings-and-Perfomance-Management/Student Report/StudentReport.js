@@ -87,6 +87,8 @@ class StudentReport extends Component {
         return ( 
 
             <div>
+                <br></br>
+                <br></br>
                 <div>
 
                 <Container>
@@ -142,6 +144,7 @@ class StudentReport extends Component {
                 <br/>
                 </div>
 
+                <br></br>
 
                 {/* ====================================================================================================================== */}
 
@@ -182,7 +185,8 @@ class StudentReport extends Component {
                     </Card>
                 </Container>
 
-
+                <br></br>
+                <br></br>
             </div>
 
          );
