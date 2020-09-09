@@ -26,7 +26,7 @@ class Login extends Component {
 
     loginClicked() {
         //admin,admin
-        if(this.state.userId === '1234' && this.state.password === 'admin'){
+        if(this.state.userId === '1234' && this.state.password === '1'){
             AuthenticationService.successfulLogin(this.state.userId, 'Shamoda', 'Operator')
             this.props.history.push("/")
             this.setState({showSuccessMsg: true})
@@ -39,7 +39,9 @@ class Login extends Component {
     }
 
     
-    render() { 
+    render() {
+
+
         return ( 
             <div className="form">
                 <Form>

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import {
-    MDBNavbar,MDBNav, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
-    MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
-} from "mdbreact";
-import { BrowserRouter as Router } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+// import {
+//     MDBNavbar,MDBNav, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
+//     MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
+// } from "mdbreact";
+// import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 // import { MDBNav } from "mdbreact";
 
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
+// import Dropdown from 'react-bootstrap/Dropdown'
+// import DropdownButton from 'react-bootstrap/DropdownButton'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import Navbar from 'react-bootstrap/Navbar'
@@ -16,6 +16,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav'
+// import {faAlignRight} from "@fortawesome/free-solid-svg-icons";
 
 class NavbarPage extends Component {
     state = {
@@ -50,7 +51,11 @@ class NavbarPage extends Component {
 
                     <Nav.Link href="#equipment">EQUIPMENT</Nav.Link>
                     <Nav.Link href="#books">BOOKS</Nav.Link>
+
                 </Nav>
+
+                <Nav><Nav.Link href="/ShoppingCart"  ><i className="fas fa-cart-plus"></i> CART</Nav.Link></Nav>
+
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
                     <Button variant="outline-info" size="sm">Search</Button>
