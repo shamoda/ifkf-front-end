@@ -22,3 +22,12 @@
 .btnSize {
     width: 100px;
 }
+
+/*default card*/
+.cardStyle {
+    transition: transform .3s;
+}
+/*hover over card*/
+.cardStyle:hover {
+    transform: scale(1.1);
+}

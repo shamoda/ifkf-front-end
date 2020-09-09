@@ -51,10 +51,7 @@ class AdminDashboard extends Component {
                                         <Nav><Nav.Link href="/ViewAll">View All Produts</Nav.Link></Nav>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="/Sales">Sales</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                        <MDBNavLink to="/GenerateReport">Genarate Report</MDBNavLink>
+                                        <MDBNavLink to="/Sales">Orders</MDBNavLink>
                                     </MDBNavItem>
                                 </MDBNavbarNav>
                             </MDBCollapse>

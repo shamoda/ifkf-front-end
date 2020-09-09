@@ -10,6 +10,7 @@ import shoppingCart from "./SHOP/Views/Cart/ShoppingCart";
 import AdminDashboard from './SHOP/Views/ShopAdmin/AdminDashboard'
 import AddItem from './SHOP/Views/ShopAdmin/AddItem'
 import ProductList from "./SHOP/Views/ShopAdmin/ProductList";
+import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 
 class FrontEnd extends Component {
@@ -36,6 +37,7 @@ class FrontEnd extends Component {
                         <Route path="/AddItems" component={AddItem}/>
                         <Route path="/ShoppingCart" component={shoppingCart}/>
                         <Route path="/ViewAll" component={ProductList}/>
+                        <Route path="/EditItem" component={EditItems}/>
 
 
                         <Route component={NotFound}/>

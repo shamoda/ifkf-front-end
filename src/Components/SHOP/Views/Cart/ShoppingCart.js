@@ -88,12 +88,12 @@ class shoppingCart extends React.Component{
             return rows.push(
                 {
                     'img': <img src={row.src} alt="" className="img-fluid z-depth-10" />,
-                    'product': [<h6 className="mt-3" key={new Date().getDate + 1}><strong>{row.title}</strong></h6>, <p key={new
+                    'product': [<h6  key={new Date().getDate + 1}><strong>{row.title}</strong></h6>, <p key={new
                     Date().getDate} className="text-muted">{row.subTitle}</p>],
                     'brand': row.brand,
                     'price': `$${row.price}`,
                     'qty':
-                         <MDBInput type="number"  default={row.qty} className="form-control"style={{ width: "50px " ,height:"50px" ,backgroundColor:"transparent"}} />,
+                         <MDBInput type="number"  default={row.qty} className="form-control" style={{ width: "70px " ,height:"50px" ,textAlign:'center', backgroundColor:"transparent"}} />,
 
                     'amount': <strong>${row.qty * row.price}</strong>,
                     'button':
@@ -114,8 +114,8 @@ class shoppingCart extends React.Component{
                         <MDBCardBody>
                             <MDBTable className="product-table" striped hover responsive>
                                 <caption>List of Cart items</caption>
-                                <MDBTableHead  style={{backgroundColor:"rgba(28,26,26,0.56)",color:"white",fontFamily:"sans-serif"}} columns={columns} />
-                                <MDBTableBody rows={rows} />
+                                <MDBTableHead  style={{backgroundColor:"rgba(28,26,26,0.56)",color:"white",fontFamily:"sans-serif",textAlign:'center'}} columns={columns} />
+                                <MDBTableBody rows={rows} style={{textAlign:'center'}}/>
                             </MDBTable>
                         </MDBCardBody>
                     </MDBCard>
