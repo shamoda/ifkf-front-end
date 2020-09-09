@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.2",
     "axios": "^0.19.2",
+    "boostrap": "^2.0.0",
     "bootstrap": "^4.5.0",
     "formik": "^2.1.5",
     "mdbreact": "^4.27.0",
