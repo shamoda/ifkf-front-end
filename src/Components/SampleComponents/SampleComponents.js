@@ -110,7 +110,7 @@ class SampleComponents extends Component {
                                 <td>
                                     <ButtonGroup>
                                         <a href="/" className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit} /></a> &nbsp;&nbsp;
-                                        <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
+                                        <Button size="sm" variant="" ><FontAwesomeIcon icon={faTrash} /></Button>
                                     </ButtonGroup>
                                 </td>
                             </tr>
