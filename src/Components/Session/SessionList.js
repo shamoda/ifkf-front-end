@@ -32,6 +32,8 @@ class SessionList extends Component {
     };
 
     this.addSession = this.addSession.bind(this);
+    this.updateSessionClicked = this.updateSessionClicked.bind(this);
+    this.deleteSessionClicked = this.deleteSessionClicked.bind(this);
   }
 
   addSession() {
@@ -40,27 +42,57 @@ class SessionList extends Component {
 
   // calling the restAPI
   componentDidMount() {
+    this.refreshSession();
+  }
+
+  updateSessionClicked(id) {
+    this.props.history.push(`/AddSession/${id}`);
+  }
+
+  refreshSession() {
     SessionService.getSessions().then((response) => {
       this.setState({ Sessions: response.data });
     });
   }
 
-  updateSessionClicked() {}
+  deleteSessionClicked(id) {
+    SessionService.deleteSession(id).then((response) => {
+      this.refreshSession();
+    });
+
+    // this.refreshSession();
+  }
 
   render() {
     return (
-      <div className="Session-table">
+      <div style={{ padding: "0 50px" }}>
         <h1 className="text-center">Session Time-Table</h1>
 
         <Container fluid>
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>
-              <div className="button">
-                <Button variant="primary" onClick={this.addSession}>
-                  <i class="fas fa-user-plus"></i>
-                  Add New Session
-                </Button>
-              </div>
+              <Row>
+                <Col>
+                  <div className="button">
+                    <Button variant="primary" onClick={this.addSession}>
+                      <i class="fas fa-user-plus"></i>
+                      Add New Session
+                    </Button>
+                  </div>
+                </Col>
+                <Col sm={4}>
+                  <div>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>
+                          <FontAwesomeIcon icon={faSearch} />
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control type={"text"} placeholder="Search" />
+                    </InputGroup>
+                  </div>
+                </Col>
+              </Row>
             </Card.Header>
             <Card.Body>
               <Table
@@ -76,7 +108,7 @@ class SessionList extends Component {
                 <thead>
                   <tr>
                     <th>Session ID</th>
-                    <th>Day</th>
+                    <th>Date</th>
                     <th>Starting Time</th>
                     <th>Ending Time</th>
                     <th>Venue</th>
@@ -105,6 +137,9 @@ class SessionList extends Component {
                             size="sm"
                             variant="outline-primary"
                             style={{ marginRight: 20 }}
+                            onClick={() =>
+                              this.updateSessionClicked(Session.sessionId)
+                            }
                           >
                             <FontAwesomeIcon
                               icon={faEdit}
@@ -117,8 +152,11 @@ class SessionList extends Component {
                             <FontAwesomeIcon
                               icon={faTrash}
                               style={{ marginRight: 5 }}
+                              onClick={() =>
+                                this.deleteSessionClicked(Session.sessionId)
+                              }
                             />
-                            Edit
+                            Delete
                           </Button>{" "}
                         </ButtonGroup>
                       </td>

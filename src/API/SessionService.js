@@ -10,6 +10,18 @@ class SessionService {
   addSession(Session) {
     return axios.post(SESSION_API_BASE_URL, Session);
   }
+
+  retrieveSession(id) {
+    return axios.get(`http://localhost:8080/sessions/${id}`);
+  }
+
+  updateSession(Session) {
+    return axios.put("http://localhost:8080/sessions", Session);
+  }
+
+  deleteSession(id) {
+    return axios.delete(`http://localhost:8080/sessions/${id}`);
+  }
 }
 
 export default new SessionService();
