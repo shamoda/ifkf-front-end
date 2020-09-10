@@ -2,17 +2,37 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import PaymentService from '../../API/PaymentService';
 
 class PaymentStatus extends Component {
     constructor(props){
         super(props)
         this.state = {
-           paymentstatus: [
-            {id: 1, sessionid: 1, name: 'Nimal Kumara', status: 'Paid'},
-            {id: 2, sessionid: 2, name: 'Kamal', status: 'Unpaid' }
-           ]
+           paymentstatus: []
         }
         this.addPayment = this.addPayment.bind(this)
+        this.refreshPayments = this.refreshPayments.bind(this)
+        this.deletePayment = this.deletePayment.bind(this)
+    }
+
+    componentDidMount(){
+        this.refreshPayments()
+    }
+
+    refreshPayments(){
+        PaymentService.getPayments()
+            .then(response => {
+                this.setState({
+                    paymentstatus : response.data
+                })
+            })
+    }
+
+    deletePayment(paymentID){
+        PaymentService.deletePayment(paymentID)
+            .then(response => {
+                this.refreshPayments()
+            })
     }
 
     addPayment(){
@@ -39,23 +59,22 @@ class PaymentStatus extends Component {
                             </thead>
                             <tbody>
                                 {
-                                this.state.paymentstatus.map(
-                                paymentstatus => 
-                                <tr>
-                                <td>{paymentstatus.id}</td>
-                                <td>{paymentstatus.sessionid}</td>
-                                <td>{paymentstatus.name}</td>
-                                <td>{paymentstatus.status}</td>
+                                this.state.paymentstatus.map((payment) => (
+                                <tr key={payment.paymentID}>
+                                <td>{payment.studentID}</td>
+                                <td>{payment.sessionId}</td>
+                                <td>{payment.studentName}</td>
+                                <td>{payment.paymentStatus}</td>
                                 <td>
                                    
                                   <Button size="sm" variant="outline-info" onClick={() => this.addPayment()}><FontAwesomeIcon icon={faEdit} /></Button>
                                  
                                 </td>
                                 <td>
-                                    <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button size="sm" variant="outline-danger" onClick={() => this.deletePayment(payment.paymentID)} ><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                                 </tr>
-                                )
+                                ))
                                 }
                             </tbody>
                         </Table>
