@@ -6,11 +6,15 @@ import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 import ShopHome from './SHOP/Views/Home/ShopHome'
+
 import shoppingCart from "./SHOP/Views/Cart/ShoppingCart";
 import AdminDashboard from './SHOP/Views/ShopAdmin/AdminDashboard'
 import AddItem from './SHOP/Views/ShopAdmin/AddItem'
 import ProductList from "./SHOP/Views/ShopAdmin/ProductList";
 import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
+
+
+import AddEquipment from './Equipment/AddEquipment';
 
 
 class FrontEnd extends Component {
@@ -29,6 +33,7 @@ class FrontEnd extends Component {
 
                     <Switch>
 
+
                         <Route path="/" exact component={Home}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/shop" component={ShopHome}/>
@@ -39,6 +44,12 @@ class FrontEnd extends Component {
                         <Route path="/ViewAll" component={ProductList}/>
                         <Route path="/EditItem/:id"  component={EditItem}/>
                         <Route path="/EditItem/"  component={EditItem}/>
+
+
+                        <Route path="/" exact component={Home} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/equipment" component={AddEquipment} />
+                        <Route path="/shop" component={ShopHome} />
 
 
 
