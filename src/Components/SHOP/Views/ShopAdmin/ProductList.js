@@ -3,7 +3,7 @@ import {
     MDBBtn,
     MDBCard,
     MDBCardBody,
-    MDBIcon,
+    MDBIcon, MDBNavLink,
     MDBRow,
     MDBTable,
     MDBTableBody,
@@ -28,6 +28,12 @@ class productList extends React.Component {
 
             Product: [],
             id: '',
+            brand: '',
+            productname: '',
+            qty: '',
+            price: '',
+
+
 
             //coulomns declare here
             columns: [
@@ -68,7 +74,8 @@ class productList extends React.Component {
         }
         this.getAllProducts = this.getAllProducts.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
-        this.UpdateItems = this.UpdateItems.bind(this);
+        this.updateBtnclicked = this.updateBtnclicked.bind(this);
+        // this.GetItems = this.GetItems.bind(this);
     }
 
     componentDidMount() {
@@ -98,12 +105,19 @@ deleteItem(id)
 
     })
 }
-    UpdateItems(id)
-     {
+    // GetItems(id){
+    //     console.log(id)
+    //     axios.put('http://localhost:8080/productController/upadteItem/'+id).then(()=>this.props.history.push('/EditItem'))
+    //
+    //
+    //
+    //
+    // }
+    updateBtnclicked(id){
+        this.props.history.push(`/EditItem/${id}`)
 
+    }
 
-
-     }
 
 render()
 {
@@ -130,20 +144,24 @@ render()
                         <p key={new
                         Date().getDate} className="text-muted">{row.description}</p>],
                     'brand': row.brand,
-                    'price': `$${row.price}`,
+                    'price': `Rs.${row.price}`,
                     'qty': row.qty,
                     'button':
                         <MDBTooltip placement="top">
+
                             <MDBBtn color="danger" size="sm" onClick={this.deleteItem.bind(this,row.id)}>
                                 <MDBIcon icon="trash"/>
                             </MDBBtn>
+
                             <div>Remove item</div>
                         </MDBTooltip>,
                     'buttonEdit':
                         <MDBTooltip placement="top">
-                            <MDBBtn color="info" size="sm" onClick={this.UpdateItems.bind(this,row.id)}>
+
+                            <MDBBtn color="info" size="sm" onClick={this.updateBtnclicked.bind(this,row.id)}  >
                                 <MDBIcon far icon="edit"/>
                             </MDBBtn>
+
                             <div>Edit</div>
                         </MDBTooltip>
 
@@ -157,7 +175,7 @@ render()
     return (
         <div>
             <MDBRow center={true}>
-                <MDBCard style={{width: "60rem", marginTop: "2rem"}}>
+                <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
                     <MDBCardBody>
                         <MDBTable className="product-table" striped hover responsive>
                             <caption>List of All Product</caption>

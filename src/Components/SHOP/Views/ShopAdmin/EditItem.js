@@ -10,7 +10,7 @@ class UploadItems extends React.Component {
         super(props);
         this.state = {
             productname: '',
-            id: '',
+            id: this.props.match.params.id,
             brand: '',
             catogeory: '',
             description: '',
@@ -35,9 +35,36 @@ class UploadItems extends React.Component {
         this.handleChangePrice = this.handleChangePrice.bind(this);
         this.onchangeFile = this.onchangeFile.bind(this);
         this.removePhoto = this.removePhoto.bind(this);
+        this.refreshProduct = this.refreshProduct.bind(this);
 
     }
+    componentDidMount() {
+        this.refreshProduct();
+    }
 
+    refreshProduct() {
+        if (this.state.id == -1) {
+            return
+        }
+        axios.get('http://localhost:8080/productController/getDetails/' + this.state.id).then(response => {
+            console.log(this.state.id)
+            this.setState({
+                id: this.state.id,
+                productname: response.data.productname,
+                brand: response.data.brand,
+                picture:response.data.picture,
+                catogeory: response.data.catogeory,
+                price: response.data.price,
+                qty: response.data.qty,
+                description: response.data.description,
+
+
+            });
+        }).catch(function (error) {
+            console.log(error);
+        })
+
+    }
     handleChangeProductName(event) {
         this.setState({productname: event.target.value});
     }
@@ -81,7 +108,12 @@ class UploadItems extends React.Component {
 
 
 
-        axios.post(`http://localhost:8080/productController/product`, formData)
+        axios.post(`http://localhost:8080/productController/product`,formData)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+        axios.put(`http://localhost:8080/productController/update`, formData)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -175,14 +207,6 @@ class UploadItems extends React.Component {
                                                         </label>
                                                     </div>
                                                 </div>
-
-                                                {/*{*/}
-                                                {/*    this.state.imageValidation ?*/}
-
-                                                {/*        <MDBAlert color="danger">*/}
-                                                {/*            Image Field Is Empty*/}
-                                                {/*        </MDBAlert> : ''*/}
-                                                {/*}*/}
                                             </MDBCol>
                                         </MDBRow>
 
@@ -196,25 +220,25 @@ class UploadItems extends React.Component {
                                                 <label htmlFor="productname" className="grey-text ">
                                                     Product name
                                                 </label>
-                                                <input type="text" id="productname" name="productname" className="form-control"
+                                                <input type="text" id="productname" name="productname" className="form-control"   value={this.state.productname}
                                                        onChange={this.handleChangeProductName}/>
                                                 <br/>
                                                 <label htmlFor="productId" className="grey-text">
                                                     Product ID
                                                 </label>
-                                                <input type="text" id="productId" name="id" className="form-control"
+                                                <input type="text" id="productId" name="id" className="form-control"      value={this.state.id}
                                                        onChange={this.handleChangeID}/>
                                                 <br/>
                                                 <label htmlFor="productQTY" className="grey-text">
                                                     Product QTY
                                                 </label>
-                                                <input type="number" id="productQTY" name="qty" className="form-control"
+                                                <input type="text" id="productQTY" name="qty" className="form-control"    value={this.state.qty}
                                                        onChange={this.handleChangeQty}/>
                                                 <br/>
                                                 <label htmlFor="productPrice" className="grey-text">
                                                     Price
                                                 </label>
-                                                <input type="" id="productPrice" name="price" className="form-control"
+                                                <input type="" id="productPrice" name="price" className="form-control"   value={this.state.price}
                                                        onChange={this.handleChangePrice}/>
                                                 <br/>
 
@@ -225,7 +249,7 @@ class UploadItems extends React.Component {
 
                                                 <select className="browser-default custom-select" id="brand" name="brand"
                                                         onChange={this.handleChangeBrandName}>
-                                                    <option value="no brand">Choose your option</option>
+                                                    <option value={this.state.brand}>{this.state.brand}</option>
                                                     <option value="Adidas">Adidas</option>
                                                     <option value="Nike">Nike</option>
                                                     <option value="Puma">Puma</option>
@@ -240,7 +264,7 @@ class UploadItems extends React.Component {
                                                 </label>
                                                 <select className="browser-default custom-select" id="catogeory"
                                                         name="catogeory" onChange={this.handleChangeCatogory}>
-                                                    <option value="other">Choose your option</option>
+                                                    <option value={this.state.catogeory}>{this.state.catogeory}</option>
                                                     <option value="Clothing">Clothing</option>
                                                     <option value="Protection">Protection</option>
                                                     <option value="Books">Books</option>
@@ -251,11 +275,11 @@ class UploadItems extends React.Component {
                                                     Description
                                                 </label>
                                                 <textarea type="text" id="description" name="description"
-                                                          className="form-control" rows="3"
+                                                          className="form-control" rows="3" value={this.state.description}
                                                           onChange={this.handleChangeDescription}/>
 
                                                 <div className="text-center mt-4">
-                                                    <MDBBtn color="warning" type="submit">ADD</MDBBtn>
+                                                    <MDBBtn color="warning" type="submit">Update</MDBBtn>
                                                 </div>
 
 

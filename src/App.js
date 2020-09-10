@@ -18,7 +18,7 @@ function App() {
             {/*<ProductList></ProductList>*/}
 
 
-            {/*<UploadItems></UploadItems>*/}
+            {/*<EditItems></EditItems>*/}
         </div>
     );
 }
