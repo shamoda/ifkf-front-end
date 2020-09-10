@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import EquipmentDataService from '../../API/EquipmentDataService'
-import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
+import { Card, Button, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 class AddEquipment extends Component {
     constructor(props){
