@@ -5,10 +5,16 @@ import Header from './Header-Footer/Header';
 import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
-import ShopHome from './SHOP/Views/Home/ShopHome'
+// import ShopHome from './SHOP/Views/Home/ShopHome'
 import AddEquipment from './Equipment/AddEquipment';
+import Enrollments from './EventEnrollment/Enrollments';
+import EnrolEvents from './EventEnrollment/EnrolEvents';
+import EnrollmentForm from './EventEnrollment/EnrollmentForm';
+
 import EventsMain from './Events/EventsMain';
 import EventDescription from "./Events/EventDescription";
+import EventList from "./Events/EventList";
+import AddEvent from "./Events/AddEvent";
 
 class FrontEnd extends Component {
 
@@ -29,9 +35,17 @@ class FrontEnd extends Component {
                         <Route path="/" exact component={Home} />
                         <Route path="/login" component={Login} />
                         <Route path="/equipment" component={AddEquipment} />
-                        <Route path="/shop" component={ShopHome} />
+                        {/* <Route path="/shop" component={ShopHome} /> */}
+                        {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
+                        {/*<Route path="/Enrollments" component={Enrollments} />*/}
+                        {/*<Route path="/EnrollmentForm/:id" component={EnrollmentForm} />*/}
+                        {/*<Route path="/EnrollmentForm" component={EnrollmentForm} />*/}
+
                         <Route exact path="/events" component={EventsMain} />
-                        <Route exact path="/events/eventid" component={EventDescription} />
+                        <Route exact path="/events/list" component={EventList} />
+                        <Route exact path="/events/:id" component={EventDescription} />
+                        <Route exact path="/events/add/:id" component={AddEvent} />
+
 
                         <Route component={NotFound} />
 
