@@ -36,6 +36,7 @@ class FrontEnd extends Component {
                         <Route path="/attendance" component={Attendance} />
                         <Route path="/attendanceList" component={AttendanceMarking} />
                         <Route path="/payments" component={PaymentSessions}/>
+                        <Route path="/addPayment/:id" component={PaymentForm}/>
                         <Route path="/addPayment" component={PaymentForm}/>
                         <Route path="/studentList" component={PaymentStatus}/>
 

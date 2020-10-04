@@ -1,14 +1,17 @@
 import axios from 'axios'
 
+const Payment_API_BASE_URL = "http://localhost:8080/Attendance";
 
 class AttendanceService{
 
 
-    retrieveAllAttendance(){
+    getAttendance(){
+        return axios.get(Payment_API_BASE_URL);
 
+    }
 
-        return axios.get('http://localhost:8080/monthlyAttendance')
-
+    deleteAttendance(id){
+        return axios.delete('http://localhost:8080/Attendance/${id}')
     }
 
 

@@ -8,33 +8,50 @@ class AttendanceMarking extends Component {
     constructor(props){
         super(props)
         this.state = {
-           attendancemarking: []
+           attendancemarking: [
+               {StudentID: 1, StudentName: 'Kamal', week1: '1', week2: '1',week3: '1'}
+           ]
            
         }
-        this.addStudent = this.addStudent.bind(this)
-        this.retrieveAttendance = this.retrieveAttendance.bind(this)
-    }
-
-    addStudent(){
-        this.props.history.push('/addStudent')
+        //this.retrieveAttendance = this.retrieveAttendance.bind(this)
+       // this.deleteAttendance = this.deleteAttendance.bind(this)
+       // this.addAttendance = this.addAttendance.bind(this)
     }
 
 
+   // retrieveAttendance(){
 
-    retrieveAttendance(){
+
+    //    AttendanceService.retrieveAllAttendance()
+    //    .then(
+
+     //       response => {
+
+    //            this.setState({attendancemarking : response.data})
+    //        }
+    //    )
+    //}
+
+   // componentDidMount(){
+    //    this.refreshAttendance()
+   // }
+
+   // refreshAttendance(){
+    //    AttendanceService.getAttendance()
+    //        .then(response => {
+    //          this.setState({
+    //              attendancemarking : response.data
+    //           })
+    //        })
+   // }
 
 
-        AttendanceService.retrieveAllAttendance()
-        .then(
-
-            response => {
-
-                this.setState({attendancemarking : response.data})
-            }
-        )
+    deleteAttendance(attendanceID){
+        AttendanceService.deleteAttendance(attendanceID)
+            .then(response => {
+                this.refreshAttendance()
+            })
     }
-
-
 
     
     render() {
@@ -64,39 +81,39 @@ class AttendanceMarking extends Component {
                                 this.state.attendancemarking.map((
                                 attendance) => (
                                 <tr key={attendance.attendanceID}>
-                                     <td>{attendance.attendanceID}</td>
-                                     <td>{attendance.studentName}</td>
-                                {/* <td>
+                                     <td>{attendance.StudentID}</td>
+                                     <td>{attendance.StudentName}</td>
+                                 <td>
                                 <InputGroup className="">
                                   <InputGroup.Prepend>
-                                  <InputGroup.Checkbox className="bg-dark text-white" aria-label="Week1" />
+                                  <InputGroup.Checkbox className="bg-dark text-white" aria-label="week1" />
                                   </InputGroup.Prepend>
                                 </InputGroup>
                                 </td>
                                 <td>
                                 <InputGroup className="">
                                   <InputGroup.Prepend>
-                                  <InputGroup.Checkbox aria-label="Week2" />
+                                  <InputGroup.Checkbox aria-label="week2" />
                                 </InputGroup.Prepend>
                                 </InputGroup>
                                 </td>
                                 <td>
                                 <InputGroup className="">
                                   <InputGroup.Prepend>
-                                  <InputGroup.Checkbox aria-label="Week3" />
+                                  <InputGroup.Checkbox aria-label="week3" />
                                   </InputGroup.Prepend>
                                 </InputGroup>
                                 </td>
                                 <td>
                                 <InputGroup className="">
                                   <InputGroup.Prepend>
-                                  <InputGroup.Checkbox aria-label="Week4" />
+                                  <InputGroup.Checkbox aria-label="week4" />
                                   </InputGroup.Prepend>
                                 </InputGroup>
                                 </td>
                                 <td>
-                                    <Button size="sm" variant="outline-danger" ><FontAwesomeIcon icon={faTrash} /></Button>
-                                </td> */}
+                                    <Button size="sm" variant="outline-danger" onClick={() => this.deleteAttendance(attendance.attendanceID)} ><FontAwesomeIcon icon={faTrash} /></Button>
+                                </td> 
                                 </tr>
                                 ))
                              }
@@ -104,7 +121,7 @@ class AttendanceMarking extends Component {
                         </Table>
                     </Card.Body>
                     <Card.Footer style={{"textAlign":"right"}}>
-                            <Button variant="success" size="sm" type="submit">
+                            <Button variant="success" size="sm" type="submit" onClick={() => this.addAttendance()}>
                             <FontAwesomeIcon icon={faSave} /> Save
                             </Button> {' '}
                             <Button variant="info" size="sm" type="reset">

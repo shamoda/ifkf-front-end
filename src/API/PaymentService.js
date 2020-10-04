@@ -8,12 +8,20 @@ class PaymentService{
         return axios.get(Payment_API_BASE_URL);
     }
 
-    // addPayments(payment){
-    //     return axios.post(Payment_API_BASE_URL, payment);
-    // }
+    addPayments(payment){
+        return axios.post('http://localhost:8080/payments/insert', payment);
+    }
 
     deletePayment(id){
         return axios.delete(`http://localhost:8080/payments/${id}`)
+    }
+
+    retrievePayment(id){
+        return axios.get(`http://localhost:8080/payments/${id}`)
+    }
+
+    UpdatePayment(id, payment){
+        return axios.put(`http://localhost:8080/payments/${id}`, payment)
     }
 
 }
