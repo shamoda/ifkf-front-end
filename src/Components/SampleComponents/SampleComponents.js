@@ -16,7 +16,6 @@ class SampleComponents extends Component {
     render() { 
         return ( 
             <div>
-                
 
             </div>
          );
