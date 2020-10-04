@@ -50,10 +50,10 @@ class Header extends Component {
                             <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
                             <Link className="dropdown-item" to="sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</Link>
                             <Link className="dropdown-item" to="studentperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
-                            <Link className="dropdown-item" to="equipments"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
+                            <Link className="dropdown-item" to="equipment"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
-                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
                             <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>

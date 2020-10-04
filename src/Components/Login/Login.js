@@ -26,7 +26,6 @@ class Login extends Component {
     }
 
     loginClicked() {
-
         AthenticationDataService.getUser(this.state.userId)
             .then(
                 response => {
@@ -48,11 +47,12 @@ class Login extends Component {
                     }
                 }
             )
-
     }
 
     
-    render() { 
+    render() {
+
+
         return ( 
             <Container style={{width:600}}>
                 <br></br>
