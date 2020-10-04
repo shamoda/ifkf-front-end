@@ -180,8 +180,8 @@ class StudentList extends Component {
                                         <td>{student.name}</td>
                                         <td style={{textAlign:"center"}}>
                                             <ButtonGroup>
-                                                <Link to={"performance/"+student.studentId} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faList} /> Performance</Link> &nbsp;&nbsp;
-                                                <Link to={"ranking/"+student.studentId} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faChartLine} /> Rank</Link> &nbsp;&nbsp;
+                                                <Link to={"performance/"+student.studentId} className="btn btn-sm btn-outline-info" style={{fontWeight:600}}><FontAwesomeIcon icon={faList} /> Performance</Link> &nbsp;&nbsp;
+                                                <Link to={"ranking/"+student.studentId} className="btn btn-sm btn-outline-warning" style={{fontWeight:600}}><FontAwesomeIcon icon={faChartLine} /> Rank</Link> &nbsp;&nbsp;
                                                 {/* <Button size="sm" variant="outline-light" onClick={() => this.generateExamReportClicked(exam.examCode)}><FontAwesomeIcon icon={faFilePdf} /></Button> &nbsp;&nbsp;
                                                 <Button size="sm" variant="outline-primary" onClick={() => this.updateExamRecordClicked(exam.examCode)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;
                                                 <Button size="sm" variant="outline-danger" onClick={() => this.deleteExamRecord(exam.examCode)}><FontAwesomeIcon icon={faTrash} /></Button> */}

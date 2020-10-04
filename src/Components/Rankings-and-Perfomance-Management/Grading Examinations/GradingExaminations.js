@@ -20,6 +20,7 @@ class GradingExaminations extends Component {
             fDescription:'',
             fDate : moment(new Date()).format('YYYY-MM-DD'),
             fMessage: null,
+            fErrorMessage: null,
 
             currentPage : 1,
             entriesPerPage : 5,
@@ -86,6 +87,16 @@ class GradingExaminations extends Component {
     submitExamRecord(event){
         event.preventDefault();
 
+        // Form Validations 
+        if(this.state.fCode.length < 5){
+            this.setState({fErrorMessage:'Exam Code must contain at least 5 charaters', fMessage:null})
+            return
+        }
+        if(this.state.fDescription.length < 15){
+            this.setState({fErrorMessage:'Exam Description must contain at least 15 charaters', fMessage:null})
+            return
+        }
+
         if (this.state.updateClicked === null) {
 
             let exam = {
@@ -98,7 +109,7 @@ class GradingExaminations extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Exam Record Added Successfully."})
-                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null})
+                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null, fErrorMessage:null})
                         this.refreshExams()
                     }
                 )
@@ -114,7 +125,7 @@ class GradingExaminations extends Component {
                 .then(
                     response => {
                         this.setState({fMessage : "Exam Record Updated Successfully."})
-                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null})
+                        this.setState({fCode: '', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message:null, updateClicked:null, disabled: false, searchMessage: null, fErrorMessage:null})
                         this.refreshExams()
                     }
                 )
@@ -122,7 +133,7 @@ class GradingExaminations extends Component {
     }
 
     resetExamRecord(){
-        this.setState({fCode:'', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null, updateClicked: null, disabled:false})
+        this.setState({fCode:'', fDescription:'', fDate:moment(new Date()).format('YYYY-MM-DD'), message: null, fMessage:null, updateClicked: null, disabled:false, fErrorMessage:null})
     }
 
     examChange = event =>{
@@ -320,6 +331,7 @@ class GradingExaminations extends Component {
 
                 <Container>
                     {this.state.fMessage && <Alert variant="success">{this.state.fMessage}</Alert>}
+                    {this.state.fErrorMessage && <Alert variant="danger">{this.state.fErrorMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><FontAwesomeIcon icon={this.state.updateClicked !== null ? faEdit : faPlusSquare} /> {this.state.updateClicked !== null ? "Update Examination Record" : "Add New Examination Record"}</Card.Header>
                     <Form onReset={this.resetExamRecord} onSubmit={this.submitExamRecord} id="bookFormId" method="post">
