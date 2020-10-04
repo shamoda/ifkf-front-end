@@ -44,14 +44,14 @@ class Header extends Component {
                         <Link className="nav-link" to="/"><FontAwesomeIcon icon={faHome} /> Home</Link>
                         <Link className="nav-link" to="History"><FontAwesomeIcon icon={faBook} /> History</Link>
                         <Link className="nav-link" to="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Link>
-                        <Link className="nav-link" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                        <Link className="nav-link" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                         <Link className="nav-link" to="getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Link>
                         {loggedAsOperator && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
                             <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
                             <Link className="dropdown-item" to="sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</Link>
                             <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
                             <Link className="dropdown-item" to="/equipment"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
-                            <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
@@ -62,7 +62,7 @@ class Header extends Component {
                         {loggedAsInstructor && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
                             <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
                             <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
-                            <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>

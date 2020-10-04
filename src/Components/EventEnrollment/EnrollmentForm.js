@@ -4,8 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faEdit} from '@fortawesome/free-solid-svg-icons'
 import StudentService from '../../API/StudentService';
 import moment from 'moment'
-// import Column from 'antd/lib/table/Column';
-
+import swal from 'sweetalert';
 
 
 
@@ -35,9 +34,6 @@ class EnrollmentForm extends Component {
     refreshUnregStudent(){
 
         let resultsId = this.props.match.params.id;
-
-
-        
 
         if(resultsId != null){
             StudentService.retriveEnrollmrnts(resultsId)
@@ -73,6 +69,7 @@ class EnrollmentForm extends Component {
     addStudentClicked(event) {
         event.preventDefault();
 
+        
         //const getId = +this.props.match.params.id;
 
         if(this.state.id === -1){
@@ -90,7 +87,11 @@ class EnrollmentForm extends Component {
             guardianPhone: this.state.guardianPhone
         };
 
-
+            swal({
+                title: "New Record Submitted!",
+                icon: "success",
+                button: "Ok",
+            });
             StudentService.insertEnrollment(stud)
             .then(() => this.props.history.push('/enrollments'))
         }
@@ -111,6 +112,11 @@ class EnrollmentForm extends Component {
                 guardianPhone: this.state.guardianPhone
             };
 
+            swal({
+                title: "Record Successfully Updated!",
+                icon: "success",
+                button: "Ok",
+              });
             StudentService.updateEnrollment(stud)
             .then(()=> this.props.history.push('/enrollments'))
         }
@@ -134,10 +140,10 @@ class EnrollmentForm extends Component {
                     <Card.Header style={{fontSize:'30px'}}>
                     <Row>
                         <Col><FontAwesomeIcon icon={faEdit} />Add Entry</Col>
-                        <Col style={{float:'right'}}>Student ID: {id}</Col>
+                        {/* <Col style={{float:'right'}}>Student ID: {id}</Col> */}
                     </Row>
                     </Card.Header>
-                    <Form  method="post">
+                    <Form onSubmit={this.addStudentClicked} method="post">
                     <Card.Body>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridTitle">
@@ -164,7 +170,7 @@ class EnrollmentForm extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridUrl">
                                 <Form.Label>weight</Form.Label>
-                                <Form.Control type="text" name="weight" value={weight}  onChange={this.studChange} required autoComplete="off" placeholder="0123456789" className={"bg-dark text-white"} />
+                                <Form.Control type="text" name="weight" value={weight}  onChange={this.studChange} required autoComplete="off" placeholder="##kg" className={"bg-dark text-white"} />
                             </Form.Group>
                             <Form.Group as={Col} controlId="formGridLanguage">
                             <Form.Label>Kyu</Form.Label>
@@ -180,7 +186,7 @@ class EnrollmentForm extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridUrl">
                                 <Form.Label>Phone</Form.Label>
-                                <Form.Control type="phone" name="phone" value={phone}  onChange={this.studChange} required autoComplete="off" placeholder="0123456789" className={"bg-dark text-white"} />
+                                <Form.Control type="phone" name="phone" value={phone}  onChange={this.studChange} required autoComplete="off" pattern="[0-9]{10}" placeholder="0123456789" className={"bg-dark text-white"} />
                             </Form.Group>
                             <Form.Group as={Col} controlId="formGridIsbn">
                             <Form.Label>E-mail</Form.Label>
@@ -196,16 +202,16 @@ class EnrollmentForm extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridLanguage">
                             <Form.Label>Guardian Phone</Form.Label>
-                            <Form.Control type="phone" name="guardianPhone" value={guardianPhone}  onChange={this.studChange} required autoComplete="off" placeholder="Guardian Phone" className={"bg-dark text-white"} />
+                            <Form.Control type="phone" name="guardianPhone" value={guardianPhone}  onChange={this.studChange} required autoComplete="off" pattern="[0-9]{10}" placeholder="Guardian Phone" className={"bg-dark text-white"} />
                             </Form.Group>
                         </Form.Row>  
                     </Card.Body>
 
                     <Card.Footer style={{"textAlign":"right"}}>
-                            <Button size="sm" onClick={this.addStudentClicked}>
+                            <Button size="sm" type="submit">
                             <FontAwesomeIcon icon={faSave} /> Save
                             </Button> {' '}
-                            <Button size="sm" type="reset" style={{background:'#aa1256'}}>
+                            <Button size="sm" type="reset" >
                             <FontAwesomeIcon icon={faUndo} /> Reset
                             </Button>{' '}
                     </Card.Footer>
@@ -215,8 +221,6 @@ class EnrollmentForm extends Component {
 
             <br/>
             <br />
-            <br />
-            <br/>
             <br />
 
             </div>
