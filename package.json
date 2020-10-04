@@ -20,8 +20,10 @@
     "react-bootstrap": "^1.2.2",
     "react-datepicker": "^3.1.3",
     "react-dom": "^16.13.1",
+    "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-uuid": "^1.0.2",
     "styled-components": "^5.1.1"
   },
   "scripts": {
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sweetalert2": "^10.0.1"
   }
 }
