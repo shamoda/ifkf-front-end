@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.2",
     "axios": "^0.19.2",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "formik": "^2.1.5",
     "mdbreact": "^4.27.0",
     "moment": "^2.27.0",
@@ -20,8 +20,10 @@
     "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "styled-components": "^5.1.1"
+    "react-scripts": "^3.4.3",
+    "react-search-box": "^2.0.2",
+    "styled-components": "^5.1.1",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": " react-scripts start",

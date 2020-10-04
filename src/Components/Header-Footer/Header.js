@@ -37,7 +37,6 @@ class Header extends Component {
                     
                     <Navbar bg="dark" variant="dark" expand="lg" style={{marginBottom:10}}>
                     <Link className="navbar-brand long_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> International Fumonkai Karate-do Federation - Sri Lanka</Link>
-                    <Link className="navbar-brand short_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> IFKF - Sri Lanka</Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="ml-auto"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
