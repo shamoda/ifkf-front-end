@@ -8,9 +8,11 @@ class Footer extends Component {
         let fullYear = new Date().getFullYear();
 
         return ( 
+
             <div>
                 <br></br>
             <Navbar bg="dark" variant="dark">
+
                 <Container>
                     
                     <Col lg={12} className="text-center text-muted">
