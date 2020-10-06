@@ -24,12 +24,12 @@ import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 
 
 
-import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
+// import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 import AddEquipment from './Equipment/AddEquipment';
-import Enrollments from './EventEnrollment/Enrollments';
-import EnrolEvents from './EventEnrollment/EnrolEvents';
-import EnrollmentForm from './EventEnrollment/EnrollmentForm';
+// import Enrollments from './EventEnrollment/Enrollments';
+// import EnrolEvents from './EventEnrollment/EnrolEvents';
+// import EnrollmentForm from './EventEnrollment/EnrollmentForm';
 
 import EventsMain from './Events/EventsMain';
 import EventDescription from "./Events/EventDescription";
