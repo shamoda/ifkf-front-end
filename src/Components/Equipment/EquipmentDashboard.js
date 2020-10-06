@@ -1,36 +1,41 @@
 import React, {Component} from 'react';
-import {Card, Button, Container, Form,Col,InputGroup} from 'react-bootstrap';
+import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Alert, ControlLabel, FormGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {  faEdit,faSave,faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
-import EquipmentDataService from '../../API/EquipmentDataService'
 
+import EquipmentDataService from '../../API/EquipmentDataService';
+import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes} from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment'
 import "./box.css"
 class EquipmentDashboard extends Component {
     constructor(props){
         super(props)
          this.state = { 
 
-            id :this.props.match.params.id,
+            id :-1,
             type :'',
             supplier : '',
             brand:'',
             quantity:'',
 
             equipments:[],
-            search:''
+            search:'',
+            message:'',
 
+            errors:[],
+            length:'',
+            Errormessage:'',
+            searchMessage: '',
+            fMessage: ''
+           
+          
          
       
      }
 
-     this.refreshEquipments = this.refreshEquipments.bind(this);
-     this.onSubmitRecords = this.onSubmitRecords.bind(this);
-   
-     this.deleteEquipmentClicked = this.deleteEquipmentClicked.bind(this);
-     this.UpdateEquipmentClicked = this.UpdateEquipmentClicked.bind(this);
-
-
-    
+     this.refreshEquipments=this.refreshEquipments.bind(this);
+     this.onSubmitRecords=this.onSubmitRecords.bind(this);
+     this.deleteEquipmentClicked=this.deleteEquipmentClicked.bind(this);
+     this.UpdateEquipmentClicked=this.UpdateEquipmentClicked.bind(this);
 
     }
 
@@ -42,18 +47,14 @@ class EquipmentDashboard extends Component {
     }
 
 
-    UpdateEquipmentClicked(id){
+    UpdateEquipmentClicked(id){  
 
-            if(this.state.id=== -1){
-
-                return
-            }  
 
 
             EquipmentDataService.retrieveEquipment(id)
 
              .then(response => this.setState({
-                     id: response.data.id,
+                     id:response.data.id,
                      type: response.data.type,
                      quantity: response.data.quantity,
                      brand : response.data.brand,
@@ -83,10 +84,27 @@ class EquipmentDashboard extends Component {
 
     onSubmitRecords(event){
 
+        
+
+
         event.preventDefault();
-       
+
+        if(this.state.type === ''){
+            this.setState({Errormessage:'Please Select a Equipment Type to Proceed.',message:null})
+            return
+        }
+
+        if(this.state.quantity === '' || this.state.quantity ==='0'|| this.state.quantity >= 'a'  ){
+            this.setState({Errormessage:"Please Select a Valid Input for the Quantity.",message:null})
+            return
+        }
+
+      
+        if(this.state.id === -1){
+            {
             let equi = {
-                id : this.state.id,
+               
+               
                 type: this.state.type, 
                 brand: this.state.brand, 
                 quantity: this.state.quantity,
@@ -94,25 +112,35 @@ class EquipmentDashboard extends Component {
             };
 
 
-            if(this.state.id === -1){
+          
 
                 EquipmentDataService.CreateEquipment(equi)
                 .then(
                     response => {
                         this.refreshEquipments()
+                        this.setState({message : "Equipment Added Successfully.",Errormessage:null})
                     }
                  ) 
               
                 }
 
-              
+            }
 
             else{
             
+                let equi = {
+                    id : this.state.id,
+                    type: this.state.type, 
+                    brand: this.state.brand, 
+                    quantity: this.state.quantity,
+                    supplier : this.state.supplier
+                };
+
                 EquipmentDataService.UpdateEquipment(this.state.id,equi)
                 .then(
                     response => {
-                        this.refreshEquipments()
+                        this.refreshEquipments();
+                        this.setState({message : "Equipment Updated Successfully.",Errormessage:null})
                     }
                  ) 
               
@@ -137,92 +165,142 @@ class EquipmentDashboard extends Component {
             EquipmentDataService.deleteEquipment(id)
              .then(
                  response =>{
-     
-                 this.setState({message : `Delete of Equipment ${id} Successful`});
-                 this.refreshEquipments();
+                this.setState({message : `Delete of Equipment ${id} Successful`,Errormessage:null});
+                this.refreshEquipments();
+    
+   
                  }
-     
+                
              )
+             this.setState({Errormessage : `Delete of Equipment ${id} UnSuccessful`,message:null});
          }
+
+
+         searchChange = event => {
+            this.setState({
+                [event.target.name]: event.target.value
+            });
+        };
+    
+    
+        searchData = () => {
+    
+            if (this.state.search !== '') {
+                EquipmentDataService.searchEquipment(this.state.search)
+                    .then(
+                        response => {
+                            if (response.data.length >= 1) {
+                                this.setState({
+                                    equipments: response.data,
+                                    searchMessage: null,
+                                    fMessage: null
+                                })
+                            }
+                            else {
+                                this.setState({
+                                    searchMessage: "No Matching Record Found",
+                                    fMessage: null
+                                })
+                            }
+                        }
+                    )
+            }
+        }
+    
+        cancelSearch = () => {
+            this.setState({
+                search: '',
+                searchMessage: null,
+                fMessage: null
+            })
+            this.refreshEquipments();
+        }
+      
           
-
-         updateSearch = e =>{
-
-             this.setState({search: even.target.value.substr(0,20)});
-         }
-
-
     render() { 
     
-      
-      
-
-        const {id,type,supplier,quantity,brand} = this.state
+     
        
+
+        const {type,supplier,quantity,brand,search} = this.state
+
+        
+        const searchBox = {
+            border: "1.5px solid #24a0ed",
+            borderRadius: "4px",
+            height: "35px",
+            marginTop:"10PX"
+        }
+
+     
+        
     return (  
-
         <div>
-               <h1>Equipment Dashboard</h1>
-               
-               <Container className="Equi-form">
+          <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:64}}>
+               <h1 >Equipment Dashboard</h1>
+       </div>
+               <Button variant="secondary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/donations" style={{color:"black",textDecoration: 'none'}}>Add Donations</a> </Button>{' '}
             
-            <Card className={"border border-dark bg-dark text-white"}>
-            <Card.Header><FontAwesomeIcon icon={faEdit} /> Add Equipment</Card.Header>
-            <Form onSubmit={this.onSubmitRecords} id="FormId"  method = "post">
-            <Card.Body>
+               <Button variant="primary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/Showrequests" style={{color:"black",textDecoration: 'none'}}>Check Requests</a> </Button>{' '}
+
+
+
             
-                
-                 
+            
+      <Container>
+                  {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
+                  {this.state.Errormessage && <Alert variant="danger">{this.state.Errormessage}</Alert>}
+                  <Card className={"border border-dark bg-dark text-white"}>
+                  <Card.Header  style={{fontFamily:"Brush Script MT"}}>Add Equipment</Card.Header>
+                  <Form onSubmit={this.onSubmitRecords} id="FormId"  method ="post">
+                  <Card.Body>
                   
+                      <Form.Row>
+                        
 
-                
-                <Form.Row>
+                          <Form.Group as={Col} controlId="formGridAuthor" >
+                              <Form.Label>Equipment Type</Form.Label>
+                              <Form.Control type="text" name="type" value={type}  onChange={this.EquiChange} autoComplete="off" placeholder="Type" className={"bg-dark text-white"} />
+                          </Form.Group>
 
-                <Form.Group as={Col} controlId="gdg">
-                        <Form.Label>Equipment ID</Form.Label>
-                        <Form.Control type="text" name="id" value={id}  onChange={this.EquiChange} placeholder="Title" className={"bg-dark text-white"} />
-                    </Form.Group>
+                          <Form.Group as={Col} controlId="formGridTitle" >
+                          <Form.Label>Supplier</Form.Label>
+                          <Form.Control type="text" name="supplier" value={supplier}  onChange={this.EquiChange} required autoComplete="off" placeholder="Supplier" className={"bg-dark text-white"} />
+                       
+                        
+                          </Form.Group>
 
-                    <Form.Group as={Col} controlId="gdg">
-                        <Form.Label>Type</Form.Label>
-                        <Form.Control type="text" name="type" value={type}  onChange={this.EquiChange} placeholder="Title" className={"bg-dark text-white"} />
-                    </Form.Group>
+                      </Form.Row>
 
-                    <Form.Group as={Col} controlId="formGridIsbn">
-                    <Form.Label>Supplier</Form.Label>
-                    <Form.Control type="text" name="supplier" value={supplier}  onChange={this.EquiChange} placeholder="Title" className={"bg-dark text-white"} />
-                    </Form.Group>
+                      <Form.Row>
+                          <Form.Group as={Col} controlId="formGridTitle" style={{marginLeft:100}}>
+                          <Form.Label>Quantity</Form.Label>
+                          <Form.Control type="text" name="quantity" value={quantity}  onChange={this.EquiChange} style={{width:300}}  autoComplete="off" placeholder="Quantity" className={"bg-dark text-white"} style={{ width:200}}/>
+                   
+                          </Form.Group>
 
-                </Form.Row>
+                          <Form.Group as={Col} controlId="formGridTitle" >
+                          <Form.Label style={{marginLeft: -200}}>Brand</Form.Label>
+                          <Form.Control type="text" name="brand" value={brand}  onChange={this.EquiChange} style={{marginLeft: -200}} required autoComplete="off" placeholder="Brand" className={"bg-dark text-white"} />
+                          </Form.Group>
+                      </Form.Row>
 
-                <Form.Row>
-                    <Form.Group as={Col} controlId="fdgdg">
-                        <Form.Label>Quantity</Form.Label>
-                        <Form.Control type="text" name="quantity" value={quantity}  onChange={this.EquiChange}  placeholder="Title" className={"bg-dark text-white"} />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="fdgdg">
-                    <Form.Label>Brand</Form.Label>
-                    <Form.Control type="text" name="brand" value={brand}  onChange={this.EquiChange} required autoComplete="off" placeholder="Title" className={"bg-dark text-white"} />
-                    </Form.Group>
-
-                </Form.Row>
-
-         
-                
-            </Card.Body>
-
-            <Card.Footer style={{"textAlign":"right"}}>
-                    <Button variant="success" size="sm" type="submit"  >
-                    <FontAwesomeIcon icon={faSave} /> Save
-                    </Button> {' '}
-                  
-            </Card.Footer>
-            </Form>
-            </Card>
-      </Container>      
-
-
+                    
+                      
+                      
+                  </Card.Body>
+                      <Card.Footer style={{"textAlign":"right"}}>
+                          <Button variant="success" size="sm" type="submit">
+                          <FontAwesomeIcon icon={faSave} /> 
+                          </Button>{' '}
+                          <Button variant="info" size="sm" type="reset">
+                          <FontAwesomeIcon icon={faUndo} /> Reset
+                          </Button>
+                       
+                      </Card.Footer>
+                  </Form>
+                  </Card>
+              </Container>
       
 
     <br />
@@ -231,53 +309,45 @@ class EquipmentDashboard extends Component {
 
             <div className= "App">
 
-            <Button variant="secondary" style={{marginLeft: 20}} ><a href="/donations">Donations</a> </Button>{' '}
            
 
-            <Form.Row>
-                    <Form.Group as={Col}>
-                        <InputGroup style={{ width: 300 , marginLeft:20,marginTop:20}}>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faSearch} />
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control onChane={this.updateSearch}
-                                type="text"
-                                placeholder="Search here.."
-
-                                
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                </Form.Row>
-              
+           
+            <div style={{ marginLeft:200, width: 300 }}>
+                                <InputGroup size="sm">
+                                    <FormControl style={searchBox} autoComplete="off" placeholder="Search" name="search" value={search} className="bg-dark text-white" onChange={this.searchChange} />&nbsp;
+                                    <InputGroup.Append>
+                                        <Button size="sm"  style={{height: 35 ,marginTop:10}}variant="outline-primary" type="button" onClick={this.searchData}><FontAwesomeIcon icon={faSearch} /></Button>&nbsp;
+                                       <Button size="sm"   style={{height: 35,marginTop:10}} variant="outline-danger" type="button" onClick={this.cancelSearch}><FontAwesomeIcon icon={faTimes} /></Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
              
             </div>
 
-                <div className="grid">
+                <div className="grid" style={{marginLeft:100,marginRight:200}}>
 
                 {
-
-                this.state.equipments.map((equipment) => ({
+              this.state.equipments.map((equipment) => (
                
-                  return(  <div className="box" >
-
-                  <ul>
+                    <div className="box" key={equipment.id} style={{boxShadow:"2px 3px 2px #9E9E9E",borderRadius:5}}>
 
                         <div className = "card-text">
-                        <h4>{equipment.type}</h4>
-                           {equipment.quantity}
+                        <h4  style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>{equipment.type}</h4>
+                        <div style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>
+                        Supplier :  {equipment.supplier} <br/>
+                        Brand    :   {equipment.brand}  <br/>
+                        Quantity  :   {equipment.quantity} <br/>
                         </div>
-                        <div className= "card-btn">
+                        </div>
+                        <div className= "card-btn" style={{marginTop:10}}>
                         <Button size="sm" variant="outline-primary" onClick={()=> this.UpdateEquipmentClicked(equipment.id)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Button size="sm" variant="outline-danger" onClick={() => this.deleteEquipmentClicked(equipment.id)}><FontAwesomeIcon icon={faTrash} /></Button>
                         </div>
                     </div>
-                )})
-                </ul>
+                ))
+               
 
-              
+                  }
 
             </div>
                 

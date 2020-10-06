@@ -10,6 +10,9 @@ import AddEquipment from  './Equipment/AddEquipment';
 import EditEquipment from './Equipment/EditEquipment';
 import EquipmentDashboard from './Equipment/EquipmentDashboard';
 import Donations from './Equipment/Donations';
+import ShowDonations from './Equipment/ShowDonations';
+import Requests from './Equipment/Requests';
+import ShowRequests from './Equipment/ShowRequests';
 
 class FrontEnd extends Component {
 
@@ -31,8 +34,12 @@ class FrontEnd extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/equipmentDash" component={EquipmentDashboard} />
                         <Route path="/equipment/:id" component={EditEquipment} />
+                        <Route path="/ShowDonations"  component={ShowDonations} />
                         <Route path="/equipment"  component={AddEquipment} />
                         <Route path="/donations"  component={Donations} />
+                        <Route path="/requests"  component={Requests} />
+                        <Route path="/ShowRequests"  component={ShowRequests} />
+                       
                        
                    
 

@@ -64,6 +64,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="performance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
+                            <Link className="dropdown-item" to="/ShowDonations"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
                             <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
@@ -78,7 +79,7 @@ class Header extends Component {
                         </NavDropdown>}
 
                         {!isUserLoggedIn && <Link className="nav-link" to="login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
-                        {isUserLoggedIn && <Link className="nav-link" to="logout" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
+                        {isUserLoggedIn && <Link className="nav-link" to="login" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
                         </Nav>
                     </Navbar.Collapse>
                     </Navbar>
@@ -90,5 +91,7 @@ class Header extends Component {
          );
     }
 }
+ 
+
  
 export default withRouter(Header);

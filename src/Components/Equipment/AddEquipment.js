@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 class AddEquipment extends Component {
     constructor(props){
         super(props);
-
+        
         this.state = {
      
            equipments:[]
@@ -20,13 +20,13 @@ class AddEquipment extends Component {
            this.deleteEquipmentClicked = this.deleteEquipmentClicked.bind(this);
            this.UpdateEquipmentClicked = this.UpdateEquipmentClicked.bind(this);
            this.addEqClicked = this.addEqClicked.bind(this);
-           this.refreshEquipments = this.refreshEquipments.bind(this)
+           this. retireveEquipments = this. retireveEquipments.bind(this)
         
         }
 
         componentDidMount(){
 
-            this.refreshEquipments();
+            this. retireveEquipments();
             
           }
 

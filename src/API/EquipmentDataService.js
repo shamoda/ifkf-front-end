@@ -31,7 +31,7 @@ class EquipmentDataService{
 
     
     
-        return axios.post(`http://localhost:9090/IFKF/equipment`,equi);
+        return axios.post('http://localhost:9090/IFKF/equipment',equi);
     }
 
     retrieveAllDonations(){
@@ -61,7 +61,15 @@ class EquipmentDataService{
 
     
     
-        return axios.post(`http://localhost:9090/IFKF/equipment`,don);
+        return axios.post(`http://localhost:9090/IFKF/donations`,don);
+    }
+
+    searchDonation(searchText){
+        return axios.get(`http://localhost:9090/IFKF/search/${searchText}`);
+    }
+
+    searchEquipment(searchText){
+        return axios.get(`http://localhost:9090/IFKF/searchs/${searchText}`);
     }
 }
 
