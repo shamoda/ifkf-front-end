@@ -27,6 +27,13 @@ import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 // import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 import AddEquipment from './Equipment/AddEquipment';
+
+import Attendance from './Attendance/Attendance';
+import PaymentSessions from './Payment/PaymentSessions';
+import PaymentForm from './Payment/PaymentForm';
+import AttendanceMarking from './Attendance/AttendanceMarking';
+import PaymentStatus from './Payment/PaymentStatus';
+
 // import Enrollments from './EventEnrollment/Enrollments';
 // import EnrolEvents from './EventEnrollment/EnrolEvents';
 // import EnrollmentForm from './EventEnrollment/EnrollmentForm';
@@ -49,6 +56,7 @@ import PaymentFormComponent from './User/PaymentFormComponent';
 
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
+
 
 class FrontEnd extends Component {
 
@@ -85,6 +93,16 @@ class FrontEnd extends Component {
                        <Route path="/users" component={UserComponent}/>
                         <Route path="/equipment" component={AddEquipment} />
                         <Route path="/shop" component={ShopHome} />
+
+                        <Route path="/attendance" component={Attendance} />
+                        <Route path="/attendanceList" component={AttendanceMarking} />
+                        <Route path="/payments" component={PaymentSessions}/>
+                        <Route path="/addPayment/:id" component={PaymentForm}/>
+                        <Route path="/addPayment" component={PaymentForm}/>
+                        <Route path="/studentList" component={PaymentStatus}/>
+
+                        
+
                         <Route path="/students" component={StudentTableComponent}/>
                         <Route path="/addStudent/:id" component={FormComponent} />
                         <Route path="/addStudent" component={FormComponent}/>
@@ -123,9 +141,7 @@ class FrontEnd extends Component {
                         <Route path="/AddSession" component={AddSession} />
 
 
-
-
-
+          
                         <Route component={NotFound}/>
 
                     </Switch>
