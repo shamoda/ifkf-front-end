@@ -23,7 +23,6 @@ class PaymentService{
     UpdatePayment(id, payment){
         return axios.put(`http://localhost:8080/payments/${id}`, payment)
     }
-
 }
 
 export default new PaymentService()
