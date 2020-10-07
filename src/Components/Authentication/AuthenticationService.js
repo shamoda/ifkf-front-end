@@ -18,6 +18,18 @@ class AthenticationService {
         return true;
     }
 
+    loggedUserId(){
+        let id = sessionStorage.getItem('authenticatedUserId');
+        if (id === null) return '';
+        return id;
+    }
+
+    loggedUserName(){
+        let name = sessionStorage.getItem('authenticatedUserName');
+        if (name === null) return '';
+        return name;
+    }
+
     loggedUserRole() {
 
         let role = sessionStorage.getItem('authenticatedUserRole');
