@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 } */
+
+.user-table{
+  margin-left:25px ;
+  margin-right:25px;
+}
+
+.button-margin{
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.footer-margin{
+  margin-top: 10px;
+}
