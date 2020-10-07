@@ -27,9 +27,9 @@ import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 import AddEquipment from './Equipment/AddEquipment';
-import Enrollments from './EventEnrollment/Enrollments';
-import EnrolEvents from './EventEnrollment/EnrolEvents';
-import EnrollmentForm from './EventEnrollment/EnrollmentForm';
+// import Enrollments from './EventEnrollment/Enrollments';
+// import EnrolEvents from './EventEnrollment/EnrolEvents';
+// import EnrollmentForm from './EventEnrollment/EnrollmentForm';
 
 import EventsMain from './Events/EventsMain';
 import EventDescription from "./Events/EventDescription";
@@ -108,7 +108,7 @@ class FrontEnd extends Component {
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
                         {/*<Route path="/Enrollments" component={Enrollments} />*/}
                         {/*<Route path="/EnrollmentForm/:id" component={EnrollmentForm} />*/}
-                        {/*<Route path="/EnrollmentForm" component={EnrollmentForm} />*/}
+                        {/*<Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
 
                         <Route exact path="/events" component={EventsMain} />
                         <Route exact path="/events/list" component={EventList} />
