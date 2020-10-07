@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import {Navbar, Container, Col} from 'react-bootstrap';
+import React, { Component } from "react";
+import { Navbar, Container, Col } from "react-bootstrap";
 
 class Footer extends Component {
-    state = {  }
-    render() { 
-
+  state = {};
+  render() {
         let fullYear = new Date().getFullYear();
 
         return ( 
@@ -24,5 +23,5 @@ class Footer extends Component {
          );
     }
 }
- 
+
 export default Footer;

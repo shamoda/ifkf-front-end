@@ -47,6 +47,9 @@ import PaymentTableComponent from './User/PaymentTableComponent';
 import UserComponent from './User/UserComponent';
 import PaymentFormComponent from './User/PaymentFormComponent';
 
+import SessionList from "./Session/SessionList";
+import AddSession from "./Session/AddSession";
+
 class FrontEnd extends Component {
 
     state = {}
@@ -114,6 +117,10 @@ class FrontEnd extends Component {
                         <Route exact path="/events/list" component={EventList} />
                         <Route exact path="/events/:id" component={EventDescription} />
                         <Route exact path="/events/add/:id" component={AddEvent} />
+          
+                        <Route path="/sessions" component={SessionList} />
+                        <Route path="/AddSession/:id" component={AddSession} />
+                        <Route path="/AddSession" component={AddSession} />
 
 
 
