@@ -1,44 +1,68 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    MDBRow,
-    MDBCol,
     MDBCard,
-    MDBCardImage,
     MDBCardBody,
-    MDBCardTitle,
+    MDBCardImage,
     MDBCardText,
-    MDBCardFooter,
+    MDBCardTitle,
+    MDBContainer,
+    MDBRow,
     MDBTooltip,
-    MDBContainer, MDBBtn, MDBIcon,
 } from 'mdbreact';
-
 import './item.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import axios from "axios";
+import {withRouter} from "react-router";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 
-class EcommercePage extends Component {
+class EcommercePage extends React.Component {
+
+
 
     constructor(props) {
         super(props);
         this.state = {
-
+            id:'',
             Product: [],
+            customerId:'C001',
 
         }
 
-        this.getAllProducts = this.getAllProducts.bind(this);
+        // this.getAllProducts = this.getAllProducts.bind(this);
+        this.buyBytnclicked = this.buyBytnclicked.bind(this);
+        this.getAllProductsFromProduct = this.getAllProductsFromProduct.bind(this);
+
     }
 
     componentDidMount() {
-        this.getAllProducts();
+
+        // this.getAllProducts();
+        this.getAllProductsFromProduct();
+
     }
 
-    getAllProducts() {
+    buyBytnclicked(id){
+        console.log(id)
+        console.log(this.state.customerId)
+
+
+        axios.post(`http://localhost:8080/CartController/CartItems/${id}/${this.state.customerId}`);
+
+
+
+
+    }
+
+    getAllProductsFromProduct() {
         axios.get('http://localhost:8080/productController/getAll').then(response => {
 
             this.setState({
-                Product: response.data
+                Product: response.data,
+                id:response.data.id,
             });
         }).catch(function (error) {
             console.log(error);
@@ -46,15 +70,35 @@ class EcommercePage extends Component {
     }
 
 
+
+    //
+    // getAllProducts() {
+    //     axios.get('http://localhost:8080/CartController/getAll').then(response => {
+    //
+    //         this.setState({
+    //             Product: response.data,
+    //             id:response.data.id,
+    //         });
+    //     }).catch(function (error) {
+    //         console.log(error);
+    //     })
+    // }
+
+
+
     render() {
         return (
+
             <MDBContainer>
                 <MDBRow className={"py-5" }>
                     {this.state.Product.map( item =>
+
+
+
                         <div className={"col-4"}>
                             {/*heading*/}
                             {/*<h2 className='h1-responsive font-weight-bold text-center my-5'></h2>*/}
-                            <MDBCard narrow ecommerce className="mb-5 cardStyle" key={item.id} style={{width:'18rem',borderRadius:'2px', boxShadow:'2px 1px 10px rgba(0,0,0,0.5'}}>
+                            <MDBCard narrow ecommerce className="mb-5 cardStyle"  style={{width:'18rem',borderRadius:'2px', boxShadow:'2px 1px 10px rgba(0,0,0,0.5'}}>
 
                                 {/*image */}
                                 <MDBCardImage className={"p-2"}
@@ -96,8 +140,8 @@ class EcommercePage extends Component {
                                         </span>
                                 </div>
 
-                                <button type="button" className="btn btn-outline-warning waves-effect m-2"><i
-                                    className='black-text fa fa-briefcase mr-3'/>BUY NOW
+                                <button type="button" className="btn btn-outline-warning waves-effect m-2" onClick={this.buyBytnclicked.bind(this,item.id)} ><i
+                                    className='black-text fa fa-briefcase mr-3'  />BUY NOW
                                 </button>
                             </MDBCard>
                         </div>
@@ -107,39 +151,9 @@ class EcommercePage extends Component {
 
 
 
-            // this.state.Product.map(item => {
-            //     console.log(item)
-            //
-            //
-            //     return (
-            //
-            //             <MDBContainer>
-            //
-            //                 {/*heading*/}
-            //                 <h2 className='h1-responsive font-weight-bold text-center my-5'></h2>
-            //
-            //                 {/*start item*/}
-            //                 <MDBRow  >
-            //                     <MDBCol >
-            //
-            //
-            //
-            //                     </MDBCol>
-            //                     {/*end of item card*/}
-            //                 </MDBRow>
-            //                 {/*ist row eke end eka*/}
-            //
-            //             </MDBContainer>
-            //
-            //
-            //     )
-            //
-            //
-            // })
-
         );
     }
 
 }
 
-export default EcommercePage;
+export default withRouter(EcommercePage) ;

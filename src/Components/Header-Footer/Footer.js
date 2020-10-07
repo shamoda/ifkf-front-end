@@ -8,8 +8,8 @@ class Footer extends Component {
         let fullYear = new Date().getFullYear();
 
         return ( 
-            <Navbar fixed="bottom" bg="dark" variant="dark">
-                <Container>
+            <Navbar  bg="dark" variant="dark">
+                <Container  >
                     <Col lg={12} className="text-center text-muted">
                         <div>{fullYear}-{fullYear+1}, All Rights Reserved by IFKF - Sri Lanka</div>
                     </Col>

@@ -26,16 +26,41 @@ class Login extends Component {
 
     loginClicked() {
         //admin,admin
-        if(this.state.userId === '1234' && this.state.password === '1'){
+        if(this.state.userId === 'OP001' && this.state.password === '1'){
             AuthenticationService.successfulLogin(this.state.userId, 'Shamoda', 'Operator')
             this.props.history.push("/")
             this.setState({showSuccessMsg: true})
             this.setState({hasLoginFailed: false})
         }
+        if(this.state.userId === 'ST001' && this.state.password === '2'){
+            AuthenticationService.successfulLogin(this.state.userId, 'senath', 'Student')
+            this.props.history.push("/")
+            this.setState({showSuccessMsg: true})
+            this.setState({hasLoginFailed: false})
+        }
+        if(this.state.userId === 'IN001' && this.state.password === '3'){
+            AuthenticationService.successfulLogin(this.state.userId, 'minidu', 'Instructor')
+            this.props.history.push("/")
+            this.setState({showSuccessMsg: true})
+            this.setState({hasLoginFailed: false})
+        }
+
         else{
             this.setState({showSuccessMsg: false})
             this.setState({hasLoginFailed: true})
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     
