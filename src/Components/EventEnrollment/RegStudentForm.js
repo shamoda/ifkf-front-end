@@ -38,7 +38,6 @@ class RegStudentForm extends Component {
             icon: "success",
             button: "Ok",
         });
-
         StudentService.insertRegStudent(regStudent)
         .then(() => this.props.history.push('/enrollments'))
     }
