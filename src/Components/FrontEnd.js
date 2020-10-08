@@ -26,11 +26,13 @@ import Payment from "./SHOP/Views/Cart/Payment";
 // import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 import AddEquipment from './Equipment/AddEquipment';
+
 import Attendance from './Attendance/Attendance';
 import PaymentSessions from './Payment/PaymentSessions';
 import PaymentForm from './Payment/PaymentForm';
 import AttendanceMarking from './Attendance/AttendanceMarking';
 import PaymentStatus from './Payment/PaymentStatus';
+
 
 // import Enrollments from './EventEnrollment/Enrollments';
 // import EnrolEvents from './EventEnrollment/EnrolEvents';
@@ -137,7 +139,7 @@ class FrontEnd extends Component {
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
                         {/*<Route path="/Enrollments" component={Enrollments} />*/}
                         {/*<Route path="/EnrollmentForm/:id" component={EnrollmentForm} />*/}
-                        {/*<Route path="/EnrollmentForm" component={EnrollmentForm} />*/}
+                        {/*<Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
 
                         <Route exact path="/events" component={EventsMain} />
                         <Route exact path="/events/list" component={EventList} />
