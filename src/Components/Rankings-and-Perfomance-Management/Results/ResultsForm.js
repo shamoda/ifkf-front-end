@@ -78,6 +78,8 @@ class ResultsForm extends Component {
     submitResultRecord(event){
         event.preventDefault();
 
+        console.log(this.state)
+
         //Form Validations
         if(this.state.examCode === ''){
             this.setState({fErrorMessage:'Please Select a Exam Code to Proceed.', fMessage:null})

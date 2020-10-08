@@ -90,24 +90,24 @@ componentDidMount(){
                 experience:this.state.experience
             };
 
-        if(this.state.instructorId === -1)
-        {
-            swal({
-                title: "New Record Submitted!",
-                icon: "success",
-                button: "ok",
-            });
+        // if(this.state.instructorId === -1)
+        // {
+        //     swal({
+        //         title: "New Record Submitted!",
+        //         icon: "success",
+        //         button: "ok",
+        //     });
 
-           InstructorService.createInstructor(instructor)
-            .then(
-                response => {
+        //    InstructorService.createInstructor(instructor)
+        //     .then(
+        //         response => {
 
-                    this.props.history.push("/instructors")
-                }
+        //             this.props.history.push("/instructors")
+        //         }
 
-            )
-         }
-        else{
+        //     )
+        //  }
+        // else{
 
             swal({
                 title: "Record Updated!",
@@ -116,7 +116,7 @@ componentDidMount(){
             })
 
 
-            InstructorService.updateInstructor(this.state.instructorId,instructor)
+            InstructorService.createInstructor(instructor)
             .then(
 
                 response => {
@@ -126,7 +126,7 @@ componentDidMount(){
             )
 
 
-        }      
+        // }      
 
     }
     

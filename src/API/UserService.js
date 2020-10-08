@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://localhost:8080/api/v1/addusers";
+const USER_API_BASE_URL = "http://localhost:8080/IFKF/addusers";
 
 class UserService{
     getUsers(){
@@ -15,9 +15,7 @@ class UserService{
 
 
     updateUser(id, user){
-
-
-        return axios.put(`http://localhost:8080/api/v1/addusers/${id}`,user)
+        return axios.put(`http://localhost:8080/IFKF/addusers/${id}`,user)
     }
 }
 

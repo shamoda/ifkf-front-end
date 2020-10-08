@@ -106,7 +106,7 @@ class FrontEnd extends Component {
                         <Route path="/students" component={StudentTableComponent}/>
                         <Route path="/addStudent/:id" component={FormComponent} />
                         <Route path="/addStudent" component={FormComponent}/>
-                        <Route path= "/addUser" component={InterfaceComponent}/>
+                        <Route path= "/addUser/:role" component={InterfaceComponent}/>
                         <Route path= "/instructors" component={InstructorTableComponent}/>
                         <Route path="/addInstructor/:id" component={FormInstructorComponent} />
                         <Route path="/addInstructor" component={FormInstructorComponent}/>
