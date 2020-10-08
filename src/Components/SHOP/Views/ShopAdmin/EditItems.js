@@ -11,6 +11,7 @@ import {
     MDBAlert
 } from 'mdbreact';
 import axios from "axios";
+import swal from "sweetalert";
 
 
 class EditItems extends React.Component {
@@ -81,6 +82,14 @@ class EditItems extends React.Component {
 
 
     async handleSubmit(event) {
+        swal({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success",
+            timmer:1,
+        });
+
+
 
         event.preventDefault();
         let formData = new FormData();
@@ -128,11 +137,15 @@ class EditItems extends React.Component {
 
 
     refreshProduct() {
-        if (this.state.id == -1) {
+
+        if (this.state.id === -1) {
             return
         }
+
         axios.get('http://localhost:8080/productController/getDetails/' + this.state.id).then(response => {
+
             console.log(this.state.id)
+
             this.setState({
                 id: this.state.id,
                 productname: response.data.productname,
@@ -145,12 +158,12 @@ class EditItems extends React.Component {
 
 
             });
+
         }).catch(function (error) {
             console.log(error);
         })
 
     }
-
 
 
     render() {

@@ -31,6 +31,7 @@ class AthenticationService {
     }
 
     loggedUserRole() {
+
         let role = sessionStorage.getItem('authenticatedUserRole');
         if(role != null) return role;
         return null;

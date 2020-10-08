@@ -1,6 +1,17 @@
 import React, {Component} from "react";
-import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCardImage} from 'mdbreact';
+import {
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBBtn,
+    MDBCard,
+    MDBCardBody,
+    MDBCardHeader,
+    MDBCardImage,
+    MDBIcon
+} from 'mdbreact';
 import axios from "axios";
+import swal from "sweetalert";
 
 
 
@@ -106,23 +117,33 @@ class UploadItems extends React.Component {
         formData.append('qty',this.state.qty);
         formData.append('price',this.state.price);
 
+        if (this.state.price >0 && this.state.qty>0){
+            axios.post(`http://localhost:8080/productController/product`,formData)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    this.props.history.push('/ViewAll/');
+
+                })
+            axios.put(`http://localhost:8080/productController/update`, formData)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    this.props.history.push('/ViewAll/');
+                })
+        }
+        else {
+            swal("Some thing went wrong!");
+        }
 
 
-        axios.post(`http://localhost:8080/productController/product`,formData)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
-        axios.put(`http://localhost:8080/productController/update`, formData)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
+
+
     }
 
     onchangeFile(e) {
 
-        // if (URL.createObjectURL(e.target.files[0]) !== ' ') {
+
         if (e.target.files.length) {
             this.setState({
                 image: e.target.files[0],
@@ -173,20 +194,17 @@ class UploadItems extends React.Component {
                                                         : ''
                                                 }
 
-                                                {
-                                                    this.state.imageURLValidation ?
-                                                        <button className="btnClass"
-                                                                onClick={this.removePhoto}>Remove</button> : ''
-                                                }
+
 
 
                                             </MDBCol>
+
 
                                         </MDBRow>
                                         <br/>
                                         {/*//display photo*/}
                                         <MDBRow center>
-                                            <MDBCol size="8">
+                                            <MDBCol size="9">
 
                                                 <div className="input-group">
                                                     <div className="input-group-prepend">
@@ -196,6 +214,7 @@ class UploadItems extends React.Component {
                                                     </div>
                                                     <div className="custom-file">
                                                         <input
+                                                            required={true}
                                                             type="file"
                                                             className="custom-file-input"
                                                             id="inputGroupFile01"
@@ -207,6 +226,12 @@ class UploadItems extends React.Component {
                                                         </label>
                                                     </div>
                                                 </div>
+                                            </MDBCol>
+                                            <MDBCol size={"1"}>
+                                                {
+                                                    this.state.imageURLValidation ?
+                                                        <MDBBtn onClick={this.removePhoto}><MDBIcon icon="trash" style={{color: 'red'}}/></MDBBtn> : ''
+                                                }
                                             </MDBCol>
                                         </MDBRow>
 
@@ -227,7 +252,7 @@ class UploadItems extends React.Component {
                                                     Product ID
                                                 </label>
                                                 <input type="text" id="productId" name="id" className="form-control"      value={this.state.id}
-                                                       onChange={this.handleChangeID}/>
+                                                       onChange={this.handleChangeID} required={true}/>
                                                 <br/>
                                                 <label htmlFor="productQTY" className="grey-text">
                                                     Product QTY
