@@ -1,0 +1,59 @@
+.box{
+
+    background-color:rgba(0, 0, 0, 0.733);
+    
+    overflow: hidden;
+    height: 200px;
+   
+    max-height: 35vh;
+   
+     box-shadow: 0px 12px 18px -6px rgba(0,0,0,0.3) ;
+
+}
+
+.box{
+
+    margin-left: 100px;
+    margin-right:0px;
+    margin-top: 80px;
+}
+
+     .grid{
+
+        min-height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+
+     }
+
+     .grid > div{
+
+        flex-basis: calc(20% - 40px);
+
+     }
+
+     .card-btn{
+
+        margin-left: 10%;
+        margin-top: 20%;
+
+
+     }
+
+     .card-text{
+
+        margin-left: 20px;
+        margin-top: 10px;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: white;
+
+
+     }
+
+     .Equi-form{
+
+        margin-top: 40px;
+
+     }
