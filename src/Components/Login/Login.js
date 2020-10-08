@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 import './Login.css'
 import { Link } from 'react-router-dom';
 import AuthenticationService from '../Authentication/AuthenticationService';
+import AthenticationDataService from '../Authentication/AuthenticationDataService';
 
 class Login extends Component {
 
@@ -25,42 +26,27 @@ class Login extends Component {
     }
 
     loginClicked() {
-        //admin,admin
-        if(this.state.userId === 'OP001' && this.state.password === '1'){
-            AuthenticationService.successfulLogin(this.state.userId, 'Shamoda', 'Operator')
-            this.props.history.push("/")
-            this.setState({showSuccessMsg: true})
-            this.setState({hasLoginFailed: false})
-        }
-        if(this.state.userId === 'ST001' && this.state.password === '2'){
-            AuthenticationService.successfulLogin(this.state.userId, 'senath', 'Student')
-            this.props.history.push("/")
-            this.setState({showSuccessMsg: true})
-            this.setState({hasLoginFailed: false})
-        }
-        if(this.state.userId === 'IN001' && this.state.password === '3'){
-            AuthenticationService.successfulLogin(this.state.userId, 'minidu', 'Instructor')
-            this.props.history.push("/")
-            this.setState({showSuccessMsg: true})
-            this.setState({hasLoginFailed: false})
-        }
-
-        else{
-            this.setState({showSuccessMsg: false})
-            this.setState({hasLoginFailed: true})
-        }
-
-
-
-
-
-
-
-
-
-
-
-
+        AthenticationDataService.getUser(this.state.userId)
+            .then(
+                response => {
+                    if(response.data != null){
+                        if(this.state.password === response.data.password){
+                            AuthenticationService.successfulLogin(response.data.userId, 'Name', response.data.role)
+                            this.props.history.push("/")
+                            this.setState({showSuccessMsg: true})
+                            this.setState({hasLoginFailed: false})
+                        }
+                        else{
+                            this.setState({showSuccessMsg: false})
+                            this.setState({hasLoginFailed: true})
+                        }
+                    }
+                    else{
+                        this.setState({showSuccessMsg: false})
+                        this.setState({hasLoginFailed: true})
+                    }
+                }
+            )
     }
 
     
@@ -68,6 +54,11 @@ class Login extends Component {
 
 
         return ( 
+            <Container style={{width:600}}>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             <div className="form">
                 <Form>
                     <Form.Label style={{fontWeight:"bold", fontSize:30, paddingBottom:20}}>LOGIN</Form.Label>
@@ -97,6 +88,10 @@ class Login extends Component {
                     </Form.Group>
                 </Form>
             </div>
+                <br></br>
+                <br></br>
+                <br></br>
+            </Container>
          );
     }
 }

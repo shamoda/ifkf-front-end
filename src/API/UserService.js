@@ -11,7 +11,13 @@ class UserService{
         return axios.post(USER_API_BASE_URL,user);
     }
 
-    
+    getStudentId(){
+        return axios.get("http://localhost:8080/api/v1/students/id");
+    }
+
+    getInstructorId(){
+        return axios.get("http://localhost:8080/api/v1/instructors/id");
+    }
 
 
     updateUser(id, user){

@@ -7,6 +7,7 @@ import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
+import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
 import StudentList from './Rankings-and-Perfomance-Management/Student List/StudentList';
 import StudentReport from './Rankings-and-Perfomance-Management/Student Report/StudentReport';
 import Rankings from './Rankings-and-Perfomance-Management/Rankings/Rankings';
@@ -19,7 +20,6 @@ import AddItem from './SHOP/Views/ShopAdmin/AddItem'
 import ProductList from "./SHOP/Views/ShopAdmin/ProductList";
 import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 
-import AddEquipment from './Equipment/AddEquipment';
 import OrderList from "./SHOP/Views/ShopAdmin/OrderList";
 import Payment from "./SHOP/Views/Cart/Payment";
 
