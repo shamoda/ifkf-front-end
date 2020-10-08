@@ -14,7 +14,6 @@ class Enrollments extends Component {
             unregStudent: [],
             regStudent: [],
             filterkyu:'',
-            filterweight:'',
             search: ''
 
             // dob: moment(new Date()).format('YYYY-MM-DD')
@@ -102,28 +101,41 @@ class Enrollments extends Component {
             .then(
                 response => {
                     if(response.data.length >= 1){
-                        this.setState({students : response.data})
+                        this.setState({unregStudent : response.data})
+                        console.log(response.data.name)
                     }
                 }
             )
         }
+        console.log("print")
     }
 
-    searchChange =() =>{
-        this.setState({search: this.state.search});
-    };
+    // searchChange =() =>{
+    //     this.setState({search: this.state.search});
+    // };
 
-    filterChangeKyu = () =>{
-        this.setState({kyu: this.state.filterkyu});
+
+    searchChange = event =>{
+        this.setState({
+            search : event.target.value
+        });
+
+        console.log(this.state.search);
+    }
+
+    filterChangeKyu = event =>{
+        this.setState({filterkyu: event.target.value});
+        console.log(this.state.filterkyu)
     };
 
     filterData = () =>{
         if(this.state.kyu !== '' || this.state.weight !== ''){
-            StudentService.filterByKyu(this.state.kyu)
+            StudentService.filterByKyu(this.state.filterkyu)
             .then(
                 response => {
                     if(response.data.length >= 1){
                         this.setState({unregStudent: response.data})
+                        console.log("filter by kyu")
                     }
                 }
             )
@@ -166,7 +178,7 @@ class Enrollments extends Component {
                             <Form.Row>
                             <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Kyu: </Form.Label>                              
-                            <Form.Control as={"select"} autoComplete="off" onChange={this.filterChangeKyu} className={"bg-dark text-white"} >
+                            <Form.Control as={"select"} autoComplete="off" value={this.state.filterkyu} onChange={this.filterChangeKyu} className={"bg-dark text-white"} >
                                 <option value={" "} >---All---</option>
                                 <option value={"10,9,8,7"}>10 09 08 07</option>
                                 <option value={"6,5,4"}>06 05 04</option>
@@ -177,7 +189,7 @@ class Enrollments extends Component {
                                     <Button size="sm" variant="outline-primary" onClick={() => this.filterData()}><FontAwesomeIcon icon={faSearch} /></Button>
                                     <Button size="sm" variant="outline-primary" onClick={() => this.canselFilter()}><FontAwesomeIcon icon={faTimes} /></Button>
                             </ButtonGroup>
-                            <Form.Control style={searchBox} autoComplete="off" placeholder="Search" name="search" value={this.search} className="bg-dark text-white" onChange={this.searchChange}  />&nbsp;
+                            <Form.Control style={searchBox} autoComplete="off" placeholder="Search" name="search" value={this.state.search} className="bg-dark text-white" onChange={this.searchChange}  />&nbsp;
                                     <InputGroup.Append>
                                         <Button size="sm" variant="outline-primary" type="button" onClick={this.searchData}><FontAwesomeIcon icon={faSearch} /></Button>&nbsp;
                                         <Button size="sm" variant="outline-danger" type="button" onClick={this.cancelSearch}><FontAwesomeIcon icon={faTimes}  /></Button>
@@ -264,6 +276,7 @@ class Enrollments extends Component {
                             <th>DOB</th>
                             <th>Weight</th>
                             <th>kyu</th>
+                            <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -271,13 +284,14 @@ class Enrollments extends Component {
                                 this.state.regStudent.map(
                                     regstd=>
                                     <tr key = {regstd.enrollId}>
+                                        <td>{regstd.enrollId}</td>
                                         <td>{regstd.studId}</td>
                                         <td>{regstd.name}</td>
-                                        <td>{moment(regstd.dob).format('YYYY-MM-DD')}</td><td>{regstd.dob}</td>
+                                        <td>{moment(regstd.dob).format('YYYY-MM-DD')}</td>
                                         <td>{regstd.weight}</td>
                                         <td>{regstd.kyu}</td>
                                         <ButtonGroup>
-                                            <Button size="sm" variant="outline-danger" onClick={() => this.deleteRegStudent(regstd.id)}><FontAwesomeIcon icon={faTrash} /></Button>
+                                            <Button size="sm" variant="outline-danger" onClick={() => this.deleteRegStudent(regstd.enrollId)}><FontAwesomeIcon icon={faTrash} /></Button>
                                         </ButtonGroup>
                                         </tr>
                                 )

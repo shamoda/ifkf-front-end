@@ -40,6 +40,7 @@ class RegStudentForm extends Component {
         });
         StudentService.insertRegStudent(regStudent)
         .then(() => this.props.history.push('/enrollments'))
+        console.log("Push")
     }
 
     studChange = stud =>{

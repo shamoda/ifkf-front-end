@@ -131,7 +131,7 @@ class EnrollmentForm extends Component {
     render() { 
 
 
-        const {id,name,address,nic,dob,weight,kyu,phone,email,guardianName,guardianPhone} = this.state
+        const {name,address,nic,dob,weight,kyu,phone,email,guardianName,guardianPhone} = this.state
 
         return ( 
             <div>

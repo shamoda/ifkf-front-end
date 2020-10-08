@@ -53,7 +53,7 @@ class StudentService{
 
     //insert new registerd student details to the system database
     insertRegStudent(RegStudent){
-        return axios.post('http://localhost:8080/regStudent', RegStudent)
+        return axios.post('http://localhost:8080/regStudent/insert', RegStudent)
     }
 
     //their is no update part
