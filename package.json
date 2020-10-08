@@ -28,12 +28,10 @@
     "react-moment": "^0.9.7",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-
     "react-scripts": "^3.4.3",
     "react-search-box": "^2.0.2",
     "styled-components": "^5.1.1",
     "sweetalert": "^2.1.2"
-
   },
   "scripts": {
     "start": " react-scripts start",
