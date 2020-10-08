@@ -13,15 +13,20 @@ import {
     from 'mdbreact';
 import {BrowserRouter as Router} from 'react-router-dom'
 import Nav from "react-bootstrap/Nav";
+import OrderList from "./OrderList";
 
 
 class AdminDashboard extends Component {
+
     state = {
         collapseID: ''
     }
 
     toggleCollapse = collapseID => () => {
         this.setState(prevState => ({collapseID: (prevState.collapseID !== collapseID ? collapseID : '')}));
+    }
+    componentDidMount() {
+        // this.setState({test:1})
     }
 
     render() {
@@ -51,7 +56,7 @@ class AdminDashboard extends Component {
                                         <Nav><Nav.Link href="/ViewAll">View All Produts</Nav.Link></Nav>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="/Sales">Orders</MDBNavLink>
+                                        <Nav><Nav.Link href="/OrderList">OrderList</Nav.Link></Nav>
                                     </MDBNavItem>
                                 </MDBNavbarNav>
                             </MDBCollapse>
