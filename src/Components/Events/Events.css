@@ -1,0 +1,86 @@
+/*unvisited link*/
+.link {
+    color: #3c3c3c;
+    text-decoration: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: box-shadow .3s ease-in-out;
+}
+
+/*hover over link*/
+.link:hover {
+    color: #000000;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/*card shadow*/
+.shadowC {
+
+
+}
+
+/*date card styles*/
+.date {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 1px 2px 4px #808080;
+}
+
+/*event description style*/
+.description {
+    padding: 50px 40px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 3px 5px 2px rgba(0,0,0,0.1);
+}
+
+/*hover over download*/
+.download {
+    color: #000000;
+}
+.download:hover {
+    color: #0a47ac;
+    cursor: pointer;
+}
+
+/*Event List Table*/
+th{
+    background-color: #252c30;
+    color: #fff;
+}
+.tableFixHead, thead, th {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+.tableFixHead {
+    height: 500px;
+    overflow-y: auto;
+}
+
+/*Date picker*/
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    border-radius: 0 5px 5px 0;
+}
+
+/*override original width*/
+.react-datepicker__input-container input {
+    width: 120%;
+}
+
+/*override original style by 1px*/
+.react-datepicker__input-time-container .react-datepicker-time__input-container .react-datepicker-time__input input {
+    width: 90px !important;
+}
+
+

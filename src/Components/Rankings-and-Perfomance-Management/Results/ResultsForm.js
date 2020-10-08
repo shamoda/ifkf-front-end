@@ -78,6 +78,42 @@ class ResultsForm extends Component {
     submitResultRecord(event){
         event.preventDefault();
 
+        //Form Validations
+        if(this.state.examCode === ''){
+            this.setState({fErrorMessage:'Please Select a Exam Code to Proceed.', fMessage:null})
+            return
+        }
+        if(moment(this.state.date).isSameOrBefore(new Date())){
+            this.setState({fErrorMessage:'Please Select a Valid Upcoming Date to Proceed.', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.kihon, 10) > 20){
+            this.setState({fErrorMessage:'Please enter Kihon marks out of 20', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.combinations, 10) > 20){
+            this.setState({fErrorMessage:'Please enter Combinations marks out of 20', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.kata, 10) > 20){
+            this.setState({fErrorMessage:'Please enter Kata marks out of 20', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.kumite, 10) > 20){
+            this.setState({fErrorMessage:'Please enter Kumite marks out of 20', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.generalKnowledge, 10) > 50){
+            this.setState({fErrorMessage:'Please enter General Knowledge marks out of 50', fMessage:null})
+            return
+        }
+        if(parseInt(this.state.theory, 10) > 50){
+            this.setState({fErrorMessage:'Please enter Theory marks out of 50', fMessage:null})
+            return
+        }
+        
+
+
         if (this.state.resultsId === -1) {
 
             let result = {
@@ -97,10 +133,10 @@ class ResultsForm extends Component {
                 .then(
                     response => {
                         setTimeout(() => {
-                            this.props.history.push('/')
+                            this.props.history.push('/studentperformance')
                         }, 2000)
                         this.setState({fMessage : "Result Record Added Successfully."})
-                        this.setState({studentId:'', examCode:'', date:moment(new Date()).format('YYYY-MM-DD'), kihon:'', combinations:'', kata:'', kumite:'', generalKnowledge:'', theory:''})
+                        this.setState({studentId:'', examCode:'', date:moment(new Date()).format('YYYY-MM-DD'), kihon:'', combinations:'', kata:'', kumite:'', generalKnowledge:'', theory:'', fErrorMessage:null})
                     }
                 )
         }else{
@@ -123,10 +159,10 @@ class ResultsForm extends Component {
                 .then(
                     response => {
                         setTimeout(() => {
-                            this.props.history.push('/')
+                            this.props.history.push('/studentperformance')
                         }, 2000)
                         this.setState({fMessage : "Result Record Updated Successfully."})
-                        this.setState({studentId:'', examCode:'', date:moment(new Date()).format('YYYY-MM-DD'), kihon:'', combinations:'', kata:'', kumite:'', generalKnowledge:'', theory:''})
+                        this.setState({studentId:'', examCode:'', date:moment(new Date()).format('YYYY-MM-DD'), kihon:'', combinations:'', kata:'', kumite:'', generalKnowledge:'', theory:'', fErrorMessage:null})
                     }
                 )
         }
@@ -159,8 +195,11 @@ class ResultsForm extends Component {
         return ( 
 
             <div>
+            <br></br>
+            <br></br>
                 <Container>
                     {this.state.fMessage && <Alert variant="success">{this.state.fMessage}</Alert>}
+                    {this.state.fErrorMessage && <Alert variant="danger">{this.state.fErrorMessage}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><FontAwesomeIcon icon={this.state.resultsId !== -1 ? faEdit : faPlusSquare} /> {this.state.resultsId !== -1 ? "Update Result Record" : "Add New Result Record"}</Card.Header>
                     <Form onReset={this.resetResultRecord} onSubmit={this.submitResultRecord} id="bookFormId" method="post">
@@ -232,7 +271,11 @@ class ResultsForm extends Component {
                     </Form>
                     </Card>
                 </Container>
+                <br></br>
+            <br></br>
             </div>
+            
+
 
          );
     }
