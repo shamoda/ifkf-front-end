@@ -219,8 +219,6 @@ class EquipmentDashboard extends Component {
           
     render() { 
     
-     
-       
 
         const {type,supplier,quantity,brand,search} = this.state
 
@@ -232,16 +230,14 @@ class EquipmentDashboard extends Component {
             marginTop:"10PX"
         }
 
-     
-        
+
     return (  
         <div>
           <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:64}}>
-               <h1 >Equipment Dashboard</h1>
+               <h1>Equipment Dashboard</h1>
        </div>
-               <Button variant="secondary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/donations" style={{color:"black",textDecoration: 'none'}}>Add Donations</a> </Button>{' '}
-            
-               <Button variant="primary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/Showrequests" style={{color:"black",textDecoration: 'none'}}>Check Requests</a> </Button>{' '}
+               <Button variant="secondary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:200}} ><a href="/donations" style={{color:"black",textDecoration: 'none'}}>Add Donations</a> </Button>
+               <Button variant="primary" style={{marginLeft: 100,marginTop:10,marginBottom:20,width:200}} ><a href="/Showrequests" style={{color:"black",textDecoration: 'none'}}>Check Requests</a> </Button>{' '}
 
 
 
@@ -255,7 +251,7 @@ class EquipmentDashboard extends Component {
                   <Form onSubmit={this.onSubmitRecords} id="FormId"  method ="post">
                   <Card.Body>
                   
-                      <Form.Row>
+                  <Form.Row>
                         
 
                           <Form.Group as={Col} controlId="formGridAuthor" >
