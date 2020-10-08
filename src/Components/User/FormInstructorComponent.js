@@ -47,7 +47,9 @@ componentDidMount(){
         else{
 
             InstructorService.retrieveInstructor(this.state.instructorId)
-            .then( response => this.setState ({
+            .then( response => {
+                if(response.data != null){
+                this.setState ({
 
                 instructorId: this.state.instructorId,
                 name:response.data.name,
@@ -60,7 +62,10 @@ componentDidMount(){
                 phoneNo:response.data.phoneNo,
                 qualifications:response.data.qualifications,
                 experience:response.data.experience
-            }))
+            })}
+        }
+            
+            )
         }
     }
 
