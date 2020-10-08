@@ -19,7 +19,7 @@ class InstructorTableComponent extends Component {
     }
 
     addInstructor(){
-        this.props.history.push(`/addUser/`);
+        this.props.history.push(`/addUser/instructor`);
     }
 
     componentDidMount(){

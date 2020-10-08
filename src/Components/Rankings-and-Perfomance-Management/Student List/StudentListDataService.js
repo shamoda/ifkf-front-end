@@ -3,7 +3,7 @@ import axios from 'axios'
 class StudentListDataService{
 
     retrieveAllStudents(){
-        return axios.get('http://localhost:8080/students/all');
+        return axios.get('http://localhost:8080/api/v1/students');
     }
 
     searchStudent(searchText){

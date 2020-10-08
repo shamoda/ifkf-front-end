@@ -20,7 +20,7 @@ class StudentTableComponent extends Component {
     }
 
     addStudent(){
-        this.props.history.push(`/addUser/`);
+        this.props.history.push(`/addUser/student`);
     }
 
     componentDidMount(){

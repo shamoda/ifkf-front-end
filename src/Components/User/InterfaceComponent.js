@@ -10,7 +10,7 @@ class InterfaceComponent extends Component {
 
         this.state = {
             userId: '',
-            role:'',
+            role:this.props.match.params.role,
             password:''
         }
         this.SubmitUser = this.SubmitUser.bind(this);
@@ -29,35 +29,37 @@ class InterfaceComponent extends Component {
                 
             };
 
-        if(this.state.userId === -1)
-        {
+        console.log(user)
+
+        // if(this.state.userId === -1)
+        // {
+        //     UserService.createUser(user)
+        //     .then(
+        //         response => {
+
+        //             this.props.history.push("/addStudent")
+        //         }
+
+        //     )
+        //  }
+        // else{
+
             UserService.createUser(user)
-            .then(
-                response => {
-
-                    this.props.history.push("/addStudent")
-                }
-
-            )
-         }
-        else{
-
-            UserService.updateUser(this.state.userId,user)
             .then(
 
                 response => {
                     if(this.state.role === "student")
                    { 
-                       this.props.history.push("/addStudent")
+                       this.props.history.push('/addStudent/'+this.state.userId)
                     }
                     else{
-                        this.props.history.push("/addInstructor")
+                        this.props.history.push('/addInstructor/'+this.state.userId)
                     }
                 }
             )
 
 
-        }      
+        // }      
 
     }
     
@@ -86,7 +88,7 @@ class InterfaceComponent extends Component {
                             <Form.Group as={Row} controlId="formHorizontalRole">
                                 <Form.Label column sm={2}>Role</Form.Label>
                                 <Col sm={10}>
-                                <Form.Control type="text" name ="role"  placeholder="Role" value ={role} onChange ={this.UserChange} />
+                                <Form.Control type="text" name ="role"  placeholder="Role" value ={role} onChange ={this.UserChange} readOnly />
                                 </Col>
                             </Form.Group>
 
