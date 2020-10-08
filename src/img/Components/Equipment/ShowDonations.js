@@ -76,8 +76,8 @@ class ShowDonations extends Component {
         EquipmentDataService.retrieveDonation(id)
 
             .then(response => this.setState({
-                id: response.data.donate_ID,
-                date: moment(response.data.Donate_date).format('YYYY-MM-DD'),
+                id: response.data.donateID,
+                date: moment(response.data.donateDate).format('YYYY-MM-DD'),
                 quantity: response.data.quantity,
                 sessionID: response.data.equipment.id,
                 equipmentID: response.data.sessions.id
@@ -249,12 +249,12 @@ class ShowDonations extends Component {
 
                                         </tr> :
                                         currentDonations.map((donations) => (
-                                            <tr key={donations.donate_ID} align="center">
-                                                <td>{donations.donate_ID}</td>
-                                                <td>{moment(donations.donate_Date).format('YYYY-MM-DD')}</td>
+                                            <tr key={donations.donateID} align="center">
+                                                <td>{donations.donateID}</td>
+                                                <td>{moment(donations.donateDate).format('YYYY-MM-DD')}</td>
                                                 <td>{donations.quantity}</td>
                                                 <td>{donations.equipment.type}</td>
-                                                <td>{donations.sessions.id}</td>
+                                                <td>{donations.sessions.sessionId}</td>
 
 
                                             </tr>

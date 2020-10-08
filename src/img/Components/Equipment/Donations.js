@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup ,InputGroup, FormControl,Alert} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import EquipmentDataService from '../../API/EquipmentDataService'
-import {faSave, faList, faEdit, faTrash,faPlusSquare, faUndo,faSearch,faTimes} from '@fortawesome/free-solid-svg-icons'
+import {faSave, faList, faEdit, faTrash,faPlusSquare, faUndo,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from "react-router-dom";
 import moment from 'moment'
 import {faStepBackward, faFastBackward, faStepForward, faFastForward} from '@fortawesome/free-solid-svg-icons';
@@ -86,6 +86,16 @@ class Donations extends Component {
          )
      }
 
+     downloadReportClicked = () => {
+     
+        EquipmentDataService. downloadReport()
+            .then(
+                response => {
+                    this.setState({message : response.data,Errormessage:''})
+                }
+            )
+    };
+
       retrieveDonations(id){
 
      
@@ -93,11 +103,11 @@ class Donations extends Component {
         EquipmentDataService.retrieveDonation(id)
 
          .then(response => this.setState({
-                 id:  response.data.donate_ID,
-                 date: moment(response.data.Donate_date).format('YYYY-MM-DD'),
+                 id:  response.data.donateID,
+                 date: moment(response.data.donateDate).format('YYYY-MM-DD'),
                  quantity: response.data.quantity,
                  equipmentID:response.data.equipment.id,
-                 sessionID : response.data.sessions.id
+                 sessionID : response.data.sessions.sessionId
                
          }))  
 
@@ -130,14 +140,12 @@ class Donations extends Component {
                 let don = {
                    
                     quantity: this.state.quantity,
-                    donate_Date : this.state.date,
+                    donateDate : this.state.date,
                     equipment :
                         {id : this.state.equipmentID},
-                    
                     sessions :
-                        {id : this.state.sessionID}
-                    
-                    
+                        {sessionId : this.state.sessionID}
+                         
                 };   
                
                 EquipmentDataService.CreateDonations(don)
@@ -154,14 +162,14 @@ class Donations extends Component {
             else{
 
                 let don = {
-                    donate_ID : this.state.id,
+                    donateID : this.state.id,
                     quantity: this.state.quantity,
-                    donate_Date : this.state.date,
+                    donateDate : this.state.date,
                     equipment :
                         {id : this.state.equipmentID},
                     
                     sessions :
-                        {id : this.state.sessionID}
+                        {sessionId : this.state.sessionID}
                     
                     
                 };   
@@ -327,8 +335,8 @@ class Donations extends Component {
 
                             <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Equipment Type</Form.Label>
-                            <Form.Control as="select" name="equipmentID" value={equipmentID} onChange={this.EquiChange}  required autoComplete="off" placeholder="Equipment " className={"bg-dark text-white"} >
-                          {this.state.optionList}
+                            <Form.Control as="select" name="equipmentID" value={equipmentID} onChange={this.EquiChange}  autoComplete="off" placeholder="Equipment " className={"bg-dark text-white"} >
+                             {this.state.optionList}
                           </Form.Control>
                             </Form.Group>
 
@@ -357,6 +365,7 @@ class Donations extends Component {
                             <Button variant="info" size="sm" type="reset">
                             <FontAwesomeIcon icon={faUndo} /> Reset
                             </Button>
+                           
                             {/* <Button variant="primary" size="sm" type="button" onClick={this.resultsList.bind()}>
                             <FontAwesomeIcon icon={faSave} /> Results
                             </Button> */}
@@ -411,19 +420,19 @@ class Donations extends Component {
 
                 </tr> :
               currentDonations.map((donations) => (
-                <tr key={donations.donate_ID} align="center">
-                <td>{donations.donate_ID}</td>
-                <td>{moment(donations.donate_Date).format('YYYY-MM-DD')}</td>
+                <tr key={donations.donateID} align="center">
+                <td>{donations.donateID}</td>
+                <td>{moment(donations.donateDate).format('YYYY-MM-DD')}</td>
                 <td>{donations.quantity}</td>
                 <td>{donations.equipment.type}</td>
-                <td>{donations.sessions.id}</td>
+                <td>{donations.sessions.sessionId}</td>
               
                 <td>
 
                <ButtonGroup>
              
-                <Button size="sm" variant="outline-primary"  onClick={() => this.retrieveDonations(donations.donate_ID)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Button size="sm" variant="outline-danger" onClick={() => this.deleteDonationClicked(donations.donate_ID)}><FontAwesomeIcon icon={faTrash} /></Button>
+                <Button size="sm" variant="outline-primary"  onClick={() => this.retrieveDonations(donations.donateID)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Button size="sm" variant="outline-danger" onClick={() => this.deleteDonationClicked(donations.donateID)}><FontAwesomeIcon icon={faTrash} /></Button>
                </ButtonGroup>
         </td>
     </tr>
@@ -437,7 +446,9 @@ class Donations extends Component {
          </Table>
          </Card.Body>
          <Card.Footer style={{"textAlign":"right"}}>
-
+         <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginBottom:10}} onClick={ this.downloadReportClicked.bind()} >
+            <FontAwesomeIcon icon={faFilePdf} /> Download Report
+        </Button>
 
          <div style={{"float":"left"}}>
              Showing Page {currentPage} of {Math.ceil(totalPages)}
