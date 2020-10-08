@@ -6,7 +6,9 @@ import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 
+
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
+import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
 import StudentList from './Rankings-and-Perfomance-Management/Student List/StudentList';
 import StudentReport from './Rankings-and-Perfomance-Management/Student Report/StudentReport';
 import Rankings from './Rankings-and-Perfomance-Management/Rankings/Rankings';
@@ -35,9 +37,7 @@ import EquipmentDashboard from './Equipment/EquipmentDashboard';
 import Donations from './Equipment/Donations';
 import ShowRequests from './Equipment/ShowRequests';
 
-import AddEquipment from './Equipment/AddEquipment';
 
-import Attendance from './Attendance/Attendance';
 import PaymentSessions from './Payment/PaymentSessions';
 import PaymentForm from './Payment/PaymentForm';
 import AttendanceMarking from './Attendance/AttendanceMarking';
