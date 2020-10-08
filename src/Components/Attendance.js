@@ -113,7 +113,7 @@ class Attendance extends Component {
 
                         <Form.Row>
                         <Form.Group as={Col} controlId="formGridAuthor">
-                            <Form.Label>Rank</Form.Label>
+                            <Form.Label>No of Attendance</Form.Label>
                             <Form.Control as="select" name="fRank" className={"bg-dark text-white"}>
                                 <option value="">-- Select --</option>
                                 <option>1</option>
