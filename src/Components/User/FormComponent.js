@@ -44,7 +44,9 @@ componentDidMount(){
         else{
 
             StudentService.retrieveStudent(this.state.studentId)
-            .then( response => this.setState ({
+            .then( response => {
+                if(response.data != null){
+                this.setState ({
 
                 studentId: this.state.studentId,
                 name:response.data.name,
@@ -55,7 +57,9 @@ componentDidMount(){
                 dob:moment(response.data.dob).format('YYYY-MM-DD'),
                 session:response.data.session,
                 phoneNo:response.data.phoneNo
-            }))
+            })}
+        }
+            )
         }
     }
 
