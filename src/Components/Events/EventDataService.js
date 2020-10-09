@@ -30,17 +30,15 @@ class EventDataService {
     }
 
     filterByType(eventType) {
-        return axios.get(`${API_URL}/events/filter/${eventType}`);
+        return axios.get(`${API_URL}/events/type/${eventType}`);
     }
-
-
-    filterByProgress(eventProgress) {
-        return axios.get(`${API_URL}/events/filter/${eventProgress}`);
-    }
-
 
     filterByMonth(eventMonth) {
-        return axios.get(`${API_URL}/events/filter/${eventMonth}`);
+        return axios.get(`${API_URL}/events/month/${eventMonth}`);
+    }
+
+    filterByStatus(eventStatus) {
+        return axios.get(`${API_URL}/events/status/${eventStatus}`);
     }
 
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Table, Col, Row} from 'react-bootstrap';
+import {Button, Table, Col, Row, Badge, InputGroup, ButtonGroup} from 'react-bootstrap';
 import {
     faFileAlt,
     faPenSquare,
@@ -8,7 +8,8 @@ import {
     faTimes,
     faTrashAlt,
     faEdit,
-    faUserPlus
+    faUserPlus,
+    faFilter
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import './Events.css';
@@ -25,14 +26,27 @@ export default class EventList extends Component {
             show: false,
             search: '',
             filterType: 'All',
-            filterMonth: '',
-            filterProgress: ''
+            filterMonth: 'All',
+            filterStatus: 'All'
         }
     }
 
     componentDidMount() {
         this.refreshEventList();
     }
+
+    refreshEventList = () => {
+        EventDataService.retrieveAllEvents().then(
+            response => {
+                this.setState({
+                    events: response.data
+                })
+            }
+        )
+    }
+
+
+
 
     handleSearchDataChange = (event) => {
         event.preventDefault();
@@ -42,14 +56,6 @@ export default class EventList extends Component {
         })
 
         console.log(event.target.value);
-    }
-
-    refreshEventList = () => {
-        EventDataService.retrieveAllEvents().then(
-            response => {
-                this.setState({events: response.data})
-            }
-        )
     }
 
     searchByEvent = (search) => {
@@ -78,8 +84,15 @@ export default class EventList extends Component {
     }
 
 
+
+
     clearFilterData = () => {
-        this.setState({filterType: 'All'});
+        this.setState({
+            filterType: 'All',
+            filterMonth: 'All',
+            filterStatus: 'All',
+            show: false
+        });
         this.refreshEventList();
     }
 
@@ -89,15 +102,16 @@ export default class EventList extends Component {
         this.setState({
             filterType: event.target.value,
             filterMonth: event.target.value,
-            filterProgress: event.target.value,
+            filterStatus: event.target.value
         })
 
         console.log(event.target.value);
     }
 
     filterEventByType = () => {
+
         if (this.state.filterType !== '') {
-            if (this.state.filterType === 'All') {
+            if(this.state.filterType === 'All') {
                 this.refreshEventList();
             } else {
                 EventDataService.filterByType(this.state.filterType).then(
@@ -105,10 +119,49 @@ export default class EventList extends Component {
                         if (response.data.length > 0) {
                             //if records exist
                             this.setState({events: response.data})
-                            this.setState({filterType: ''});
                         } else {
                             //if no records
-                            this.setState({msg: "No items found", show: true})
+                            this.setState({msg: "No items found", filterType:'', show: true})
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    filterEventByMonth = () => {
+        if (this.state.filterMonth !== '') {
+            if(this.state.filterMonth === 'All') {
+                this.refreshEventList();
+            } else {
+                EventDataService.filterByMonth(this.state.filterMonth).then(
+                    response => {
+                        if (response.data.length > 0) {
+                            //if records exist
+                            this.setState({events: response.data})
+                        } else {
+                            //if no records
+                            this.setState({msg: "No items found", filterMonth:'', show: true})
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    filterEventByStatus = () => {
+        if (this.state.filterStatus !== '') {
+            if(this.state.filterStatus === 'All') {
+                this.refreshEventList();
+            } else {
+                EventDataService.filterByStatus(this.state.filterStatus).then(
+                    response => {
+                        if (response.data.length > 0) {
+                            //if records exist
+                            this.setState({events: response.data})
+                        } else {
+                            //if no records
+                            this.setState({msg: "No items found", filterStatus:'', show: true})
                         }
                     }
                 )
@@ -117,13 +170,6 @@ export default class EventList extends Component {
     }
 
 
-    filterEventByMonth = () => {
-
-    }
-
-    filterEventByProgress = () => {
-
-    }
 
 
     deleteEventClicked = (eventId) => {
@@ -156,7 +202,7 @@ export default class EventList extends Component {
 
 
     render() {
-        const {search, filterType, filterMonth, filterProgress, msg, show} = this.state
+        const {search, filterType, filterMonth, filterStatus, msg, show} = this.state
 
         return (
             <div className={"container-fluid"} style={{padding: '30px 80px'}}>
@@ -169,7 +215,7 @@ export default class EventList extends Component {
                         <Row>
                             <Col className={"pt-1"}>{msg}</Col>
                             <Col>
-                                <Button onClick={() => this.setState({show: false})}
+                                <Button onClick={() => this.setState({show: false, filterType: ''})}
                                         style={{
                                             backgroundColor: 'transparent',
                                             borderColor: 'transparent',
@@ -189,44 +235,75 @@ export default class EventList extends Component {
                             <p className={"lead"}>Filter By:</p>
                         </div>
                         <div className={"col"}>
-                            <select id={"type"} className={"form-control"} value={filterType}
-                                    onChange={this.handleFilterDataChange}>
-                                <option value={"All"}>Event Type</option>
-                                <option value={"Tournament"}>Tournament</option>
-                                <option value={"Training Session"}>Training Session</option>
-                                <option value={"Special Events"}>Special Events</option>
-                            </select>
+                            <InputGroup>
+                                <select id={"type"} className={"form-control"} value={filterType}
+                                        onChange={this.handleFilterDataChange}>
+                                    <option value={"All"}>Event Type</option>
+                                    <option value={"Tournament"}>Tournament</option>
+                                    <option value={"Training Session"}>Training Session</option>
+                                    <option value={"Special Events"}>Special Events</option>
+                                </select>
+                                <InputGroup.Append>
+                                    <ButtonGroup>
+                                        <Button variant="info" style={{width: '40px'}} onClick={this.filterEventByType}>
+                                            <FontAwesomeIcon icon={faFilter}/>
+                                        </Button>
+                                        <Button variant="danger" style={{width: '40px'}} onClick={this.clearFilterData}>
+                                            <FontAwesomeIcon icon={faTimes}/>
+                                        </Button>
+                                    </ButtonGroup>
+                                </InputGroup.Append>
+                            </InputGroup>
                         </div>
                         <div className={"col"}>
-                            <select id={"month"} className={"form-control"} value={filterMonth}
-                                    onChange={this.handleFilterDataChange}>
-                                <option value={"All"}>Month</option>
-                                <option value={"01"}>January</option>
-                                <option value={"02"}>February</option>
-                                <option value={"03"}>March</option>
-                                <option value={"04"}>April</option>
-                                <option value={"05"}>May</option>
-                                <option value={"06"}>June</option>
-                                <option value={"07"}>July</option>
-                                <option value={"08"}>August</option>
-                                <option value={"09"}>September</option>
-                                <option value={"10"}>October</option>
-                                <option value={"11"}>November</option>
-                                <option value={"12"}>December</option>
-                            </select>
+                            <InputGroup>
+                                <select id={"month"} className={"form-control"} value={filterMonth}
+                                        onChange={this.handleFilterDataChange}>
+                                    <option value={"All"}>Month</option>
+                                    <option value={"01"}>January</option>
+                                    <option value={"02"}>February</option>
+                                    <option value={"03"}>March</option>
+                                    <option value={"04"}>April</option>
+                                    <option value={"05"}>May</option>
+                                    <option value={"06"}>June</option>
+                                    <option value={"07"}>July</option>
+                                    <option value={"08"}>August</option>
+                                    <option value={"09"}>September</option>
+                                    <option value={"10"}>October</option>
+                                    <option value={"11"}>November</option>
+                                    <option value={"12"}>December</option>
+                                </select>
+                                <InputGroup.Append>
+                                    <ButtonGroup>
+                                        <Button variant="info" style={{width: '40px'}} onClick={this.filterEventByMonth}>
+                                            <FontAwesomeIcon icon={faFilter}/>
+                                        </Button>
+                                        <Button variant="danger" style={{width: '40px'}} onClick={this.clearFilterData}>
+                                            <FontAwesomeIcon icon={faTimes}/>
+                                        </Button>
+                                    </ButtonGroup>
+                                </InputGroup.Append>
+                            </InputGroup>
                         </div>
                         <div className={"col"}>
-                            <select id={"progress"} className={"form-control"}>
-                                <option value={"All"}>Progress</option>
-                                <option value={"Finished"}>Finished</option>
-                                <option value={"notFinished"}>Not Finished</option>
-                            </select>
-                        </div>
-                        <div className={"col-auto pl-0"}>
-                            <Button className={"float-right"} variant={"outline-danger"} type={"submit"}
-                                    style={{width: '46px'}} onClick={this.clearFilterData}>
-                                <FontAwesomeIcon icon={faTimes}/>
-                            </Button>
+                            <InputGroup>
+                                <select id={"progress"} className={"form-control"} value={filterStatus}
+                                        onChange={this.handleFilterDataChange}>
+                                    <option value={"All"}>Status</option>
+                                    <option value={"0"}>Upcoming Events</option>
+                                    <option value={"1"}>Past Events</option>
+                                </select>
+                                <InputGroup.Append>
+                                    <ButtonGroup>
+                                        <Button variant="info" style={{width: '40px'}} onClick={this.filterEventByStatus}>
+                                            <FontAwesomeIcon icon={faFilter}/>
+                                        </Button>
+                                        <Button variant="danger" style={{width: '40px'}} onClick={this.clearFilterData}>
+                                            <FontAwesomeIcon icon={faTimes}/>
+                                        </Button>
+                                    </ButtonGroup>
+                                </InputGroup.Append>
+                            </InputGroup>
                         </div>
                     </div>
 
@@ -267,33 +344,19 @@ export default class EventList extends Component {
                             <th>Description</th>
                             <th>Date & Time</th>
                             <th>Organizer</th>
-                            <th>Finished</th>
+                            <th>Status</th>
                             <th>Edit</th>
                             <th>Enrollment</th>
                         </tr>
                         </thead>
                         <tbody>
                         {
-                            // {this.state.firstTestValue ? <div >First Title</div> :
-                            //      [this.state.someTestValue ? <div>Second Title</div> : [
-                            //                     this.state.thirdValueTest
-                            //                         ? <div>Some Third Title</div>
-                            //                         : <div>Last Title</div>
-                            //                 ]
-                            //         ]
-                            // }
-
                             this.state.events.length === 0 ?
                                 <tr align="center">
                                     <td colSpan="8">No records at the moment</td>
                                 </tr>
 
                                 : [
-                                    [
-                                        this.state.filterType !== 'All' ?
-                                            this.filterEventByType() : ''
-                                    ],
-
                                     this.state.events.map(event =>
                                         <tr key={event.eventId}>
                                             <td>{event.eventName}</td>
@@ -305,12 +368,11 @@ export default class EventList extends Component {
                                             </td>
                                             <td>{event.organizer}</td>
                                             <td>
-                                                <div className={"form-check"} style={{textAlign: 'center'}}>
-                                                    <input className={"form-check-input position-static"} type={"checkbox"}
-                                                           id={"isFinished"}
-                                                           checked={event.isFinished}
-                                                           style={{width: '20px', height: '20px'}}/>
-                                                </div>
+                                                {
+                                                    event.finished === false ?
+                                                        <Badge className={"p-2"} pill variant={"success"} style={{width:'80px'}} >Upcoming</Badge> :
+                                                        <Badge className={"p-2"} pill variant={"warning"} style={{width:'80px'}}>Past</Badge>
+                                                }
                                             </td>
                                             <td>
                                                 <div>
