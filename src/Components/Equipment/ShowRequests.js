@@ -89,8 +89,8 @@ class Requests extends Component {
                  requestDate: moment(response.data.requestDate).format('YYYY-MM-DD'),
                  quantity: response.data.quantity,
                  type:response.data.type,
-                 userID: response.data.instructor.id,
-                 sessionID   : response.data.session.id,
+                 userID: response.data.instructor.instructorId,
+                //  sessionID   : response.data.sessions.session,
                  description : response.data.description,
                  status: response.data.status
             }
@@ -111,11 +111,11 @@ class Requests extends Component {
             status: this.state.status,
             requestDate: this.state.requestDate,
             description: this.state.description,
-            session:
-                { id: this.state.sessionID },
+            // sessions:
+            //     { sessionId: this.state.sessionID },
 
             instructor:
-                { id: this.state.userID }
+                { instructorId: this.state.userID }
 
 
         };
@@ -355,7 +355,7 @@ class Requests extends Component {
                                            
                                             <tr key={request.id} align="center">
                                                 <td>{request.id}</td>
-                                                <td>{request.instructor.fname + ' ' + request.instructor.lname}</td>
+                                                <td>{request.instructor.name}</td>
                                                 <td>{request.type}</td>
                                                 <td>{request.quantity}</td>
                                                 <td>{moment(request.requestDate).format('YYYY-MM-DD')}</td>

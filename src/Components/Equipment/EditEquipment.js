@@ -6,8 +6,6 @@ import {  faEdit,faSave} from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from "react-router-dom";
 
 
-
-
 class EditEquipment extends Component {
     constructor(props){
         super(props)
@@ -18,16 +16,11 @@ class EditEquipment extends Component {
             supplier : '',
             brand:'',
             quantity:''
-
-         
-      
+     
      }
 
      this.refreshEquipment = this.refreshEquipment.bind(this);
-     this.onSubmitRecords = this.onSubmitRecords.bind(this);
-
-
-    
+     this.onSubmitRecords = this.onSubmitRecords.bind(this);  
 
     }
 
@@ -87,7 +80,6 @@ class EditEquipment extends Component {
                 .then(() => this.props.history.push('/equipment'))
                 
            
-
             }
             
         }
@@ -108,8 +100,7 @@ class EditEquipment extends Component {
 
         <div>
 
-
-        <Container>
+         <Container>
             
                 <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header><FontAwesomeIcon icon={faEdit} /> Add Equipment</Card.Header>
