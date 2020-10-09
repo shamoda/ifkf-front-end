@@ -128,6 +128,20 @@ class EnrollmentForm extends Component {
         });
     };
 
+    demoClicked(){
+        this.setState({
+            studId: '00',
+            name: 'Demo',
+            address: 'Demo Address',
+            nic: '0000000000V',
+            weight: '50kg',
+            kyu: '10,9,8,7',
+            phone:'0111111111',
+            email: 'demo@gmail.com',
+            guardianName: 'Demo Guardian',
+            guardianPhone: '0222222222'
+        })
+    }
     render() { 
 
 
@@ -221,6 +235,9 @@ class EnrollmentForm extends Component {
 
             <br/>
             <br />
+            <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}></Button>
+            </Container> 
             <br />
 
             </div>

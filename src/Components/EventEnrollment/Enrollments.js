@@ -260,9 +260,12 @@ class Enrollments extends Component {
     
                 <br>
                 </br>
-            {/* </div>
-
-            <div> */}
+                <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/enrollmentform')}></Button>
+                </Container> 
+                <br>
+                </br>
+            
                 <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header style={{fontSize:'30px'}}><FontAwesomeIcon icon={faList} /> Currant Enrolled IFKF Students For This Event</Card.Header>
@@ -302,6 +305,13 @@ class Enrollments extends Component {
                     </Card>
                 </Container>   
     
+                <br>
+                </br>
+
+                <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/RegStudentForm')}></Button>
+                </Container> 
+            
                 <br />
                 <br />
                 <br/>

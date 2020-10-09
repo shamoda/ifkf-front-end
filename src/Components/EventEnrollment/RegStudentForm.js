@@ -40,7 +40,7 @@ class RegStudentForm extends Component {
         });
         StudentService.insertRegStudent(regStudent)
         .then(() => this.props.history.push('/enrollments'))
-        console.log("Push")
+        // console.log("Push")
     }
 
     studChange = stud =>{
@@ -49,6 +49,14 @@ class RegStudentForm extends Component {
         });
     };
 
+    demoClicked(){
+        this.setState({
+            studId: '00',
+            name: 'Demo',
+            weight: '50kg',
+            kyu: '10,9,8,7'
+        })
+    }
     render() { 
 
 
@@ -117,6 +125,10 @@ class RegStudentForm extends Component {
             <br/>
             <br />
             <br />
+
+            <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}></Button>
+            </Container> 
 
             </div>
         );
