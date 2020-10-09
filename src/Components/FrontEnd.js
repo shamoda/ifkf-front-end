@@ -22,7 +22,7 @@ import ProductList from "./SHOP/Views/ShopAdmin/ProductList";
 import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 
 
-import Attendance from "./Attendance"
+import Attendance from "./Attendance/Attendance"
 import AddEquipment from './Equipment/AddEquipment';
 
 
@@ -42,7 +42,6 @@ import Requests from './Equipment/Requests';
 
 import PaymentSessions from './Payment/PaymentSessions';
 import PaymentForm from './Payment/PaymentForm';
-import AttendanceMarking from './Attendance/AttendanceMarking';
 import PaymentStatus from './Payment/PaymentStatus';
 
 
@@ -63,7 +62,9 @@ import InstructorTableComponent from './User/InstructorTableComponent';
 import FormInstructorComponent from './User/FormInstructorComponent';
 import PaymentTableComponent from './User/PaymentTableComponent';
 import UserComponent from './User/UserComponent';
+
 import PaymentFormComponent from './User/PaymentFormComponent';
+import sessionListattendance from './Attendance/sessionListattendance';
 
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
@@ -125,9 +126,9 @@ class FrontEnd extends Component {
                         <Route path="/equipment" component={AddEquipment} />
 
                         <Route path="/shop" component={ShopHome} />
-
-                        <Route path="/attendance" component={Attendance} />
-                        <Route path="/attendanceList" component={AttendanceMarking} />
+                        <Route path="/attendanceList/:id" component={Attendance} />
+                        <Route path="/attendanceList" component={sessionListattendance} />
+                    
                         <Route path="/payments" component={PaymentSessions}/>
                         <Route path="/addPayment/:id" component={PaymentForm}/>
                         <Route path="/addPayment" component={PaymentForm}/>
@@ -151,7 +152,7 @@ class FrontEnd extends Component {
                         <Route path="/exams" component={GradingExaminations} />
                         <Route path="/resultsform/:id" component={ResultsForm} />
                         <Route path="/results/:studentId" component={Results} />
-                        <Route path="/attendance" component={Attendance} />
+                   
                         {/* <Route path="/shop" component={ShopHome} /> */}
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
                         {/*<Route path="/Enrollments" component={Enrollments} />*/}
