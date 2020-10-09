@@ -5,6 +5,7 @@ import {faList,faEdit,faTrash,faSearch,faTimes} from '@fortawesome/free-solid-sv
 import { } from 'react-router-dom';
 import StudentService from '../../API/StudentService';
 import moment from 'moment'
+import jsPDF from 'jspdf'; import 'jspdf-autotable';
 
 
 class Enrollments extends Component {
@@ -96,6 +97,7 @@ class Enrollments extends Component {
     }
 
     searchData = () => {
+        this.searchDataReg()
         if(this.state.search !== ''){
             StudentService.searchStudent(this.state.search)
             .then(
@@ -104,10 +106,30 @@ class Enrollments extends Component {
                         this.setState({unregStudent : response.data})
                         console.log(response.data.name)
                     }
+                    else{
+                        alert("No results in unregisterd students")
+                    }
                 }
             )
         }
         console.log("print")
+    }
+
+    searchDataReg = () => {
+        if(this.state.search !== ''){
+            StudentService.searchStudentReg(this.state.search)
+            .then(
+                response => {
+                    if(response.data.length >= 1){
+                        this.setState({regStudent : response.data})
+                        console.log(response.data.name)
+                    }else{
+                        alert("No results in registerd students")
+                    }
+                }
+            )
+        }
+        console.log("print Reg")
     }
 
     // searchChange =() =>{
@@ -129,6 +151,7 @@ class Enrollments extends Component {
     };
 
     filterData = () =>{
+        this.filterDataReg()
         if(this.state.kyu !== '' || this.state.weight !== ''){
             StudentService.filterByKyu(this.state.filterkyu)
             .then(
@@ -136,6 +159,26 @@ class Enrollments extends Component {
                     if(response.data.length >= 1){
                         this.setState({unregStudent: response.data})
                         console.log("filter by kyu")
+                    }
+                    else{
+                        alert("No results in unregisterd students")
+                    }
+                }
+            )
+        }
+    }
+
+    filterDataReg = () =>{
+        if(this.state.kyu !== '' || this.state.weight !== ''){
+            StudentService.filterByKyuReg(this.state.filterkyu)
+            .then(
+                response => {
+                    if(response.data.length >= 1){
+                        this.setState({regStudent: response.data})
+                        console.log("filter by kyu Reg")
+                    }
+                    else{
+                        alert("No results in registerd students")
                     }
                 }
             )
@@ -156,6 +199,92 @@ class Enrollments extends Component {
         this.componentDidMount();
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Report generation part starting from here
+    //Unregister student report
+    exportUnregStudPDF = () => {
+        console.log( "SSSSSSSSSS" )
+
+
+        const unit = "pt";
+        const size = "A3"; 
+        const orientation = "landscape"; 
+        const marginLeft = 40;
+        const doc = new jsPDF( orientation, unit, size );
+
+        const title = "IFKF Unregisterd Student Enrollment Report ";
+        const headers = [["Student Id","Name","Address","NIC","DOB","Weight", "KYU","Phone", "E-mail"]];
+
+        const unregStudent = this.state.unregStudent.map(
+            std=>[
+                std.id,
+                std.name,
+                std.address,
+                std.nic,
+                moment(std.dob).format('YYYY-MM-DD'),
+                std.weight,
+                std.kyu,
+                std.phone,
+                std.email
+            ]
+        );
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: unregStudent
+        };
+        doc.setFontSize( 20 );
+        doc.text( title, marginLeft, 40 );
+        require('jspdf-autotable');
+        doc.autoTable( content );
+        doc.save( "IFKFUnregStudentReport.pdf" )
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //registerd student report
+    exportRegStudPDF = () => {
+        console.log( "SSSSSSSSSS" )
+
+
+        const unit = "pt";
+        const size = "A3"; 
+        const orientation = "landscape"; 
+        const marginLeft = 40;
+        const doc = new jsPDF( orientation, unit, size );
+
+        const title = "IFKF Registerd Student Enrollment Report ";
+        const headers = [["Enrollment Id","Student Id","Name","DOB","Weight", "KYU"]];
+
+        const regStudent = this.state.regStudent.map(
+            std=>[
+                std.enrollId,
+                std.studId,
+                std.name,
+                moment(std.dob).format('YYYY-MM-DD'),
+                std.weight,
+                std.kyu
+            ]
+        );
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: regStudent
+        };
+        doc.setFontSize( 20 );
+        doc.text( title, marginLeft, 40 );
+        require('jspdf-autotable');
+        doc.autoTable( content );
+        doc.save( "IFKFUnregStudentReport.pdf" )
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // buttonValueClicked(btn){
     //     this.setState.btnValue = btn;
@@ -261,7 +390,12 @@ class Enrollments extends Component {
                 <br>
                 </br>
                 <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
-                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/enrollmentform')}></Button>
+                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/enrollmentform')}>Add New Unregistered Student</Button>
+                </Container> 
+                <br>
+                </br>
+                <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.exportUnregStudPDF()}>Unregistered Student Report Download Here</Button>
                 </Container> 
                 <br>
                 </br>
@@ -307,16 +441,18 @@ class Enrollments extends Component {
     
                 <br>
                 </br>
-
                 <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
-                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/RegStudentForm')}></Button>
+                        <Button style={{textAlign:"center"}} onClick={() => this.props.history.push('/RegStudentForm')}>Add New Registered Students</Button>
                 </Container> 
-            
-                <br />
-                <br />
-                <br/>
-                <br />
-    
+                <br>
+                </br>
+                <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.exportRegStudPDF()}>Registered Student Report Download Here</Button>
+                </Container> 
+                <br>
+                </br>
+                <br>
+                </br>
             </div>
         );    
     }

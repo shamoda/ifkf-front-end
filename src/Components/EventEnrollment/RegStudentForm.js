@@ -127,9 +127,12 @@ class RegStudentForm extends Component {
             <br />
 
             <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
-                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}></Button>
+                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}>Demo</Button>
             </Container> 
-
+            <br>
+            </br>
+            <br>
+            </br>
             </div>
         );
     }

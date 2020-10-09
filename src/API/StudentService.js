@@ -35,8 +35,16 @@ class StudentService{
         return axios.get(`http://localhost:8080/unregStudent/searchStudent/${name}`);
     }
 
+    searchStudentReg(name){
+        return axios.get(`http://localhost:8080/regStudent/searchStudent/${name}`);
+    }
+
     filterByKyu(kyu){
         return axios.get(`http://localhost:8080/unregStudent/filterKyu/${kyu}`);
+    }
+
+    filterByKyuReg(kyu){
+        return axios.get(`http://localhost:8080/regStudent/filterKyu/${kyu}`);
     }
 
     //Register Student controller part starting from here
