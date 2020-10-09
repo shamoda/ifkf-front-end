@@ -3,7 +3,7 @@ import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, For
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import EquipmentDataService from '../../API/EquipmentDataService';
-import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import "./box.css"
 class EquipmentDashboard extends Component {
@@ -46,6 +46,16 @@ class EquipmentDashboard extends Component {
 
     }
 
+
+    downloadReportClicked = () => {
+     
+        EquipmentDataService.downloadEquipmentreport()
+            .then(
+                response => {
+                    this.setState({message : response.data,Errormessage:''})
+                }
+            )
+    };
 
     UpdateEquipmentClicked(id){  
 
@@ -286,13 +296,15 @@ class EquipmentDashboard extends Component {
                       
                   </Card.Body>
                       <Card.Footer style={{"textAlign":"right"}}>
+                     
                           <Button variant="success" size="sm" type="submit">
                           <FontAwesomeIcon icon={faSave} /> 
                           </Button>{' '}
                           <Button variant="info" size="sm" type="reset">
                           <FontAwesomeIcon icon={faUndo} /> Reset
                           </Button>
-                       
+                          <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginTop:10}} onClick={ this.downloadReportClicked.bind()} >
+                            <FontAwesomeIcon icon={faFilePdf} /> Download Report</Button>
                       </Card.Footer>
                   </Form>
                   </Card>

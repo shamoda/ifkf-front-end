@@ -25,6 +25,8 @@ import Attendance from "./Attendance"
 
 
 import AddEquipment from './Equipment/AddEquipment';
+
+
 import OrderList from "./SHOP/Views/ShopAdmin/OrderList";
 import Payment from "./SHOP/Views/Cart/Payment";
 
@@ -32,11 +34,12 @@ import Payment from "./SHOP/Views/Cart/Payment";
 // import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
 
-
+//Equipments
 import EquipmentDashboard from './Equipment/EquipmentDashboard';
 import Donations from './Equipment/Donations';
 import ShowRequests from './Equipment/ShowRequests';
-
+import ShowDonations from './Equipment/ShowDonations';
+import Requests from './Equipment/Requests';
 
 import PaymentSessions from './Payment/PaymentSessions';
 import PaymentForm from './Payment/PaymentForm';
@@ -104,6 +107,8 @@ class FrontEnd extends Component {
                         <Route path="/equipment" component={EquipmentDashboard} />
                         <Route path="/donations" component={Donations} />
                         <Route path="/Showrequests" component={ShowRequests} />
+                        <Route path="/showDonations" component={ShowDonations} />
+                        <Route path="/requests" component={Requests} />
 
                         <Route path="/login" component={Login} />
 
