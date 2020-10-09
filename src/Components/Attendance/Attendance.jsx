@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import StudentService from '../../API/AttendanceService';
 
 class Attendance extends Component {
     constructor(props){
@@ -15,9 +16,22 @@ class Attendance extends Component {
         this.attendanceList = this.attendanceList.bind(this)
     }
 
-    attendanceList(){
-        this.props.history.push('/attendanceList')
+        componentDidMount() {
+        this.attendanceList()
     }
+
+    // attendanceList() {
+    //     AttendanceService.getAttendance()
+    //         .then(response => {
+    //             this.setState({
+    //                 attendance: response.data
+    //             })
+    //         })
+    // }
+
+    // attendanceList(){
+    //     this.props.history.push('/attendanceList')
+    // }
     render() {
         return (
             <div>
@@ -32,16 +46,14 @@ class Attendance extends Component {
                                     <th>Session ID</th>
                                     <th>Instructor Name</th>
                                     <th>Session Time</th>
-                                    <th>No Of students</th>
-                                    <th>View</th>
-                                    <th>Add Students</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                 this.state.attendance.map(
-                                attendance => 
-                                <tr>
+                                (attendance) => 
+                                <tr key={attendance.attendanceID}>
                                 <td>{attendance.id}</td>
                                 <td>{attendance.instructor}</td>
                                 <td>{attendance.time}</td>

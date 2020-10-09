@@ -20,13 +20,13 @@ class Header extends Component {
         let loggedAsInstructor = false;
         let loggedAsStudent = false;
 
-        if(loggedUserRole != null && loggedUserRole === 'Operator'){
+        if(loggedUserRole != null && loggedUserRole === 'operator'){
             loggedAsOperator = true;
         }
-        if(loggedUserRole != null && loggedUserRole === 'Instructor'){
+        if(loggedUserRole != null && loggedUserRole === 'instructor'){
             loggedAsInstructor = true;
         }
-        if(loggedUserRole != null && loggedUserRole === 'Student'){
+        if(loggedUserRole != null && loggedUserRole === 'student'){
             loggedAsStudent = true;
         }
         
@@ -54,7 +54,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
-                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
+                            <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
                             <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
@@ -65,7 +65,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendance"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
-                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
+                            <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
                             <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
