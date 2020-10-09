@@ -161,7 +161,7 @@ export default class AddEvent extends Component {
                             <Card.Body>
                                 <Form.Group controlId={"formEventName"}>
                                     <Form.Label>Event name</Form.Label>
-                                    <Form.Control type={"text"} name={"eventName"} maxLength="50" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
+                                    <Form.Control type={"text"} name={"eventName"} maxLength="100" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
                                 </Form.Group>
                                 <Form.Row>
                                     <Col className={"mr-3"}>
