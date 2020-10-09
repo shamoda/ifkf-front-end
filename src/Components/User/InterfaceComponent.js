@@ -17,6 +17,29 @@ class InterfaceComponent extends Component {
 
     }
 
+    componentDidMount(){
+
+        if(this.state.role == 'student'){
+        UserService.getStudentId()
+        .then(response => {
+            let temp = parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+            this.setState({
+                userId:'ST0'+temp
+            })
+        })
+        }
+
+        else if(this.state.role == 'instructor'){
+            UserService.getInstructorId()
+            .then(response => {
+            let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+            this.setState({
+                userId:'IN0'+temp
+            })
+        })
+        }
+    }
+
     SubmitUser(event){
 
 
@@ -95,7 +118,7 @@ class InterfaceComponent extends Component {
                             <Form.Group as={Row} controlId="formGridAuthor">
                             <Form.Label column sm={2}>User ID</Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="text" name="userId"  placeholder="User ID"  value ={userId} onChange ={this.UserChange}/>
+                            <Form.Control type="text" name="userId"  placeholder="User ID"  value ={userId} onChange ={this.UserChange} readOnly/>
                             </Col>
                             </Form.Group>
 

@@ -20,13 +20,13 @@ class Header extends Component {
         let loggedAsInstructor = false;
         let loggedAsStudent = false;
 
-        if(loggedUserRole != null && loggedUserRole === 'Operator'){
+        if(loggedUserRole != null && loggedUserRole === 'operator'){
             loggedAsOperator = true;
         }
-        if(loggedUserRole != null && loggedUserRole === 'Instructor'){
+        if(loggedUserRole != null && loggedUserRole === 'instructor'){
             loggedAsInstructor = true;
         }
-        if(loggedUserRole != null && loggedUserRole === 'Student'){
+        if(loggedUserRole != null && loggedUserRole === 'student'){
             loggedAsStudent = true;
         }
         
