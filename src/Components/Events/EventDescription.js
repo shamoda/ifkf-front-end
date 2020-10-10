@@ -16,6 +16,7 @@ export default class EventDescription extends Component {
             eventType: '',
             eventDate: moment(new Date()).format('YYYY-MM-DD'),
             eventTime: moment(new Date()).format('HH:mm'),
+            eventLocation: '',
             organizer: '',
             eventDesc: ''
         }
@@ -36,6 +37,7 @@ export default class EventDescription extends Component {
                         eventType: response.data.eventType,
                         eventDate: moment(response.data.eventDate).format('YYYY-MM-DD'),
                         eventTime: moment(response.data.eventDate).format('HH:mm'),
+                        eventLocation: response.data.eventLocation,
                         organizer: response.data.organizer,
                         eventDesc: response.data.eventDesc
                     })
@@ -44,7 +46,7 @@ export default class EventDescription extends Component {
 
     }
     render() {
-        const {eventName, eventType, eventDate, eventTime, organizer, eventDesc} = this.state
+        const {eventName, eventType, eventDate, eventTime, organizer, eventLocation, eventDesc} = this.state
 
         return(
             <div>
@@ -68,8 +70,7 @@ export default class EventDescription extends Component {
                                     <Card.Body>
                                         <Card.Title>Description</Card.Title>
                                         <Card.Text className="mt-4 download lead">
-                                            <FontAwesomeIcon icon={faFilePdf} style={{color: '#ff0000'}}/>
-                                            &nbsp; "Application.pdf"
+                                            {eventLocation}
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>

@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {Button, Table, Col, Row, Badge, InputGroup, ButtonGroup} from 'react-bootstrap';
 import {
     faFileAlt,
-    faPenSquare,
     faPlus,
     faSearch,
     faTimes,
     faTrashAlt,
-    faEdit,
     faUserPlus,
-    faFilter
+    faFilter, faPen, faCheck
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import './Events.css';
@@ -27,7 +25,10 @@ export default class EventList extends Component {
             search: '',
             filterType: 'All',
             filterMonth: 'All',
-            filterStatus: 'All'
+            filterStatus: 'All',
+            today: moment(new Date()).format('YYYY-MM-DD'),
+            eventDate:'',
+            status:''
         }
     }
 
@@ -171,6 +172,28 @@ export default class EventList extends Component {
 
 
 
+    updateEventStatus = (event, status) => {
+
+        let eventUpdate = {
+            eventId: event.eventId,
+            eventName: event.eventName,
+            eventType: event.eventType,
+            eventDate: event.eventDate,
+            eventTime: event.eventTime,
+            eventLocation: event.eventLocation,
+            organizer: event.organizer,
+            eventDesc: event.eventDesc,
+            bgImgName: event.bgImgName,
+            finished: status
+        }
+
+        EventDataService.updateEvent(eventUpdate).then(
+            response => {
+                this.refreshEventList();
+            }
+        )
+
+    }
 
     deleteEventClicked = (eventId) => {
         EventDataService.deleteEvent(eventId)
@@ -189,8 +212,10 @@ export default class EventList extends Component {
         this.props.history.push(`/events/add/-1`)
     }
 
-    userAddBtnClicked = () => {
-        this.props.history.push(`/EnrollmentForm`)
+    userAddBtnClicked = (eventId) => {
+        console.log(eventId)
+        this.props.history.push(`/${eventId}`)
+        // this.props.history.push(`/EnrollmentForm`)
     }
 
     editBtnClicked = () => {
@@ -344,7 +369,9 @@ export default class EventList extends Component {
                             <th>Description</th>
                             <th>Date & Time</th>
                             <th>Organizer</th>
+                            <th>Location</th>
                             <th>Status</th>
+                            <th>isFinished</th>
                             <th>Edit</th>
                             <th>Enrollment</th>
                         </tr>
@@ -367,6 +394,7 @@ export default class EventList extends Component {
                                                 {moment(event.eventTime, "HH:mm").format("LT")}
                                             </td>
                                             <td>{event.organizer}</td>
+                                            <td>{event.eventLocation}</td>
                                             <td>
                                                 {
                                                     event.finished === false ?
@@ -375,26 +403,36 @@ export default class EventList extends Component {
                                                 }
                                             </td>
                                             <td>
+                                                <ButtonGroup>
+                                                    <Button className={"px-2 py-1"} variant={"success"} type={"submit"} style={{width:'35px'}}
+                                                            onClick={() => this.updateEventStatus((event), 1)}>
+                                                        <FontAwesomeIcon icon={faCheck}/>
+                                                    </Button>
+                                                    <Button className={"px-2 py-1"} variant={"warning"} type={"submit"} style={{width:'35px'}}
+                                                            onClick={() => this.updateEventStatus((event), 0)}>
+                                                        <FontAwesomeIcon icon={faTimes}/>
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </td>
+                                            <td>
                                                 <div>
-                                                    <Button className={"px-2 py-1 mx-1"} variant={"dark"} type={"submit"}
-                                                            onClick={() => this.updateEventClicked(event.eventId)}>
-                                                        <FontAwesomeIcon icon={faPenSquare}/>
-                                                    </Button>
-                                                    <Button className={"px-2 py-1 mx-1"} variant={"dark"} type={"submit"}
-                                                            onClick={() => this.deleteEventClicked(event.eventId)}>
-                                                        <FontAwesomeIcon icon={faTrashAlt}/>
-                                                    </Button>
+                                                    <ButtonGroup>
+                                                        <Button className={"px-2 py-1 "} variant={"warning"} type={"submit"}  style={{width:'35px'}}
+                                                                onClick={() => this.updateEventClicked(event.eventId)}>
+                                                            <FontAwesomeIcon icon={faPen}/>
+                                                        </Button>
+                                                        <Button className={"px-2 py-1 "} variant={"danger"} type={"submit"}  style={{width:'35px'}}
+                                                                onClick={() => this.deleteEventClicked(event.eventId)}>
+                                                            <FontAwesomeIcon icon={faTrashAlt}/>
+                                                        </Button>
+                                                    </ButtonGroup>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div>
                                                     <Button className={"px-2 py-1 mx-1"} variant={"dark"} type={"submit"}
-                                                            onClick={this.userAddBtnClicked}>
+                                                            onClick={() => this.userAddBtnClicked(event.eventId)}>
                                                         <FontAwesomeIcon icon={faUserPlus}/>
-                                                    </Button>
-                                                    <Button className={"px-2 py-1 mx-1"} variant={"dark"} type={"submit"}
-                                                            onClick={this.editBtnClicked}>
-                                                        <FontAwesomeIcon icon={faEdit}/>
                                                     </Button>
                                                 </div>
                                             </td>

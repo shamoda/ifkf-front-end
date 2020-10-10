@@ -16,6 +16,7 @@ export default class AddEvent extends Component {
             eventType: 'Choose...',
             eventDate: moment(new Date()).format('YYYY-MM-DD'),
             eventTime: moment(new Date()).format('HH:mm'),
+            eventLocation: '',
             organizer: '',
             eventDesc: '',
             bgImgName: 'events-bg1',
@@ -40,6 +41,7 @@ export default class AddEvent extends Component {
                         eventType: response.data.eventType,
                         eventDate: moment(response.data.eventDate).format('YYYY-MM-DD'),
                         eventTime: moment(response.data.eventDate).format('HH:mm'),
+                        eventLocation: response.data.eventLocation,
                         organizer: response.data.organizer,
                         eventDesc: response.data.eventDesc,
                         bgImgName: response.data.bgImgName
@@ -93,6 +95,7 @@ export default class AddEvent extends Component {
                     eventType: this.state.eventType,
                     eventDate: this.state.eventDate,
                     eventTime: this.state.eventTime,
+                    eventLocation: this.state.eventLocation,
                     organizer: this.state.organizer,
                     eventDesc: this.state.eventDesc,
                     bgImgName: this.state.bgImgName
@@ -113,6 +116,7 @@ export default class AddEvent extends Component {
                     eventType: this.state.eventType,
                     eventDate: this.state.eventDate,
                     eventTime: this.state.eventTime,
+                    eventLocation: this.state.eventLocation,
                     organizer: this.state.organizer,
                     eventDesc: this.state.eventDesc,
                     bgImgName: this.state.bgImgName
@@ -130,7 +134,7 @@ export default class AddEvent extends Component {
     }
 
     render() {
-        const {eventId, eventName, eventType, eventDate, eventTime, organizer, eventDesc, bgImgName} = this.state
+        const {eventId, eventName, eventType, eventDate, eventTime, organizer, eventLocation, eventDesc, bgImgName} = this.state
 
         return (
             <div>
@@ -188,23 +192,19 @@ export default class AddEvent extends Component {
                                         </Form.Group>
                                     </Col>
                                 </Form.Row>
+                                <Form.Group controlId={"formEventLocation"}>
+                                    <Form.Label>Location</Form.Label>
+                                    <Form.Control type={"text"} name={"eventLocation"} maxLength="200" value={eventLocation} onChange={this.handleDataChange} placeholder={"Enter event location"} required/>
+                                </Form.Group>
                                 <Form.Group controlId={"formEventOrganizer"}>
                                     <Form.Label>Organizer</Form.Label>
-                                    <Form.Control type={"text"} name={"organizer"} maxLength="50" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
+                                    <Form.Control type={"text"} name={"organizer"} maxLength="200" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
                                 </Form.Group>
                                 <Form.Group controlId={"formEventDescription"}>
                                     <Form.Label>Description</Form.Label>
                                     <Form.Control as={"textarea"} rows={"3"} name={"eventDesc"} value={eventDesc} onChange={this.handleDataChange} placeholder={"Enter description here..."} required/>
                                 </Form.Group>
                                 <Form.Row>
-                                    {/* <Col>
-                                        <Form.Group controlId={"formFileInput"}>
-                                            <Form.File id={"eventFileUpload"} label={"File Upload"} ref={this.fileUpload} />
-                                            <Form.Text className="text-muted">
-                                                Please upload one pdf file.
-                                            </Form.Text>
-                                        </Form.Group>
-                                    </Col> */}
                                     <Col className={"mr-3"}>
                                         <Form.Group controlId={"formEventBg"}>
                                             <Form.Label>Choose background Image</Form.Label>
