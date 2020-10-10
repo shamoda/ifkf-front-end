@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Search } from 'react-bootstrap';
+import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Search, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faUndo, faList, faEdit, faTrash, faUsers, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSave, faUndo, faList, faEdit, faTrash, faUsers, faSearch, faTimes, faFilePdf, fMessage } from '@fortawesome/free-solid-svg-icons'
 import PaymentService from '../../API/PaymentService';
 import StudentService from '../../API/StudentService';
 import { withRouter} from 'react-router-dom';
@@ -12,10 +12,13 @@ class PaymentStatus extends Component {
         super(props)
         this.state = {
             studentList: [],
-            search: ''
+            search: '',
+            fMessage: null,
+            message: null
         }
         this.addPayment = this.addPayment.bind(this)
         this.refreshStudentsList = this.refreshStudentsList.bind(this)
+        this.generatePaymentReportClicked = this.generatePaymentReportClicked.bind(this)
     }
 
     componentDidMount() {
@@ -62,6 +65,17 @@ class PaymentStatus extends Component {
     };
 
 
+    generatePaymentReportClicked(studentId){
+        PaymentService.downloadPaymentReport(studentId)
+            .then(
+                response => {
+                    this.setState({message : response.data, fMessage:''})
+                    this.refreshStudentsList();
+                }
+            )
+    }
+
+
 
     render() {
         const {search} = this.state;
@@ -74,6 +88,7 @@ class PaymentStatus extends Component {
 
                 <div>
                     <Container>
+                    {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
                         <Card className={"border border-dark bg-dark text-white"} >
                             <Card.Header>
                             <div style={{float:"left"}}>
@@ -112,8 +127,11 @@ class PaymentStatus extends Component {
                                                 <tr key={student.studentId}>
                                                     <td>{student.studentId}</td>
                                                     <td>{student.name}</td>
-                                                    <td>
-                                                        <Button size="sm" variant="outline-info" onClick={() => this.addPayment(student.studentId)}>Payments  <FontAwesomeIcon icon={faEdit} /></Button>
+                                                    <td style={{textAlign:"center"}}>
+                                                        <ButtonGroup>
+                                                        <Button size="sm" variant="outline-info" onClick={() => this.addPayment(student.studentId)}>Payments  <FontAwesomeIcon icon={faEdit} /></Button>&nbsp;&nbsp;
+                                                        <Button size="sm" variant="outline-light" onClick={() => this.generatePaymentReportClicked(student.studentId)} >Report  <FontAwesomeIcon icon={faFilePdf} /></Button> 
+                                                        </ButtonGroup>
                                                     </td>
                                                 </tr>
                                             ))
@@ -123,6 +141,8 @@ class PaymentStatus extends Component {
                             </Card.Body>
                         </Card>
                     </Container>
+
+                
                 </div>
 
 <br/>
