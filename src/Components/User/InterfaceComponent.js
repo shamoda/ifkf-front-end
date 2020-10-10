@@ -93,13 +93,24 @@ class InterfaceComponent extends Component {
             }); 
             
             }
+
+        demoClicked(){
+                this.setState({
+                    password:'user123'  
+                })
+            }   
+        // demo2Clicked(){
+        //         this.setState({
+        //             password:'in123'  
+        //         })
+        //     }         
     
     render() {
         const{userId,password,role} = this.state
 
         return (
             <div>
-            <div className = "container" >  
+            <div className = "container" style ={{marginTop:40}}>  
 
             
                 <Card className={"border border-dark "}>
@@ -137,7 +148,8 @@ class InterfaceComponent extends Component {
                              Register User
                             </Button> {' '}
                             
-                            
+                            <Button size = "sm" onClick={() => this.demoClicked()}>Demo</Button>
+                            {/* <Button size = "sm" onClick={() => this.demo2Clicked()}>Demo2</Button>     */}
                     </Card.Footer>
                         </Form>
                     </Card>
