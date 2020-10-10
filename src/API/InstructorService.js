@@ -26,6 +26,14 @@ class InstructorService{
     deleteInstructor(id){
         return axios.delete(`http://localhost:8080/api/v1/instructors/${id}`)
     }
+
+    searchInstructor(searchText){
+        return axios.get(`http://localhost:8080/api/v1/instructors/search/${searchText}`);
+      }
+
+      downloadInstructorReport(){
+        return axios.get(`http://localhost:8080/api/v1//instructorReport/`);
+    } 
 }
 
 export default new InstructorService()

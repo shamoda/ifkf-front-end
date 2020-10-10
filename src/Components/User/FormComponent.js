@@ -1,8 +1,9 @@
 import React, { Component} from 'react';
-import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup } from 'react-bootstrap';
+import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup, FormGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import StudentService from '../../API/StudentService';
+import SessionService from '../../API/SessionService';
 import moment from 'moment'
 import swal from 'sweetalert';
 class FormComponent extends Component {
@@ -18,7 +19,8 @@ class FormComponent extends Component {
             email:'',
             nic:'',
             dob: moment(new Date()).format('YYYY-MM-DD'),
-            session:'',
+            sessionId:[],
+            optionList:[],
             phoneNo:''
         }
 
@@ -32,6 +34,18 @@ class FormComponent extends Component {
 componentDidMount(){
 
     this.refreshStudent();
+
+   SessionService.getSessions()
+            .then(
+                response => {
+                    
+                    this.setState({optionList:response.data.map(code =>
+                        <option id="code.sessionId">
+                            {code.sessionId}
+                        </option>
+                    )})
+                }
+            )
 }
 
 
@@ -55,7 +69,7 @@ componentDidMount(){
                 email:response.data.email,
                 nic:response.data.nic, 
                 dob:moment(response.data.dob).format('YYYY-MM-DD'),
-                session:response.data.session,
+                sessionId:response.data.sessionId,
                 phoneNo:response.data.phoneNo
             })}
         }
@@ -82,7 +96,7 @@ componentDidMount(){
                 email:this.state.email,
                 nic:this.state.nic,
                 dob:this.state.dob,
-                session:this.state.session,
+                sessionId:this.state.sessionId,
                 phoneNo:this.state.phoneNo
             };
 
@@ -108,11 +122,11 @@ componentDidMount(){
         //  }
         // else{
 
-            swal({
-                title: "Record Updated!",
-                icon: "success",
-                button: "ok",
-            })
+            // swal({
+            //     title: "Record Updated!",
+            //     icon: "success",
+            //     button: "ok",
+            // })
 
             StudentService.createStudent(student)
             .then(
@@ -137,13 +151,24 @@ componentDidMount(){
         
         }
     
-
+    demoClicked(){
+        this.setState({
+            name:'Nimesha Abesinghe',
+            gender:'Female',
+            address:'Malabe',
+            email:'nimeshaabesinghe@gmail.com',
+            nic:'97452221846V',
+            dob: '1997-05-12',
+            sessionId:'3',
+            phoneNo:'0707654164'
+        })
+    }    
     
     render() {
 
-        const{studentId,name,gender,address,email,nic,dob,session,phoneNo} = this.state
+        const{studentId,name,gender,address,email,nic,dob,sessionId,phoneNo} = this.state
         return (
-            <div className = "container">
+            <div className = "container" style ={{marginTop:30}}>
 
                     <Card className={"border border-dark  "}>
                     <Card.Header><FontAwesomeIcon icon={faEdit} /> Add Student</Card.Header>
@@ -191,6 +216,24 @@ componentDidMount(){
                     </Col>
                     </Form.Group>
                 </fieldset> */}
+                <FormGroup  as={Row} controlId="formHorizontalGender">
+                <Form.Label column sm={2}>Gender :</Form.Label>
+                <Col sm={10}>
+                  <Form.Control
+                    as="select"
+                    value={gender}
+                    name="gender"
+                    onChange={this.StudentChange}
+                    required
+                  >
+                      <option value={"gender"}>Select Gender</option>
+                     <option value={"male"}>Male</option>
+                    <option value={"female"}>
+                     Female
+                    </option>
+                 </Form.Control>
+                </Col>
+                </FormGroup>
 
                 <Form.Group as={Row} controlId="formHorizontalAddress">
                     <Form.Label column sm={2}>
@@ -229,7 +272,9 @@ componentDidMount(){
                     Session
                     </Form.Label>
                     <Col sm={10}>
-                    <Form.Control type="text" name = "session" placeholder="Session" value ={session} onChange ={this.StudentChange} required/>
+                    <Form.Control  as = "select" name = "sessionId" placeholder="Session" value ={sessionId} onChange ={this.StudentChange} autoComplete ="off" >
+                    {this.state.optionList}
+                    </Form.Control>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formHorizontalPhoneNo">
@@ -253,6 +298,8 @@ componentDidMount(){
                             >
                             <FontAwesomeIcon icon={faUndo} /> Reset
                             </Button>{' '}
+
+                            <Button size = "sm" onClick={() => this.demoClicked()}>Demo</Button>
                             
                     </Card.Footer>
                 </Form>

@@ -30,6 +30,15 @@ class StudentService{
     deleteStudent(id){
         return axios.delete(`http://localhost:8080/api/v1/students/${id}`)
     }
+
+    searchStudent(searchText){
+        return axios.get(`http://localhost:8080/api/v1/students/search/${searchText}`);
+      }
+
+      downloadStudentReport(searchText){
+        return axios.get(`http://localhost:8080/api/v1//report/${searchText}`);
+    }
+  
 }
 
 export default new StudentService()

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup, InputGroup, FormControl } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave, faUndo, faList, faEdit, faTrash, faSearch, faTimes} from '@fortawesome/free-solid-svg-icons'
+import {faSave, faUndo, faList, faEdit, faTrash, faSearch, faTimes, faFilePdf} from '@fortawesome/free-solid-svg-icons'
 import StudentService from '../../API/StudentService';
 
 
@@ -12,7 +12,10 @@ class StudentTableComponent extends Component {
 
         this.state = {
             students : [],
-            search : ""
+            search : "",
+            fMessage: null,
+            message : null,
+           
         }
         this.addStudent = this.addStudent.bind(this)
         this.refreshStudent = this.refreshStudent.bind(this)
@@ -26,6 +29,16 @@ class StudentTableComponent extends Component {
     componentDidMount(){
         this.refreshStudent();
     }
+
+    generateStudentReportClicked(searchText){
+        StudentService.downloadStudentReport(searchText)
+            .then(
+                response => {
+                    this.setState({message : response.data, fMessage:''});
+                }
+            )
+    }
+
 
     refreshStudent(){
         StudentService.getStudents().then((res) => {
@@ -44,22 +57,47 @@ class StudentTableComponent extends Component {
         .then(() => this.refreshStudent())
     }
 
-    searchChange = event =>{
+    searchChange = event => {
         this.setState({
-            [event.target.name] : event.target.value
+          [event.target.name]: event.target.value,
         });
-    };
+      };
     
-    cancelSearch =() => {
-        this.setState({"search" : ''});
-    };
+    
+      cancelSearch =() =>{
+        this.setState({
+         search:'',
+         searchMessage:null,
+         fMessage:null
+      })
+       this.refreshStudent();
+    }
+    
+    searchData =() =>{
+    
+      if(this.state.search !==''){
+        StudentService.searchStudent(this.state.search)
+        .then(
+          response =>{
+            if(response.data.length >= 1){
+              this.setState({students :response.data
+                
+              })
+            }
+            else{
+              this.setState({searchMessage:"No matching Record Found", fMessage:null})
+            }
+          }
+        )
+      }
+    }
 
 
     
     render() {
         const {search} = this.state;
         return (
-            <div className="container ">
+            <div className="container " style ={{marginTop:30}}>
                
                 
                
@@ -75,7 +113,7 @@ class StudentTableComponent extends Component {
                             onChange={this.searchChange}/>
 
                             <InputGroup.Append>
-                                <Button size="sm" variant = "outline-info" type = "button">
+                                <Button size="sm" variant = "outline-info" type = "button"  onClick={this.searchData}>
                                     <FontAwesomeIcon icon={faSearch}/>
                                 </Button>
                                 <Button size="sm" variant = "outline-danger" type = "button" onClick={this.cancelSearch}>
@@ -116,11 +154,11 @@ class StudentTableComponent extends Component {
                                         <td>{student.name}</td>
                                         <td>{student.address}</td>
                                         <td>{student.email}</td>
-                                        <td>{student.session}</td>
+                                        <td>{student.sessionId}</td>
                                         <td>{student.phoneNo}</td>
                                         <td>
                                     <ButtonGroup>
-                                
+                                        <Button size="sm" variant="outline-light" style ={{marginRight:20}} onClick={() => this.generateStudentReportClicked(student.sessionId)}><FontAwesomeIcon icon={faFilePdf} /></Button> 
                                         <Button size="sm" variant="primary" style ={{marginRight:20}} onClick ={() => this.UpdateStudentClicked(student.studentId)}><FontAwesomeIcon icon={faEdit} /></Button>
                                         <Button size="sm" variant="outline-danger" onClick ={() => this.deleteStudentClicked(student.studentId)}><FontAwesomeIcon icon={faTrash} /></Button>
 
