@@ -21,10 +21,6 @@ class EventDataService {
         return axios.put(`${API_URL}/events/update`, event);
     }
 
-    updateEventStatus(event, evStatus) {
-        return axios.put(`${API_URL}/events/update/${evStatus}`, event);
-    }
-
     deleteEvent(eventId) {
         return axios.delete(`${API_URL}/events/${eventId}`);
     }
@@ -45,6 +41,9 @@ class EventDataService {
         return axios.get(`${API_URL}/events/status/${eventStatus}`);
     }
 
+    generateReport() {
+        return axios.get(`${API_URL}/events/report`);
+    }
 
 }
 

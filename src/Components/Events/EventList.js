@@ -214,12 +214,22 @@ export default class EventList extends Component {
 
     userAddBtnClicked = (eventId) => {
         console.log(eventId)
-        this.props.history.push(`/${eventId}`)
         // this.props.history.push(`/EnrollmentForm`)
     }
 
     editBtnClicked = () => {
         this.props.history.push(`/Enrollments`)
+    }
+
+    getReport = () => {
+        EventDataService.generateReport().then(
+            response => {
+                console.log(response.data)
+                this.setState({
+                    msg: response.data, show: true
+                })
+            }
+        )
     }
 
 
@@ -339,8 +349,8 @@ export default class EventList extends Component {
                             </Button>
                         </div>
                         <div className={"col-auto"}>
-                            <Button variant={"dark"}>
-                                <FontAwesomeIcon icon={faFileAlt}/>&nbsp; View Report
+                            <Button variant={"dark"} onClick={this.getReport}>
+                                <FontAwesomeIcon icon={faFileAlt}/>&nbsp; Generate Report
                             </Button>
                         </div>
                         <div className={"col"}>
