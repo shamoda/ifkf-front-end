@@ -148,15 +148,21 @@ class Payment extends React.Component {
             confirmButtonColor: '#f6b102',
             cancelButtonColor: '#d33',
             confirmButtonText: ' Confirm Now'
+
+
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
                     'Purchased!',
-                    'Your ordered item.',
+                    'Your item ',
                     'success',
+                    axios.delete('http://localhost:8080/CartController/deleteItemAuto/' +this.state.id).then(
+                        this.props.history.push("/shop")
+                    ),
                     axios.post(`http://localhost:8080/OrderController/Order`, formData),
-                    axios.post(`http://localhost:8080/CartController/deleteItem/` + this.state.id),
-                    this.refreshProduct(),
+                    console.log("ID:"+this.state.id),
+
+
                 )
             }
         })
@@ -266,7 +272,7 @@ class Payment extends React.Component {
                                                 </label>
                                                 <input type="email" id="email" name="email" className="form-control"
                                                        value={this.state.email}
-                                                       onChange={this.handleChangeemail}/>
+                                                       onChange={this.handleChangeemail} required/>
 
                                                 <br/>
                                                 <label htmlFor="catogeory" className="grey-text">
@@ -274,7 +280,7 @@ class Payment extends React.Component {
                                                 </label>
                                                 <textarea type="text" id="Address" name="Address"
                                                           className="form-control" rows="3" value={this.state.Address}
-                                                          onChange={this.handleChangeAddress}/>
+                                                          onChange={this.handleChangeAddress} required/>
 
                                                 <div className="text-center mt-4">
                                                     <MDBBtn color="warning" type="submit"

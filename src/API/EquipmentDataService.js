@@ -75,6 +75,10 @@ class EquipmentDataService{
     downloadReport(){
         return axios.get('http://localhost:8080/IFKF/reports');
     }
+
+    downloadEquipmentreport(){
+        return axios.get('http://localhost:8080/IFKF/equipReport');
+    }
 }
 
 export default new EquipmentDataService()

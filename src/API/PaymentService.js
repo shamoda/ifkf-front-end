@@ -20,8 +20,16 @@ class PaymentService{
         return axios.get(`http://localhost:8080/payments/${id}`)
     }
 
+    getPayment(id){
+        return axios.get(`http://localhost:8080/payment/${id}`)
+    }
+
     UpdatePayment(id, payment){
         return axios.put(`http://localhost:8080/payments/${id}`, payment)
+    }
+
+    downloadPaymentReport(studentId){
+        return axios.get(`http://localhost:8080/reports/${studentId}`);
     }
 }
 

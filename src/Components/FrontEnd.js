@@ -7,6 +7,7 @@ import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
 import GetInTouch from './GetInTouch/GetInTouch';
 
+
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
 import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
 import StudentList from './Rankings-and-Perfomance-Management/Student List/StudentList';
@@ -21,18 +22,29 @@ import AddItem from './SHOP/Views/ShopAdmin/AddItem'
 import ProductList from "./SHOP/Views/ShopAdmin/ProductList";
 import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 
+
+import Attendance from "./Attendance/Attendance"
+import AddEquipment from './Equipment/AddEquipment';
+
+
 import OrderList from "./SHOP/Views/ShopAdmin/OrderList";
 import Payment from "./SHOP/Views/Cart/Payment";
 
+
 // import EditItems from "./SHOP/Views/ShopAdmin/EditItems";
 
-import AddEquipment from './Equipment/AddEquipment';
 
-import Attendance from './Attendance/Attendance';
+//Equipments
+import EquipmentDashboard from './Equipment/EquipmentDashboard';
+import Donations from './Equipment/Donations';
+import ShowRequests from './Equipment/ShowRequests';
+import ShowDonations from './Equipment/ShowDonations';
+import Requests from './Equipment/Requests';
+
 import PaymentSessions from './Payment/PaymentSessions';
 import PaymentForm from './Payment/PaymentForm';
-import AttendanceMarking from './Attendance/AttendanceMarking';
 import PaymentStatus from './Payment/PaymentStatus';
+
 
 
 // import Enrollments from './EventEnrollment/Enrollments';
@@ -44,8 +56,6 @@ import EventDescription from "./Events/EventDescription";
 import EventList from "./Events/EventList";
 import AddEvent from "./Events/AddEvent";
 
-
-
 import FormComponent from './User/FormComponent';
 import StudentTableComponent from './User/StudentTableComponent';
 import InterfaceComponent from './User/InterfaceComponent';
@@ -53,7 +63,9 @@ import InstructorTableComponent from './User/InstructorTableComponent';
 import FormInstructorComponent from './User/FormInstructorComponent';
 import PaymentTableComponent from './User/PaymentTableComponent';
 import UserComponent from './User/UserComponent';
+
 import PaymentFormComponent from './User/PaymentFormComponent';
+import sessionListattendance from './Attendance/sessionListattendance';
 
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
@@ -90,6 +102,16 @@ class FrontEnd extends Component {
                         <Route path="/ViewAll" component={ProductList}/>
                         <Route path="/EditItem/:id"  component={EditItem}/>
                         <Route path="/EditItem/"  component={EditItem}/>
+
+                         <Route path="/" exact component={Home} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/users" component={UserComponent}/>
+                        <Route path="/equipment" component={EquipmentDashboard} />
+                        <Route path="/donations" component={Donations} />
+                        <Route path="/Showrequests" component={ShowRequests} />
+                        <Route path="/showDonations" component={ShowDonations} />
+                        <Route path="/requests" component={Requests} />
+
                         <Route path="/login" component={Login} />
                         <Route path="/getInTouch" component={GetInTouch}/>
 
@@ -103,12 +125,16 @@ class FrontEnd extends Component {
                         <Route path="/Payment" component={Payment} />
                         <Route path="/Payment/login" component={Login} />
 
-                       <Route path="/users" component={UserComponent}/>
-                        <Route path="/equipment" component={AddEquipment} />
-                        <Route path="/shop" component={ShopHome} />
-
                         <Route path="/attendance" component={Attendance} />
                         <Route path="/attendanceList" component={AttendanceMarking} />
+                        <Route path="/payments" component={PaymentStatus}/>
+                       <Route path="/users" component={UserComponent}/>
+                        <Route path="/equipment" component={AddEquipment} />
+
+                        <Route path="/shop" component={ShopHome} />
+                        <Route path="/attendanceList/:id" component={Attendance} />
+                        <Route path="/attendanceList" component={sessionListattendance} />
+                    
                         <Route path="/payments" component={PaymentSessions}/>
                         <Route path="/addPayment/:id" component={PaymentForm}/>
                         <Route path="/addPayment" component={PaymentForm}/>
@@ -125,10 +151,6 @@ class FrontEnd extends Component {
                         <Route path="/addInstructor" component={FormInstructorComponent}/>
                         <Route path= "/payments" component={PaymentTableComponent}/>
                         <Route path= "/paymentform" component={PaymentFormComponent}/>
-                        
-                        
-
-
                         <Route path="/studentperformance" component={StudentList} />
                         <Route path="/performance/:studentId" component={Results} />
                         <Route path="/ranking/:studentId" component={Rankings} />
@@ -136,8 +158,7 @@ class FrontEnd extends Component {
                         <Route path="/exams" component={GradingExaminations} />
                         <Route path="/resultsform/:id" component={ResultsForm} />
                         <Route path="/results/:studentId" component={Results} />
-
-                        <Route path="/equipment" component={AddEquipment} />
+                   
                         {/* <Route path="/shop" component={ShopHome} /> */}
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
                         {/*<Route path="/Enrollments" component={Enrollments} />*/}
