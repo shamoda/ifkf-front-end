@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import UserService from '../../API/UserService';
-import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faSave,faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 class InterfaceComponent extends Component {
     constructor(props){
@@ -10,11 +10,34 @@ class InterfaceComponent extends Component {
 
         this.state = {
             userId: '',
-            role:'',
+            role:this.props.match.params.role,
             password:''
         }
         this.SubmitUser = this.SubmitUser.bind(this);
 
+    }
+
+    componentDidMount(){
+
+        if(this.state.role == 'student'){
+        UserService.getStudentId()
+        .then(response => {
+            let temp = parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+            this.setState({
+                userId:'ST0'+temp
+            })
+        })
+        }
+
+        else if(this.state.role == 'instructor'){
+            UserService.getInstructorId()
+            .then(response => {
+            let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+            this.setState({
+                userId:'IN0'+temp
+            })
+        })
+        }
     }
 
     SubmitUser(event){
@@ -29,35 +52,37 @@ class InterfaceComponent extends Component {
                 
             };
 
-        if(this.state.userId === -1)
-        {
+        console.log(user)
+
+        // if(this.state.userId === -1)
+        // {
+        //     UserService.createUser(user)
+        //     .then(
+        //         response => {
+
+        //             this.props.history.push("/addStudent")
+        //         }
+
+        //     )
+        //  }
+        // else{
+
             UserService.createUser(user)
-            .then(
-                response => {
-
-                    this.props.history.push("/addStudent")
-                }
-
-            )
-         }
-        else{
-
-            UserService.updateUser(this.state.userId,user)
             .then(
 
                 response => {
                     if(this.state.role === "student")
                    { 
-                       this.props.history.push("/addStudent")
+                       this.props.history.push('/addStudent/'+this.state.userId)
                     }
                     else{
-                        this.props.history.push("/addInstructor")
+                        this.props.history.push('/addInstructor/'+this.state.userId)
                     }
                 }
             )
 
 
-        }      
+        // }      
 
     }
     
@@ -86,14 +111,14 @@ class InterfaceComponent extends Component {
                             <Form.Group as={Row} controlId="formHorizontalRole">
                                 <Form.Label column sm={2}>Role</Form.Label>
                                 <Col sm={10}>
-                                <Form.Control type="text" name ="role"  placeholder="Role" value ={role} onChange ={this.UserChange} />
+                                <Form.Control type="text" name ="role"  placeholder="Role" value ={role} onChange ={this.UserChange} readOnly />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="formGridAuthor">
                             <Form.Label column sm={2}>User ID</Form.Label>
                             <Col sm={10}>
-                            <Form.Control type="text" name="userId"  placeholder="User ID"  value ={userId} onChange ={this.UserChange}/>
+                            <Form.Control type="text" name="userId"  placeholder="User ID"  value ={userId} onChange ={this.UserChange} readOnly/>
                             </Col>
                             </Form.Group>
 

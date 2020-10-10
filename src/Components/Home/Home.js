@@ -12,12 +12,14 @@ class Home extends Component {
                 <Carousel className={"img_overlay img-hover-zoom"}>
 
                     <Carousel.Item interval={10}>
+
                         <img
                             width={100}
                             className="d-block w-100"
                             src={require(`../../Assets/carousel2.jpg`)}
                             alt="First slide"
                         />
+
                         <Carousel.Caption className="centered" style={{width: '80%'}}>
                             <h4>“The ultimate aim of Karate lies not in victory or defeat, but in the perfection of the
                                 character of its participants.”</h4>

@@ -47,7 +47,9 @@ componentDidMount(){
         else{
 
             InstructorService.retrieveInstructor(this.state.instructorId)
-            .then( response => this.setState ({
+            .then( response => {
+                if(response.data != null){
+                this.setState ({
 
                 instructorId: this.state.instructorId,
                 name:response.data.name,
@@ -60,7 +62,10 @@ componentDidMount(){
                 phoneNo:response.data.phoneNo,
                 qualifications:response.data.qualifications,
                 experience:response.data.experience
-            }))
+            })}
+        }
+            
+            )
         }
     }
 
@@ -90,24 +95,24 @@ componentDidMount(){
                 experience:this.state.experience
             };
 
-        if(this.state.instructorId === -1)
-        {
-            swal({
-                title: "New Record Submitted!",
-                icon: "success",
-                button: "ok",
-            });
+        // if(this.state.instructorId === -1)
+        // {
+        //     swal({
+        //         title: "New Record Submitted!",
+        //         icon: "success",
+        //         button: "ok",
+        //     });
 
-           InstructorService.createInstructor(instructor)
-            .then(
-                response => {
+        //    InstructorService.createInstructor(instructor)
+        //     .then(
+        //         response => {
 
-                    this.props.history.push("/instructors")
-                }
+        //             this.props.history.push("/instructors")
+        //         }
 
-            )
-         }
-        else{
+        //     )
+        //  }
+        // else{
 
             swal({
                 title: "Record Updated!",
@@ -116,7 +121,7 @@ componentDidMount(){
             })
 
 
-            InstructorService.updateInstructor(this.state.instructorId,instructor)
+            InstructorService.createInstructor(instructor)
             .then(
 
                 response => {
@@ -126,7 +131,7 @@ componentDidMount(){
             )
 
 
-        }      
+        // }      
 
     }
     

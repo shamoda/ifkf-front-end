@@ -44,7 +44,9 @@ componentDidMount(){
         else{
 
             StudentService.retrieveStudent(this.state.studentId)
-            .then( response => this.setState ({
+            .then( response => {
+                if(response.data != null){
+                this.setState ({
 
                 studentId: this.state.studentId,
                 name:response.data.name,
@@ -55,7 +57,9 @@ componentDidMount(){
                 dob:moment(response.data.dob).format('YYYY-MM-DD'),
                 session:response.data.session,
                 phoneNo:response.data.phoneNo
-            }))
+            })}
+        }
+            )
         }
     }
 
@@ -82,25 +86,27 @@ componentDidMount(){
                 phoneNo:this.state.phoneNo
             };
 
-        if(this.state.studentId === -1)
-        {
+        console.log(student)
 
-            swal({
-                title: "New Record Submitted!",
-                icon: "success",
-                button: "ok",
-            });
+        // if(this.state.studentId === -1)
+        // {
 
-            StudentService.createStudent(student)
-            .then(
-                response => {
+        //     swal({
+        //         title: "New Record Submitted!",
+        //         icon: "success",
+        //         button: "ok",
+        //     });
 
-                    this.props.history.push("/students")
-                }
+        //     StudentService.createStudent(student)
+        //     .then(
+        //         response => {
 
-            )
-         }
-        else{
+        //             this.props.history.push("/students")
+        //         }
+
+        //     )
+        //  }
+        // else{
 
             swal({
                 title: "Record Updated!",
@@ -108,7 +114,7 @@ componentDidMount(){
                 button: "ok",
             })
 
-            StudentService.updateStudent(this.state.studentId,student)
+            StudentService.createStudent(student)
             .then(
 
                 response => {
@@ -118,7 +124,7 @@ componentDidMount(){
             )
 
 
-        }      
+        // }      
 
     }
     

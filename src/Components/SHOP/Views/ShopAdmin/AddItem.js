@@ -1,7 +1,17 @@
 import React, {Component} from "react";
-import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCardImage} from 'mdbreact';
+import {
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBBtn,
+    MDBCard,
+    MDBCardBody,
+    MDBCardHeader,
+    MDBCardImage,
+    MDBIcon
+} from 'mdbreact';
 import axios from "axios";
-
+import swal from "sweetalert";
 
 
 class UploadItems extends React.Component {
@@ -15,7 +25,7 @@ class UploadItems extends React.Component {
             catogeory: '',
             description: '',
             // products:''
-            price:'',
+            price: '',
             qty: 0,
             image: '',
             imageURL: ' ',
@@ -31,7 +41,7 @@ class UploadItems extends React.Component {
         this.handleChangeCatogory = this.handleChangeCatogory.bind(this);
         this.handleChangeBrandName = this.handleChangeBrandName.bind(this);
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
-        this. handleChangeQty = this. handleChangeQty.bind(this);
+        this.handleChangeQty = this.handleChangeQty.bind(this);
         this.handleChangePrice = this.handleChangePrice.bind(this);
         this.onchangeFile = this.onchangeFile.bind(this);
         this.removePhoto = this.removePhoto.bind(this);
@@ -57,35 +67,82 @@ class UploadItems extends React.Component {
     handleChangeDescription(event) {
         this.setState({description: event.target.value});
     }
+
     handleChangeQty(event) {
         this.setState({qty: event.target.value});
     }
+
     handleChangePrice(event) {
         this.setState({price: event.target.value});
     }
 
 
-
     async handleSubmit(event) {
 
+
+
+        swal({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success",
+           timmer:1,
+        });
         event.preventDefault();
         let formData = new FormData();
         formData.append('productname', this.state.productname);
         formData.append('id', this.state.id);
         formData.append('brand', this.state.brand);
-        formData.append('catogeory',this.state.catogeory);
-        formData.append('description',this.state.description);
-        formData.append('file',this.state.image);
-        formData.append('qty',this.state.qty);
-        formData.append('price',this.state.price);
+        formData.append('catogeory', this.state.catogeory);
+        formData.append('description', this.state.description);
+        formData.append('file', this.state.image);
+        formData.append('qty', this.state.qty);
+        formData.append('price', this.state.price);
+
+        console.log(formData)
+
+
+        if(this.state.price <0 && this.state.qty>0){
+            swal("check the price");
+
+        }
+        else if(this.state.price >0 && this.state.qty<0){
+
+            swal("check the qty!");
+        }
+        else {
+
+
+            axios.post(`http://localhost:8080/productController/product`, formData)
+
+                .then(res => {
+                    console.log(formData)
+                    console.log(res)
+                    console.log(res.data);
+                    this.props.history.push('/ViewAll/');
+
+                })
+
+        }
 
 
 
-        axios.post(`http://localhost:8080/productController/product`, formData)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     onchangeFile(e) {
@@ -117,15 +174,16 @@ class UploadItems extends React.Component {
     render() {
         return (
             <div>
-                <MDBContainer >
+                <MDBContainer>
                     <MDBRow className={"justify-content-center"}>
                         <MDBCol size={8}>
                             <MDBCard style={{marginTop: "1rem"}}>
-                                <MDBCardHeader className="text-center" style={{backgroundColor: "gray", color: "white"}}>Add
+                                <MDBCardHeader className="text-center"
+                                               style={{backgroundColor: "gray", color: "white"}}>Add
                                     Products</MDBCardHeader>
                                 <MDBCardBody>
                                     <form onSubmit={this.handleSubmit}>
-                                        <MDBRow center={true}>
+                                        <MDBRow center>
                                             <MDBCol size="4">
 
                                                 {
@@ -139,12 +197,6 @@ class UploadItems extends React.Component {
                                                         </MDBCol>
 
                                                         : ''
-                                                }
-
-                                                {
-                                                    this.state.imageURLValidation ?
-                                                        <button className="btnClass"
-                                                                onClick={this.removePhoto}>Remove</button> : ''
                                                 }
 
 
@@ -164,11 +216,14 @@ class UploadItems extends React.Component {
                                                     </div>
                                                     <div className="custom-file">
                                                         <input
+
                                                             type="file"
                                                             className="custom-file-input"
                                                             id="inputGroupFile01"
                                                             aria-describedby="inputGroupFileAddon01"
                                                             onChange={this.onchangeFile}
+
+                                                            required={true}
                                                         />
                                                         <label className="custom-file-label" htmlFor="inputGroupFile01">
                                                             {this.state.imageName}
@@ -184,6 +239,13 @@ class UploadItems extends React.Component {
                                                 {/*        </MDBAlert> : ''*/}
                                                 {/*}*/}
                                             </MDBCol>
+                                            <MDBCol size={"1"}>
+                                                {
+                                                    this.state.imageURLValidation ?
+                                                        <MDBBtn onClick={this.removePhoto}><MDBIcon icon="trash"
+                                                                                                    style={{color: 'red'}}/></MDBBtn> : ''
+                                                }
+                                            </MDBCol>
                                         </MDBRow>
 
 
@@ -196,13 +258,14 @@ class UploadItems extends React.Component {
                                                 <label htmlFor="productname" className="grey-text ">
                                                     Product name
                                                 </label>
-                                                <input type="text" id="productname" name="productname" className="form-control"
+                                                <input type="text" id="productname" name="productname"
+                                                       className="form-control"
                                                        onChange={this.handleChangeProductName}/>
                                                 <br/>
                                                 <label htmlFor="productId" className="grey-text">
                                                     Product ID
                                                 </label>
-                                                <input type="text" id="productId" name="id" className="form-control"
+                                                <input type="text" id="productId" name="id" className="form-control" required={true}
                                                        onChange={this.handleChangeID}/>
                                                 <br/>
                                                 <label htmlFor="productQTY" className="grey-text">
@@ -223,7 +286,8 @@ class UploadItems extends React.Component {
                                                     Brand
                                                 </label>
 
-                                                <select className="browser-default custom-select" id="brand" name="brand"
+                                                <select className="browser-default custom-select" id="brand"
+                                                        name="brand"
                                                         onChange={this.handleChangeBrandName}>
                                                     <option value="no brand">Choose your option</option>
                                                     <option value="Adidas">Adidas</option>
@@ -255,7 +319,8 @@ class UploadItems extends React.Component {
                                                           onChange={this.handleChangeDescription}/>
 
                                                 <div className="text-center mt-4">
-                                                    <MDBBtn color="warning" type="submit">ADD</MDBBtn>
+                                                    <MDBBtn color="warning" type="submit"
+                                                            style={{width: '100%', color: 'white'}}>ADD</MDBBtn>
                                                 </div>
 
 

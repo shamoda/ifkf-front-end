@@ -3,7 +3,7 @@ import {
     MDBBtn,
     MDBCard,
     MDBCardBody,
-    MDBIcon, MDBNavLink,
+    MDBIcon,
     MDBRow,
     MDBTable,
     MDBTableBody,
@@ -14,6 +14,13 @@ import 'sweetalert2/src/sweetalert2.scss';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';js
 
 import axios from "axios";
+import swal from "sweetalert";
+import * as Swal from "sweetalert2";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 // import Loader from 'react-loader-spinner';
 
 
@@ -32,7 +39,7 @@ class productList extends React.Component {
             productname: '',
             qty: '',
             price: '',
-
+            searchclick: false,
 
 
             //coulomns declare here
@@ -75,7 +82,9 @@ class productList extends React.Component {
         this.getAllProducts = this.getAllProducts.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.updateBtnclicked = this.updateBtnclicked.bind(this);
-        // this.GetItems = this.GetItems.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+
     }
 
     componentDidMount() {
@@ -95,110 +104,180 @@ class productList extends React.Component {
         })
     }
 
+    handleSearch(event) {
+        this.setState({search: event.target.value});
+    }
 
-deleteItem(id)
-{
-    // console.log(id);
+    handleSubmit(event) {
+        event.preventDefault();
+        axios.get(`http://localhost:8080/productController/searchbyname/` + this.state.search)
 
-    axios.delete('http://localhost:8080/productController/deleteItem/'+id ).then( response => {
-        this.getAllProducts();
 
-    })
-}
-    // GetItems(id){
-    //     console.log(id)
-    //     axios.put('http://localhost:8080/productController/upadteItem/'+id).then(()=>this.props.history.push('/EditItem'))
-    //
-    //
-    //
-    //
-    // }
-    updateBtnclicked(id){
+            .then(response => {
+                console.log(this.state.Product)
+                this.setState({
+                    searchclick: true,
+                    Product: response.data
+                });
+
+
+            }).catch(function (error) {
+            console.log(error);
+        })
+
+    }
+
+    deleteItem(id) {
+        // console.log(id);
+        // swal({
+        //     title: "Are you sure?",
+        //     text: "Once deleted, you will not be able to recover this imaginary file!",
+        //     icon: "warning",
+        //     buttons: true,
+        //     dangerMode: true,
+        // })
+        //     .then((willDelete) => {
+        //         if (willDelete) {
+        //             axios.delete('http://localhost:8080/productController/deleteItem/'+id ).then( response => {
+        //                 this.getAllProducts();
+        //
+        //             })
+        //             swal("Poof! Your imaginary file has been deleted!", {
+        //                 icon: "success",
+        //
+        //
+        //             });
+        //         } else {
+        //             swal("Your imaginary file is safe!");
+        //         }
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success',
+                    axios.delete('http://localhost:8080/productController/deleteItem/' + id).then(response => {
+                        this.getAllProducts();
+
+                    })
+                )
+            } else {
+                Swal.fire('Delete Canceled')
+
+            }
+
+
+        })
+
+    }
+
+    updateBtnclicked(id) {
+
         this.props.history.push(`/EditItem/${id}`)
 
     }
 
 
-render()
-{
+    render() {
 
-    const rows = [];
-    const {columns, Product} = this.state;
+        const rows = [];
+        const {columns, Product} = this.state;
 
-    {
-        Product.map(row => {
-            console.log(row);
-            // const base64String = btoa(new Uint8Array(row.picture).reduce(function (data, byte) {
-            //     return data + String.fromCharCode(byte);
-            // }, ''));
+        {
+
+            Product.map(row => {
+                console.log(row);
 
 
-            return rows.push(
-                {
-                    'id': row.id,
+                return rows.push(
+                    {
+                        'id': row.id,
 
-                    'img': <img src={`data:image/jpeg;base64,${row.picture}`} alt=""
-                                className="img-fluid z-depth-10"/>,
-                    'product': [<h6 className="mt-3" key={new Date().getDate + 1}><strong>{row.productname}</strong>
-                    </h6>,
-                        <p key={new
-                        Date().getDate} className="text-muted">{row.description}</p>],
-                    'brand': row.brand,
-                    'price': `Rs.${row.price}`,
-                    'qty': row.qty,
-                    'button':
-                        <MDBTooltip placement="top">
+                        'img': <img src={`data:image/jpeg;base64,${row.picture}`} alt=""
+                                    className="img-fluid z-depth-10"/>,
+                        'product': [<h6 className="mt-3" key={new Date().getDate + 1}><strong>{row.productname}</strong>
+                        </h6>,
+                            <p key={new
+                            Date().getDate} className="text-muted">{row.description}</p>],
+                        'brand': row.brand,
+                        'price': `Rs.${row.price}`,
+                        'qty': row.qty,
+                        'button':
+                            <MDBTooltip placement="top">
 
-                            <MDBBtn color="danger" size="sm" onClick={this.deleteItem.bind(this,row.id)}>
-                                <MDBIcon icon="trash"/>
-                            </MDBBtn>
+                                <MDBBtn color="danger" size="sm" onClick={this.deleteItem.bind(this, row.id)}>
+                                    <MDBIcon icon="trash"/>
+                                </MDBBtn>
 
-                            <div>Remove item</div>
-                        </MDBTooltip>,
-                    'buttonEdit':
-                        <MDBTooltip placement="top">
+                                <div>Remove item</div>
+                            </MDBTooltip>,
+                        'buttonEdit':
+                            <MDBTooltip placement="top">
 
-                            <MDBBtn color="info" size="sm" onClick={this.updateBtnclicked.bind(this,row.id)}  >
-                                <MDBIcon far icon="edit"/>
-                            </MDBBtn>
+                                <MDBBtn color="info" size="sm" onClick={this.updateBtnclicked.bind(this, row.id)}>
+                                    <MDBIcon far icon="edit"/>
+                                </MDBBtn>
 
-                            <div>Edit</div>
-                        </MDBTooltip>
+                                <div>Edit</div>
+                            </MDBTooltip>
 
 
-                }
-            )
-        });
+                    }
+                )
+            });
+        }
+
+
+        return (
+            <div>
+
+
+                <MDBRow center={true}>
+                    <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
+                        <Navbar bg="dark" variant="dark">
+                            <Nav className="mr-auto">
+                            </Nav>
+                            <Form inline onSubmit={this.handleSubmit}>
+                                <input type="text" placeholder="Search" className="mr-sm-2" onChange={this.handleSearch}
+                                       required={true}/>
+                                <Button type="submit" variant="outline-info" size="sm">Search</Button>
+                            </Form>
+                        </Navbar>
+                        <MDBBtn color={"warning"} style={{color: 'white'}} href='/AddItems'><i
+                            className="fas fa-plus"></i> Add Product</MDBBtn>
+                        <MDBCardBody>
+                            <MDBTable className="product-table" striped hover responsive>
+                                <caption>List of All Product</caption>
+                                <MDBTableHead style={{
+                                    backgroundColor: "rgba(28,26,26,0.56)",
+                                    color: "white",
+                                    fontFamily: "sans-serif",
+                                    textAlign: 'center'
+                                }} columns={columns}/>
+                                <MDBTableBody rows={rows}/>
+                            </MDBTable>
+                        </MDBCardBody>
+                    </MDBCard>
+                </MDBRow>
+
+
+            </div>
+
+
+        );
     }
-
-
-    return (
-        <div>
-            <MDBRow center={true}>
-                <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
-                    <MDBCardBody>
-                        <MDBTable className="product-table" striped hover responsive>
-                            <caption>List of All Product</caption>
-                            <MDBTableHead stye={{
-                                backgroundColor: "rgba(0,0,0,0.56)",
-                                color: "white",
-                                fontFamily: "sans-serif"
-                            }} columns={columns}/>
-                            <MDBTableBody rows={rows}/>
-                        </MDBTable>
-                    </MDBCardBody>
-                </MDBCard>
-            </MDBRow>
-
-
-        </div>
-
-
-    );
-}
-
-
-
 
 
 }
