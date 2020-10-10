@@ -24,6 +24,27 @@ class EventDataService {
     deleteEvent(eventId) {
         return axios.delete(`${API_URL}/events/${eventId}`);
     }
+
+    searchEvent(eventName) {
+        return axios.get(`${API_URL}/events/search/${eventName}`);
+    }
+
+    filterByType(eventType) {
+        return axios.get(`${API_URL}/events/type/${eventType}`);
+    }
+
+    filterByMonth(eventMonth) {
+        return axios.get(`${API_URL}/events/month/${eventMonth}`);
+    }
+
+    filterByStatus(eventStatus) {
+        return axios.get(`${API_URL}/events/status/${eventStatus}`);
+    }
+
+    generateReport() {
+        return axios.get(`${API_URL}/events/report`);
+    }
+
 }
 
 export default new EventDataService();
