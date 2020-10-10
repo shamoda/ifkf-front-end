@@ -35,7 +35,7 @@ class Header extends Component {
 
             <div>
                     
-                    <Navbar bg="dark" variant="dark" expand="lg" style={{marginBottom:10}}>
+                    <Navbar bg="dark" variant="dark" expand="lg">
                     <Link className="navbar-brand long_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> International Fumonkai Karate-do Federation - Sri Lanka</Link>
                     <Link className="navbar-brand short_text" to="/" style={{color: "white", fontWeight: 500, fontSize:24 }}><img src={logo} width="60" height="60" alt="IFKF-SL logo" /> IFKF - Sri Lanka</Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="ml-auto"/>
@@ -44,7 +44,7 @@ class Header extends Component {
                         <Link className="nav-link" to="/"><FontAwesomeIcon icon={faHome} /> Home</Link>
                         <Link className="nav-link" to="History"><FontAwesomeIcon icon={faBook} /> History</Link>
                         <Link className="nav-link" to="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Link>
-                        <Link className="nav-link" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                        <Link className="nav-link" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                         <Link className="nav-link" to="getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Link>
                         {loggedAsOperator && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
                             <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
