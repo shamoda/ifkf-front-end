@@ -17,6 +17,7 @@ import axios from "axios";
 import swal from "sweetalert";
 
 import jsPDF from 'jspdf'; import 'jspdf-autotable';
+import moment from "moment";
 
 
 
@@ -133,7 +134,7 @@ class OrderList extends React.Component {
         doc.text( title, marginLeft, 40 );
         require('jspdf-autotable');
         doc.autoTable( content );
-        doc.save( "IFKFOrderReport.pdf" )
+        doc.save( "IFKF_Shop_Order_Report "+moment().format("DD-MM-YYYY hh:mm:ss")+".pdf" )
     }
 
 
@@ -165,14 +166,6 @@ class OrderList extends React.Component {
 
     }
 
-    // GetItems(id){
-    //     console.log(id)
-    //     axios.put('http://localhost:8080/productController/upadteItem/'+id).then(()=>this.props.history.push('/EditItem'))
-    //
-    //
-    //
-    //
-    // }
     updateBtnclicked(id) {
         this.props.history.push( `/EditItem/${id}` )
 
@@ -223,7 +216,6 @@ class OrderList extends React.Component {
 
         return (
             <div>
-
                 <MDBRow center={true}>
                     <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
                         <MDBBtn color={"warning"} style={{color: 'white'}} onClick={() => this.exportPDF()}><i
@@ -237,11 +229,7 @@ class OrderList extends React.Component {
                         </MDBCardBody>
                     </MDBCard>
                 </MDBRow>
-
-
             </div>
-
-
         );
     }
 
