@@ -54,7 +54,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
-                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
+                            <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
                             <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
@@ -65,7 +65,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                             <Link className="dropdown-item" to="attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
                             <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
-                            <Link className="dropdown-item" to="payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
+                            <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <Link className="dropdown-item" to="showDonations"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
                             <NavDropdown.Divider />
                             <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>

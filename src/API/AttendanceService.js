@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const Payment_API_BASE_URL = "http://localhost:8080/Attendance";
+const Payment_API_BASE_URL = "http://localhost:8080/attendance";
 
 class AttendanceService{
 
