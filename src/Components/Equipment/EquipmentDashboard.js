@@ -3,7 +3,7 @@ import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, For
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import EquipmentDataService from '../../API/EquipmentDataService';
-import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import "./box.css"
 class EquipmentDashboard extends Component {
@@ -46,6 +46,16 @@ class EquipmentDashboard extends Component {
 
     }
 
+
+    downloadReportClicked = () => {
+     
+        EquipmentDataService.downloadEquipmentreport()
+            .then(
+                response => {
+                    this.setState({message : response.data,Errormessage:''})
+                }
+            )
+    };
 
     UpdateEquipmentClicked(id){  
 
@@ -219,8 +229,6 @@ class EquipmentDashboard extends Component {
           
     render() { 
     
-     
-       
 
         const {type,supplier,quantity,brand,search} = this.state
 
@@ -232,16 +240,14 @@ class EquipmentDashboard extends Component {
             marginTop:"10PX"
         }
 
-     
-        
+
     return (  
         <div>
           <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:64}}>
-               <h1 >Equipment Dashboard</h1>
+               <h1>Equipment Dashboard</h1>
        </div>
-               <Button variant="secondary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/donations" style={{color:"black",textDecoration: 'none'}}>Add Donations</a> </Button>{' '}
-            
-               <Button variant="primary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:500}} ><a href="/Showrequests" style={{color:"black",textDecoration: 'none'}}>Check Requests</a> </Button>{' '}
+               <Button variant="secondary" style={{marginLeft: 500,marginTop:10,marginBottom:20,width:200}} ><a href="/donations" style={{color:"black",textDecoration: 'none'}}>Add Donations</a> </Button>
+               <Button variant="primary" style={{marginLeft: 100,marginTop:10,marginBottom:20,width:200}} ><a href="/Showrequests" style={{color:"black",textDecoration: 'none'}}>Check Requests</a> </Button>{' '}
 
 
 
@@ -255,7 +261,7 @@ class EquipmentDashboard extends Component {
                   <Form onSubmit={this.onSubmitRecords} id="FormId"  method ="post">
                   <Card.Body>
                   
-                      <Form.Row>
+                  <Form.Row>
                         
 
                           <Form.Group as={Col} controlId="formGridAuthor" >
@@ -290,13 +296,15 @@ class EquipmentDashboard extends Component {
                       
                   </Card.Body>
                       <Card.Footer style={{"textAlign":"right"}}>
+                     
                           <Button variant="success" size="sm" type="submit">
                           <FontAwesomeIcon icon={faSave} /> 
                           </Button>{' '}
                           <Button variant="info" size="sm" type="reset">
                           <FontAwesomeIcon icon={faUndo} /> Reset
                           </Button>
-                       
+                          <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginTop:10}} onClick={ this.downloadReportClicked.bind()} >
+                            <FontAwesomeIcon icon={faFilePdf} /> Download Report</Button>
                       </Card.Footer>
                   </Form>
                   </Card>

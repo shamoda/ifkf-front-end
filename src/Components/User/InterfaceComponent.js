@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import UserService from '../../API/UserService';
-import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faSave,faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 class InterfaceComponent extends Component {
     constructor(props){

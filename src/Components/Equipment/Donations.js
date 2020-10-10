@@ -48,6 +48,7 @@ class Donations extends Component {
                 
                 this.setState({optionList:response.data.map(equipment =>
                     <option id= {equipment.id}>
+                     
                         {equipment.id}
                     </option>
                 )})

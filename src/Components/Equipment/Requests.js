@@ -91,10 +91,10 @@ class Requests extends Component {
             status : this.state.status,
             requestDate: this.state.requestDate,
             description: this.state.description,
-            session :
-                { id : this.state.sessionID},
+            sessions :
+                { sessionId : this.state.sessionID},
             instructor :
-                {id : this.state.userID}
+                {instructorId : this.state.userID}
      
             };   
          
@@ -389,6 +389,7 @@ class Requests extends Component {
                                     <Form.Group as={Col} controlId="formGridTitle">
                                         <Form.Label style={{  }}>Equipment Type</Form.Label>
                                         <Form.Control name="type" as="select" value={type} required autoComplete="off" onChange={this.EquiChange} placeholder="Equipment " className={"bg-dark text-white"} style={{ }} >
+                                           <option value="">-- Select --</option>
                                             <option>Gloves</option>
                                             <option>HeadGears</option>
                                             <option>Rebreakable Boards</option>

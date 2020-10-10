@@ -16,6 +16,10 @@ class StudentService{
         return axios.get(`http://localhost:8080/api/v1/students/${id}`)
     }
 
+    serachStudents(query){
+        return axios.get(`http://localhost:8080/api/v1/students/search/${query}`)
+    }
+
 
     updateStudent(id, student){
 
