@@ -5,6 +5,7 @@ import Header from './Header-Footer/Header';
 import Login from './Login/Login';
 import Home from './Home/Home';
 import NotFound from './404NotFound/404NotFound';
+import GetInTouch from './GetInTouch/GetInTouch';
 
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
 import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
@@ -59,6 +60,7 @@ import AddSession from "./Session/AddSession";
 
 
 
+
 class FrontEnd extends Component {
 
     state = {}
@@ -89,6 +91,7 @@ class FrontEnd extends Component {
                         <Route path="/EditItem/:id"  component={EditItem}/>
                         <Route path="/EditItem/"  component={EditItem}/>
                         <Route path="/login" component={Login} />
+                        <Route path="/getInTouch" component={GetInTouch}/>
 
                         <Route path="/equipment" component={AddEquipment} />
                         <Route path="/shop" component={ShopHome} />
@@ -150,6 +153,7 @@ class FrontEnd extends Component {
                         <Route path="/AddSession/:id" component={AddSession} />
                         <Route path="/AddSession" component={AddSession} />
 
+                       
 
           
 

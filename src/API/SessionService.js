@@ -22,6 +22,14 @@ class SessionService {
   deleteSession(id) {
     return axios.delete(`http://localhost:8080/sessions/${id}`);
   }
+
+  searchSession(searchText){
+    return axios.get(`http://localhost:8080/sessions/search/${searchText}`);
+  }
+
+  downloadSessionReport(searchText){
+    return axios.get(`http://localhost:8080/report/${searchText}`);
+}
 }
 
 export default new SessionService();
