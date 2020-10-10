@@ -1,0 +1,29 @@
+tr {
+  text-align: center;
+}
+.button {
+  padding-bottom: 15px;
+}
+
+h1 {
+  padding: 35px;
+  font-weight: 700;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #000000;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+}
+
+i {
+  padding-right: 7px;
+}
+h3 {
+  padding-top: 10px;
+  text-decoration: underline;
+}
