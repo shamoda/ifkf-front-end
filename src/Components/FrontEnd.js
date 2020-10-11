@@ -25,7 +25,9 @@ import EditItem from "./SHOP/Views/ShopAdmin/EditItem";
 
 import Attendance from "./Attendance/Attendance"
 import AddEquipment from './Equipment/AddEquipment';
-
+import Enrollments from './EventEnrollment/Enrollments';
+import EnrollmentForm from './EventEnrollment/EnrollmentForm';
+import RegStudentForm from './EventEnrollment/RegStudentForm';
 
 import OrderList from "./SHOP/Views/ShopAdmin/OrderList";
 import Payment from "./SHOP/Views/Cart/Payment";
@@ -126,7 +128,7 @@ class FrontEnd extends Component {
                         <Route path="/Payment/login" component={Login} />
 
                         <Route path="/attendance" component={Attendance} />
-                        <Route path="/attendanceList" component={AttendanceMarking} />
+                        {/* <Route path="/attendanceList" component={AttendanceMarking} /> */}
                         <Route path="/payments" component={PaymentStatus}/>
                        <Route path="/users" component={UserComponent}/>
                         <Route path="/equipment" component={AddEquipment} />
@@ -140,6 +142,10 @@ class FrontEnd extends Component {
                         <Route path="/addPayment" component={PaymentForm}/>
                         <Route path="/studentList" component={PaymentStatus}/>
 
+                        <Route path="/Enrollments" component={Enrollments} />
+                        <Route path="/EnrollmentForm/:id" component={EnrollmentForm} />
+                        <Route path="/EnrollmentForm" component={EnrollmentForm} />
+                        <Route path="/RegStudentForm" component={RegStudentForm}/>
                         
 
                         <Route path="/students" component={StudentTableComponent}/>
