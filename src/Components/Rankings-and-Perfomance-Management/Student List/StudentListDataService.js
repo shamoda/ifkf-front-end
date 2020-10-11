@@ -7,7 +7,7 @@ class StudentListDataService{
     }
 
     searchStudent(searchText){
-        return axios.get(`http://localhost:8080/students/search/${searchText}`);
+        return axios.get(`http://localhost:8080/api/v1/students/search/${searchText}`);
     }
 
 }

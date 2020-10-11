@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Card, Button, Container, Alert, Col, Form } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEdit, faSave, faUndo, faPlusSquare} from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faSave, faUndo, faPlusSquare, faExclamation, faCheck} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import ResultsDataService from './ResultsDataService';
 import GradingExaminationsDataService from '../Grading Examinations/GradingExaminationsDataService'
@@ -13,7 +13,7 @@ class ResultsForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            resultsId:-1, 
+            resultsId:-1,
             studentId:this.props.match.params.id, 
             examCode:[], 
             date:moment(new Date()).format('YYYY-MM-DD'), 
@@ -29,7 +29,8 @@ class ResultsForm extends Component {
 
         this.submitResultRecord = this.submitResultRecord.bind(this);
         this.resetResultRecord = this.resetResultRecord.bind(this);
-
+        this.errorDemo = this.errorDemo.bind(this);
+        this.Demo = this.Demo.bind(this);
         
     }
 
@@ -66,10 +67,7 @@ class ResultsForm extends Component {
                     )})
                 }
             )
-
-            
-
-        
+ 
 
     }
 
@@ -187,6 +185,40 @@ class ResultsForm extends Component {
     };
 
 
+    // =======================================================demo buttons ==============================================
+    
+    errorDemo(){
+        this.setState({
+            examCode:'OR001',
+            date:moment('2019-05-16 05:30:00.000000').format('YYYY-MM-DD'),
+            kihon:21,
+            combinations:19,
+            kata:18,
+            kumite:23,
+            generalKnowledge:52,
+            theory:48
+        })
+    }
+
+    Demo(){
+        this.setState({
+            examCode:'BB001',
+            date:moment('2023-02-27 05:30:00.000000').format('YYYY-MM-DD'),
+            kihon:18,
+            combinations:19,
+            kata:20,
+            kumite:18,
+            generalKnowledge:49,
+            theory:48
+        })
+    }
+
+
+
+
+
+
+
 
     render() { 
 
@@ -260,6 +292,12 @@ class ResultsForm extends Component {
                         
                     </Card.Body>
                         <Card.Footer style={{"textAlign":"right"}}>
+                        <Button variant="outline-danger" size="sm" type="button" onClick={this.errorDemo}>
+                            <FontAwesomeIcon icon={faExclamation} /> Demo
+                            </Button>{' '}
+                            <Button variant="outline-primary" size="sm" type="button" onClick={this.Demo}>
+                            <FontAwesomeIcon icon={faCheck} /> Demo
+                            </Button>{' '}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button variant="success" size="sm" type="submit">
                             <FontAwesomeIcon icon={faSave} /> {this.state.resultsId !== -1 ? "Update" : "Save"}
                             </Button>{' '}
