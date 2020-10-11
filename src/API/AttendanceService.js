@@ -37,6 +37,13 @@ class AttendanceService{
         return axios.put(`http://localhost:8080/attendance/${id}`,att)
     }
 
+    downloadAttendanceReport(sessionId){
+        return axios.get(`http://localhost:8080/reports/${sessionId}`);
+    }
+
+    searchStudent(searchText){
+        return axios.get(`'http://localhost:8080/IFKF/attendance/search/${searchText}`);
+      }
 
     getattendanceID(id){
 
