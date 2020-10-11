@@ -79,6 +79,24 @@ class EquipmentDataService{
     downloadEquipmentreport(){
         return axios.get('http://localhost:8080/IFKF/equipReport');
     }
+
+    downloadDonationsFullreport(){
+        return axios.get('http://localhost:8080/IFKF/reportsFull');
+    }
+
+
+    
+    retrieveSumquantityById(id){
+
+        return axios.get(`http://localhost:8080/IFKF/Join`);
+
+    }
+
+    searchquantity(searchText){
+
+        return axios.get(`http://localhost:8080/IFKF/searchquan/${searchText}`);
+    }
+    
 }
 
 export default new EquipmentDataService()

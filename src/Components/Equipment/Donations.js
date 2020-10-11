@@ -42,18 +42,6 @@ class Donations extends Component {
         this.refreshDonations();
 
 
-        EquipmentDataService.retrieveAllEquipment()
-        .then(
-            response => {
-                
-                this.setState({optionList:response.data.map(equipment =>
-                    <option id= {equipment.id}>
-                     
-                        {equipment.id}
-                    </option>
-                )})
-            }
-        )
     
         
       }

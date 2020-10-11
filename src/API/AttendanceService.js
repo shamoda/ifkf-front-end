@@ -28,15 +28,21 @@ class AttendanceService{
 
     createAttendance(att){
 
-        return axios.post('http://localhost:8080/IFKF/attendance',att)
+        return axios.post('http://localhost:8080/attendance',att)
     }
 
     
     UpdateAttendance(id,att){
 
-        return axios.put(`http://localhost:8080/IFKF/attendance/${id}`,att)
+        return axios.put(`http://localhost:8080/attendance/${id}`,att)
     }
 
+
+    getattendanceID(id){
+
+        return axios.get(`http://localhost:8080/attendanceBystu/${id}`);
+
+    }
 
 
 }
