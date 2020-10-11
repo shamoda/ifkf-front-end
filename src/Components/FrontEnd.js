@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom';
-// import Footer from './Header-Footer/Footer';
+
+import Footer from './Header-Footer/Footer';
 import Header from './Header-Footer/Header';
 import Login from './Login/Login';
 import Home from './Home/Home';
 import History from "./History/History";
 import GetInTouch from './GetInTouch/GetInTouch';
 import NotFound from './404NotFound/404NotFound';
-
 
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
 import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';

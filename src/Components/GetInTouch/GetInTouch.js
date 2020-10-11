@@ -4,7 +4,6 @@ import {
     Container,
     Table,
     Button,
-    ButtonGroup,
     Card,
     Form,
     InputGroup,
@@ -16,14 +15,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import SessionService from "../../API/SessionService";
 import {
-    faSave,
-    faUndo,
     faList,
-    faEdit,
-    faTrash,
-    faFilePdf,
     faSearch,
-    faUnderline,
     faTimes,
     faStepBackward,
     faFastBackward,
@@ -31,7 +24,6 @@ import {
     faFastForward
 } from "@fortawesome/free-solid-svg-icons";
 import "./GetInTouch.css";
-import swal from "sweetalert";
 import Image from "react-bootstrap/Image";
 
 class GetInTouch extends Component {
@@ -219,12 +211,9 @@ class GetInTouch extends Component {
                                        style={{backgroundColor:'#8D8D8D'}} roundedCircle />
                             </div>
                             <Card.Body style={{textAlign:'center', paddingTop:0 }}>
-                                <Card.Title>San Francisco, USA</Card.Title>
                                 <Card.Title>Funao, Japan</Card.Title>
                                 <Card.Text className={"text-muted"}>
-                                    San Bruno, CA 94066 <br/>
-                                    Hideharu Ishii Shihan
-                                    Okayama-ken Kurashiki-shi Funao-cyo Funao 2753-4
+                                    Funao 2753-4<br/>
                                     Office: +0 906 179 3283
                                 </Card.Text>
                             </Card.Body>
