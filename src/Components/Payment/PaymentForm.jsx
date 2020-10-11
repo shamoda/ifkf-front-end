@@ -114,6 +114,12 @@ class PaymentForm extends Component{
         this.props.history.push('/Payments')
     } 
 
+    demoClicked(){
+        this.setState({
+            amount: '2000.00',
+            month:'DemoMonth',
+        })
+    }
 
 
     render(){
@@ -178,7 +184,11 @@ class PaymentForm extends Component{
                         </Form>
                     </Card.Body>
                 </Card>
-                </Container>  
+                </Container> 
+                <br/> 
+                <Container>
+                    <Button size="sm" variant="outline-info" onClick={() => this.demoClicked()} >Demo</Button>
+                </Container>
             </div>
 <br/>
 <br/>
@@ -222,6 +232,10 @@ class PaymentForm extends Component{
                     </Card>
                 </Container>
                 <br/>
+                {/* <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}>Demo</Button>
+                </Container>  */}
+                
             
             </div>
               
