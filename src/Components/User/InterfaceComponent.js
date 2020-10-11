@@ -22,7 +22,7 @@ class InterfaceComponent extends Component {
         if(this.state.role == 'student'){
         UserService.getStudentId()
         .then(response => {
-            let temp = parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+            let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
             this.setState({
                 userId:'ST0'+temp
             })
