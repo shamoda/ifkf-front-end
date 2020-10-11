@@ -104,6 +104,7 @@ export default class AddEvent extends Component {
                 EventDataService.createEvent(ev)
                     .then( response =>
                         {
+                            console.log(this.state)
                             this.props.history.push('/events/list')
                         }
                     )
@@ -133,6 +134,21 @@ export default class AddEvent extends Component {
 
     }
 
+    demo = () => {
+        this.setState({
+            eventName: 'International Fumonkai Karate Championship 2020',
+            eventType: 'Tournament',
+            eventDate: '2021-03-15',
+            eventTime: '09:00:00',
+            eventLocation: 'Sugathadasa Stadium',
+            organizer: 'International Fumonkai Karate-Do Federation',
+            eventDesc: '37th annual karate championshop organized by International Fumonkai Karate-Do Federation will be held on 2021-3-15. Calling applications now',
+            bgImgName: 'events-bg6'
+        })
+    }
+
+
+
     render() {
         const {eventId, eventName, eventType, eventDate, eventTime, organizer, eventLocation, eventDesc, bgImgName} = this.state
 
@@ -161,6 +177,7 @@ export default class AddEvent extends Component {
 
                     <Card>
                         <Card.Header as={"h3"}>Create Event</Card.Header>
+
                         <Form onSubmit={this.handleSubmit} method={"post"}>
                             <Card.Body>
                                 <Form.Group controlId={"formEventName"}>
@@ -233,7 +250,8 @@ export default class AddEvent extends Component {
                             </Card.Body>
                             <Card.Footer style={{textAlign:'right'}}>
                                 <Button variant={"success"} className={"px-3"} type={"submit"}>{eventId !== -1 ? "Update" : "Submit"}</Button>{' '}
-                                <Button variant={"secondary"} className={"px-3"} type={"reset"}>Reset</Button>
+                                <Button variant={"secondary"} className={"px-3"} type={"reset"}>Reset</Button>{' '}
+                                <Button variant={"dark"} className={"px-3"} onClick={this.demo}>Demo</Button>
                             </Card.Footer>
                         </Form>
                     </Card>
