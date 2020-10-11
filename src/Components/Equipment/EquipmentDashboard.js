@@ -25,7 +25,9 @@ class EquipmentDashboard extends Component {
             length:'',
             Errormessage:'',
             searchMessage: '',
-            fMessage: ''
+            fMessage: '',
+
+           
            
           
          
@@ -36,6 +38,7 @@ class EquipmentDashboard extends Component {
      this.onSubmitRecords=this.onSubmitRecords.bind(this);
      this.deleteEquipmentClicked=this.deleteEquipmentClicked.bind(this);
      this.UpdateEquipmentClicked=this.UpdateEquipmentClicked.bind(this);
+   
 
     }
 
@@ -43,6 +46,7 @@ class EquipmentDashboard extends Component {
     componentDidMount(){
 
         this.refreshEquipments();
+    
 
     }
 
@@ -91,6 +95,7 @@ class EquipmentDashboard extends Component {
          
         }
 
+     
 
     onSubmitRecords(event){
 
@@ -122,7 +127,9 @@ class EquipmentDashboard extends Component {
             };
 
 
-          
+        
+               
+            
 
                 EquipmentDataService.CreateEquipment(equi)
                 .then(
@@ -339,7 +346,7 @@ class EquipmentDashboard extends Component {
                
                     <div className="box" key={equipment.id} style={{boxShadow:"2px 3px 2px #9E9E9E",borderRadius:5}}>
 
-                        <div className = "card-text">
+                        <div className = "card-texts">
                         <h4  style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>{equipment.type}</h4>
                         <div style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>
                         Supplier :  {equipment.supplier} <br/>
