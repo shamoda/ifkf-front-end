@@ -134,6 +134,19 @@ export default class AddEvent extends Component {
 
     }
 
+    resetForm = () => {
+        this.setState({
+            eventName: '',
+            eventType: 'Choose...',
+            eventDate: moment(new Date()).format('YYYY-MM-DD'),
+            eventTime: moment(new Date()).format('HH:mm'),
+            eventLocation: '',
+            organizer: '',
+            eventDesc: '',
+            bgImgName: 'events-bg1'
+        })
+    }
+
     demo = () => {
         this.setState({
             eventName: 'International Fumonkai Karate Championship 2020',
@@ -250,7 +263,7 @@ export default class AddEvent extends Component {
                             </Card.Body>
                             <Card.Footer style={{textAlign:'right'}}>
                                 <Button variant={"success"} className={"px-3"} type={"submit"}>{eventId !== -1 ? "Update" : "Submit"}</Button>{' '}
-                                <Button variant={"secondary"} className={"px-3"} type={"reset"}>Reset</Button>{' '}
+                                <Button variant={"secondary"} className={"px-3"} onClick={this.resetForm}>Reset</Button>{' '}
                                 <Button variant={"dark"} className={"px-3"} onClick={this.demo}>Demo</Button>
                             </Card.Footer>
                         </Form>
