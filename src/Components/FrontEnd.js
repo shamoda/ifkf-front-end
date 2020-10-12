@@ -126,7 +126,7 @@ class FrontEnd extends Component {
                         <Route path="/Payment/login" component={Login} />
 
                         <Route path="/attendance" component={Attendance} />
-                        <Route path="/attendanceList" component={AttendanceMarking} />
+                        {/* <Route path="/attendanceList" component={AttendanceMarking} /> */}
                         <Route path="/payments" component={PaymentStatus}/>
                        <Route path="/users" component={UserComponent}/>
                         <Route path="/equipment" component={AddEquipment} />

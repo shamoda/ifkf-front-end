@@ -102,32 +102,6 @@ componentDidMount(){
 
         console.log(student)
 
-        // if(this.state.studentId === -1)
-        // {
-
-        //     swal({
-        //         title: "New Record Submitted!",
-        //         icon: "success",
-        //         button: "ok",
-        //     });
-
-        //     StudentService.createStudent(student)
-        //     .then(
-        //         response => {
-
-        //             this.props.history.push("/students")
-        //         }
-
-        //     )
-        //  }
-        // else{
-
-            // swal({
-            //     title: "Record Updated!",
-            //     icon: "success",
-            //     button: "ok",
-            // })
-
             StudentService.createStudent(student)
             .then(
 
@@ -136,9 +110,7 @@ componentDidMount(){
                     this.props.history.push("/students")
                 }
             )
-
-
-        // }      
+  
 
     }
     
@@ -192,30 +164,7 @@ componentDidMount(){
                     <Form.Control type="text" name ="name" placeholder="Name" value ={name} onChange ={this.StudentChange} required/>
                     </Col>
                 </Form.Group>
-                {/* <fieldset>
-                    <Form.Group as={Row}>
-                    <Form.Label as="legend" column sm={2}>
-                        Gender
-                    </Form.Label>
-                    <Col sm={10}>
-                        <Form.Check
-                        type="radio"
-                        label="Male"
-                        name="gender"
-                        value = {gender}
-                        id="male"
-                        />
-                        <Form.Check
-                        type="radio"
-                        label="Female"
-                        name="gender"
-                        value ={gender}
-                        id="female"
-                        />
-                       
-                    </Col>
-                    </Form.Group>
-                </fieldset> */}
+                
                 <FormGroup  as={Row} controlId="formHorizontalGender">
                 <Form.Label column sm={2}>Gender :</Form.Label>
                 <Col sm={10}>
