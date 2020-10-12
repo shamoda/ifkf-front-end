@@ -13,6 +13,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import './Events.css';
 import EventDataService from './EventDataService';
 import moment from 'moment';
+import swal from "sweetalert";
 
 export default class EventList extends Component {
     constructor(props) {
@@ -68,12 +69,21 @@ export default class EventList extends Component {
                         this.setState({events: response.data})
                     } else {
                         //if no records
-                        this.setState({msg: "No items found", show: true})
+                        swal({
+                            title: "No items found!",
+                            icon: "error",
+                            button: "Ok!",
+                        });
                     }
                 }
             )
         } else {
-            this.setState({msg: "Enter an event name to search", show: true})
+            swal({
+                title: "Enter an event name to search",
+                icon: "warning",
+                buttons: "Ok"
+            })
+            //this.setState({msg: "Enter an event name to search", show: true})
         }
     }
 
@@ -92,7 +102,6 @@ export default class EventList extends Component {
             filterType: 'All',
             filterMonth: 'All',
             filterStatus: 'All',
-            show: false
         });
         this.refreshEventList();
     }
@@ -142,7 +151,12 @@ export default class EventList extends Component {
                             this.setState({events: response.data})
                         } else {
                             //if no records
-                            this.setState({msg: "No items found", filterMonth:'', show: true})
+                            swal({
+                                title: "No items found!",
+                                icon: "error",
+                                button: "Ok!",
+                            });
+                            //this.setState({msg: "No items found", filterMonth:'', show: true})
                         }
                     }
                 )
@@ -162,7 +176,12 @@ export default class EventList extends Component {
                             this.setState({events: response.data})
                         } else {
                             //if no records
-                            this.setState({msg: "No items found", filterStatus:'', show: true})
+                            swal({
+                                title: "No items found!",
+                                icon: "error",
+                                button: "Ok!",
+                            });
+                            //this.setState({msg: "No items found", filterStatus:'', show: true})
                         }
                     }
                 )
@@ -196,12 +215,31 @@ export default class EventList extends Component {
     }
 
     deleteEventClicked = (eventId) => {
-        EventDataService.deleteEvent(eventId)
-            .then(response => {
-                    this.setState({msg: `Event ${eventId} has been deleted successfully`, show: true})
-                    this.refreshEventList();
-                }
-            )
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if (value) {
+                EventDataService.deleteEvent(eventId)
+                    .then(response => {
+                        swal({
+                            title: "Done!",
+                            text: "Event has been deleted successfully!",
+                            icon: "success",
+                            button: "Ok",
+                        });
+                            //this.setState({msg: `Event ${eventId} has been deleted successfully`, show: true})
+                            this.refreshEventList();
+                        }
+                    )
+            }
+        });
+
+
     }
 
     updateEventClicked = (eventId) => {
@@ -214,20 +252,19 @@ export default class EventList extends Component {
 
     userAddBtnClicked = (eventId) => {
         console.log(eventId)
-        // this.props.history.push(`/EnrollmentForm`)
-    }
-
-    editBtnClicked = () => {
-        this.props.history.push(`/Enrollments`)
+        this.props.history.push('/Enrollments/'+eventId)
     }
 
     getReport = () => {
         EventDataService.generateReport().then(
             response => {
                 console.log(response.data)
-                this.setState({
-                    msg: response.data, show: true
-                })
+                swal({
+                    title: "Done!",
+                    text: `${response.data}`,
+                    icon: "success",
+                    button: "Ok",
+                });
             }
         )
     }
@@ -243,26 +280,26 @@ export default class EventList extends Component {
             <div className={"container-fluid"} style={{padding: '30px 80px'}}>
 
                 {/*msg model will be hidden by default*/}
-                {
-                    show &&
+                {/*{*/}
+                {/*    show &&*/}
 
-                    <div className="alert alert-success">
-                        <Row>
-                            <Col className={"pt-1"}>{msg}</Col>
-                            <Col>
-                                <Button onClick={() => this.setState({show: false, filterType: ''})}
-                                        style={{
-                                            backgroundColor: 'transparent',
-                                            borderColor: 'transparent',
-                                            color: '#808080',
-                                            float: 'right'
-                                        }}>
-                                    <FontAwesomeIcon icon={faTimes}/>
-                                </Button>
-                            </Col>
-                        </Row>
-                    </div>
-                }
+                {/*    <div className="alert alert-success">*/}
+                {/*        <Row>*/}
+                {/*            <Col className={"pt-1"}>{msg}</Col>*/}
+                {/*            <Col>*/}
+                {/*                <Button onClick={() => this.setState({show: false, filterType: ''})}*/}
+                {/*                        style={{*/}
+                {/*                            backgroundColor: 'transparent',*/}
+                {/*                            borderColor: 'transparent',*/}
+                {/*                            color: '#808080',*/}
+                {/*                            float: 'right'*/}
+                {/*                        }}>*/}
+                {/*                    <FontAwesomeIcon icon={faTimes}/>*/}
+                {/*                </Button>*/}
+                {/*            </Col>*/}
+                {/*        </Row>*/}
+                {/*    </div>*/}
+                {/*}*/}
 
                 <div className={"p-5 mb-5"} style={{border: '2px solid rgba(0,0,0,0.1)', borderRadius: '10px'}}>
                     <div className={"row mb-4"}>
@@ -374,23 +411,23 @@ export default class EventList extends Component {
                     <Table striped bordered hover>
                         <thead>
                         <tr style={{textAlign: 'center'}}>
-                            <th>Event Name</th>
-                            <th>Event Type</th>
-                            <th>Description</th>
-                            <th>Date & Time</th>
-                            <th>Organizer</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                            <th>isFinished</th>
-                            <th>Edit</th>
-                            <th>Enrollment</th>
+                            <th className={"event-table-header"}>Event Name</th>
+                            <th className={"event-table-header"}>Event Type</th>
+                            <th className={"event-table-header"}>Description</th>
+                            <th className={"event-table-header"}>Date & Time</th>
+                            <th className={"event-table-header"}>Organizer</th>
+                            <th className={"event-table-header"}>Location</th>
+                            <th className={"event-table-header"}>Status</th>
+                            <th className={"event-table-header"}>isFinished</th>
+                            <th className={"event-table-header"}>Edit</th>
+                            <th className={"event-table-header"}>Enrollment</th>
                         </tr>
                         </thead>
                         <tbody>
                         {
                             this.state.events.length === 0 ?
                                 <tr align="center">
-                                    <td colSpan="8">No records at the moment</td>
+                                    <td colSpan="10">No records at the moment</td>
                                 </tr>
 
                                 : [
