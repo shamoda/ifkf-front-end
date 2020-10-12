@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom';
-// import Footer from './Header-Footer/Footer';
+
+import Footer from './Header-Footer/Footer';
 import Header from './Header-Footer/Header';
 import Login from './Login/Login';
 import Home from './Home/Home';
-import NotFound from './404NotFound/404NotFound';
+import History from "./History/History";
 import GetInTouch from './GetInTouch/GetInTouch';
-
+import NotFound from './404NotFound/404NotFound';
 
 import Results from './Rankings-and-Perfomance-Management/Results/Results';
 import ResultsForm from './Rankings-and-Perfomance-Management/Results/ResultsForm';
@@ -96,6 +97,13 @@ class FrontEnd extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Login}/>
                         <Route path="/ViewAll/logout" component={Login}/>
+
+                        <Route path="/ViewAll/login" component={Login}/>
+
+                        <Route path="/history" component={History}/>
+                        <Route path="/getintouch" component={GetInTouch}/>
+
+
                         <Route path="/shop" component={ShopHome}/>
                         <Route path="/AdminDashboard" component={AdminDashboard}/>
                         <Route path="/AddItems" component={AddItem}/>
@@ -105,8 +113,8 @@ class FrontEnd extends Component {
                         <Route path="/EditItem/:id"  component={EditItem}/>
                         <Route path="/EditItem/"  component={EditItem}/>
 
-                         <Route path="/" exact component={Home} />
-                        <Route path="/login" component={Login} />
+                        {/* <Route path="/" exact component={Home} />*/}
+                        {/*<Route path="/login" component={Login} />*/}
                         <Route path="/users" component={UserComponent}/>
                         <Route path="/equipment" component={EquipmentDashboard} />
                         <Route path="/donations" component={Donations} />
@@ -114,11 +122,10 @@ class FrontEnd extends Component {
                         <Route path="/showDonations" component={ShowDonations} />
                         <Route path="/requests" component={Requests} />
 
-                        <Route path="/login" component={Login} />
-                        <Route path="/getInTouch" component={GetInTouch}/>
+                        {/*<Route path="/login" component={Login} />*/}
 
                         <Route path="/equipment" component={AddEquipment} />
-                        <Route path="/shop" component={ShopHome} />
+                        {/*<Route path="/shop" component={ShopHome} />*/}
                         <Route path="/OrderList" component={OrderList} />
                         <Route path="/Payment/:id/:tot/login" component={Login} />
                         <Route path="/Payment/:id/:tot/:value" component={Payment} />
@@ -130,10 +137,10 @@ class FrontEnd extends Component {
                         <Route path="/attendance" component={Attendance} />
                         {/* <Route path="/attendanceList" component={AttendanceMarking} /> */}
                         <Route path="/payments" component={PaymentStatus}/>
-                       <Route path="/users" component={UserComponent}/>
+                        <Route path="/users" component={UserComponent}/>
                         <Route path="/equipment" component={AddEquipment} />
 
-                        <Route path="/shop" component={ShopHome} />
+                        {/*<Route path="/shop" component={ShopHome} />*/}
                         <Route path="/attendanceList/:id" component={Attendance} />
                         <Route path="/attendanceList" component={sessionListattendance} />
                     
@@ -167,7 +174,8 @@ class FrontEnd extends Component {
                    
                         {/* <Route path="/shop" component={ShopHome} /> */}
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
-                        {/*<Route path="/Enrollments" component={Enrollments} />*/}
+                        <Route path="/Enrollments/:id" component={Enrollments} />
+                        <Route path="/Enrollments" component={Enrollments} />
                         {/*<Route path="/EnrollmentForm/:id" component={EnrollmentForm} />*/}
                         {/*<Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
 

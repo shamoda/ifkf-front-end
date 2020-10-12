@@ -9,7 +9,7 @@ class Attendance extends Component {
     constructor(props){
         super(props);
         this.state = {
-            attendanceID: -1,
+            attendanceID: '',
             currentPage : 1,
             entriesPerPage : 4,
             search:'',
@@ -19,6 +19,7 @@ class Attendance extends Component {
             stuId:'',
             noOfday:'',
             stuName:'',
+            
           
 
 
@@ -44,15 +45,11 @@ class Attendance extends Component {
     }
 
 
+
+
+
     refreshAttendance(stuId){
-        AttendanceService.getAttendance(stuId)
-
-             .then(response => this.setState({
-                    attendanceID : response.data.attendanceID,
-                    noOfday:  response.data.noOfdays
-                 
-          }))  
-
+       
         
         StudentService.retrieveStudent(stuId)
         .then(response => this.setState({
@@ -61,7 +58,21 @@ class Attendance extends Component {
                   
              
      }
-        ))}
+
+
+        ))
+    
+        
+        AttendanceService.getattendanceID(stuId)
+
+        .then(response => this.setState({
+               attendanceID : response.data.attendanceID,
+               noOfday:  response.data.noOfdays
+            
+     }))  
+
+    
+    }
 
     firstPage = () => {
         if(this.state.currentPage > 1) {
@@ -102,7 +113,7 @@ class Attendance extends Component {
        
 
          
-            if(this.state.attendanceID === -1){
+            if(this.state.attendanceID !== '' ){
 
                 let attend = {
                    
@@ -151,6 +162,41 @@ class Attendance extends Component {
                 [event.target.name] : event.target.value
             });
         };
+
+        searchChange = event => {
+            this.setState({
+              [event.target.name]: event.target.value,
+            });
+          };
+        
+        
+          cancelSearch =() =>{
+            this.setState({
+             search:'',
+             searchMessage:null,
+             fMessage:null
+          })
+           this.refreshStudents();
+        }
+
+        searchData =() =>{
+    
+            if(this.state.search !==''){
+                AttendanceService.searchStudent(this.state.search)
+              .then(
+                response =>{
+                  if(response.data.length >= 1){
+                    this.setState({students :response.data
+                      
+                    })
+                  }
+                  else{
+                    this.setState({searchMessage:"No matching Record Found", fMessage:null})
+                  }
+                }
+              )
+            }
+          }
     
     render() {
 

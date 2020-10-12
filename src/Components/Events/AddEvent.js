@@ -104,6 +104,7 @@ export default class AddEvent extends Component {
                 EventDataService.createEvent(ev)
                     .then( response =>
                         {
+                            console.log(this.state)
                             this.props.history.push('/events/list')
                         }
                     )
@@ -133,6 +134,21 @@ export default class AddEvent extends Component {
 
     }
 
+    demo = () => {
+        this.setState({
+            eventName: 'International Fumonkai Karate Championship 2020',
+            eventType: 'Tournament',
+            eventDate: '2021-03-15',
+            eventTime: '09:00:00',
+            eventLocation: 'Sugathadasa Stadium',
+            organizer: 'International Fumonkai Karate-Do Federation',
+            eventDesc: '37th annual karate championshop organized by International Fumonkai Karate-Do Federation will be held on 2021-3-15. Calling applications now',
+            bgImgName: 'events-bg6'
+        })
+    }
+
+
+
     render() {
         const {eventId, eventName, eventType, eventDate, eventTime, organizer, eventLocation, eventDesc, bgImgName} = this.state
 
@@ -161,11 +177,12 @@ export default class AddEvent extends Component {
 
                     <Card>
                         <Card.Header as={"h3"}>Create Event</Card.Header>
+
                         <Form onSubmit={this.handleSubmit} method={"post"}>
                             <Card.Body>
                                 <Form.Group controlId={"formEventName"}>
                                     <Form.Label>Event name</Form.Label>
-                                    <Form.Control type={"text"} name={"eventName"} maxLength="100" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
+                                    <Form.Control autoComplete="off" type={"text"} name={"eventName"} maxLength="100" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
                                 </Form.Group>
                                 <Form.Row>
                                     <Col className={"mr-3"}>
@@ -194,11 +211,11 @@ export default class AddEvent extends Component {
                                 </Form.Row>
                                 <Form.Group controlId={"formEventLocation"}>
                                     <Form.Label>Location</Form.Label>
-                                    <Form.Control type={"text"} name={"eventLocation"} maxLength="200" value={eventLocation} onChange={this.handleDataChange} placeholder={"Enter event location"} required/>
+                                    <Form.Control autoComplete="off" type={"text"} name={"eventLocation"} maxLength="200" value={eventLocation} onChange={this.handleDataChange} placeholder={"Enter event location"} required/>
                                 </Form.Group>
                                 <Form.Group controlId={"formEventOrganizer"}>
                                     <Form.Label>Organizer</Form.Label>
-                                    <Form.Control type={"text"} name={"organizer"} maxLength="200" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
+                                    <Form.Control autoComplete="off" type={"text"} name={"organizer"} maxLength="200" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
                                 </Form.Group>
                                 <Form.Group controlId={"formEventDescription"}>
                                     <Form.Label>Description</Form.Label>
@@ -233,7 +250,8 @@ export default class AddEvent extends Component {
                             </Card.Body>
                             <Card.Footer style={{textAlign:'right'}}>
                                 <Button variant={"success"} className={"px-3"} type={"submit"}>{eventId !== -1 ? "Update" : "Submit"}</Button>{' '}
-                                <Button variant={"secondary"} className={"px-3"} type={"reset"}>Reset</Button>
+                                <Button variant={"secondary"} className={"px-3"} type={"reset"}>Reset</Button>{' '}
+                                <Button variant={"dark"} className={"px-3"} onClick={this.demo}>Demo</Button>
                             </Card.Footer>
                         </Form>
                     </Card>

@@ -3,8 +3,9 @@ import moment from 'moment';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUsers} from "@fortawesome/free-solid-svg-icons";
 import './Events.css';
-import {Card, Col, Row} from 'react-bootstrap';
+import {Card, Col, Container, Row} from 'react-bootstrap';
 import EventDataService from './EventDataService';
+import swal from 'sweetalert';
 
 export default class EventsMain extends Component {
     constructor(props) {
@@ -16,10 +17,21 @@ export default class EventsMain extends Component {
     }
 
     componentDidMount() {
-        EventDataService.retrieveAllEvents().then(
+        //only display upcoming events
+
+        EventDataService.filterByStatus(0).then(
             response => {
-                // console.log(response)
-                this.setState({events: response.data})
+                if (response.data.length > 1) {
+                    this.setState({events: response.data})
+                } else {
+                    swal({
+                        title: "Sorry! No events for now",
+                        icon: "error",
+                        button: "Close",
+                    }).then((value) => {
+                        this.props.history.push(`/`)
+                    });
+                }
             }
         )
     }
@@ -31,85 +43,42 @@ export default class EventsMain extends Component {
     render() {
         return (
             <div>
-                <div className="jumbotron jumbotron-fluid shadow-none" style={{position: 'relative', top: '-5px'}}>
-                    <div className={"col"}>
-                        <div className={"row"}>
-                            <div className={"col"}>
-                            </div>
-                            <div className={"col-8 px-2"}>
-                                <h1 className="display-4">Events</h1>
-                                <p className="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequat.</p>
-                            </div>
-                            <div className={"col"}>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div className={"col"} style={{position: 'relative', top: '-70px'}}>
-                    <div className={"row"}>
-                        <div className={"col"}>
+                <Container fluid className={"p-0 mb-5"}>
+                    <Container fluid className={"events-container-background p-5 mb-5"}>
+                        <div className="row justify-content-sm-center pt-5">
+                            <h1 className={"display-4 pt-4"}>Upcoming Events</h1>
                         </div>
+                    </Container>
+                </Container>
+                {/*<div className="jumbotron jumbotron-fluid shadow-none" style={{position: 'relative', top: '-5px'}}>*/}
+                {/*    <div className={"col"}>*/}
+                {/*        <div className={"row"}>*/}
+                {/*            <div className={"col"}>*/}
+                {/*            </div>*/}
+                {/*            <div className={"col-8 px-2"}>*/}
+                {/*                <h1 className="display-4">Events</h1>*/}
+                {/*                <p className="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit,*/}
+                {/*                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim*/}
+                {/*                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip*/}
+                {/*                    ex ea commodo consequat.</p>*/}
+                {/*            </div>*/}
+                {/*            <div className={"col"}>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                        <div className={"col-8 px-5"} style={{
-                            backgroundColor: '#ffffff',
-                            paddingTop: '25px', paddingBottom: '20px', borderRadius: '15px',
-                            boxShadow: '0 3px 5px 0 rgba(0, 0, 0, 0.2)'
-                        }}>
-                            <div className={"row"}>
-                                <div className={"col-2"}>
-                                    <p className={"lead"}>Filter By:</p>
-                                </div>
-                                <div className={"col"}>
-                                    <select id={"type"} className={"form-control"}>
-                                        <option value={"Event Type"}>Event Type</option>
-                                        <option value={"Tournament"}>Tournament</option>
-                                        <option value={"Training Session"}>Training Session</option>
-                                        <option value={"Special Events"}>Special Events</option>
-                                    </select>
-                                </div>
-                                <div className={"col"}>
-                                    <select id={"organizer"} className={"form-control"}>
-                                        <option value={"Organizer"}>Organizer</option>
-                                        <option value={"SLKF"}>SLKF</option>
-                                        <option value={"IFKF"}>IFKF</option>
-                                        <option value={"option4"}>option4</option>
-                                        <option value={"option5"}>option5</option>
-                                    </select>
-                                </div>
-                                <div className={"col"}>
-                                    <select id={"month"} className={"form-control"}>
-                                        <option value={"Month"}>Month</option>
-                                        <option value={"01"}>January</option>
-                                        <option value={"02"}>February</option>
-                                        <option value={"03"}>March</option>
-                                        <option value={"04"}>April</option>
-                                        <option value={"05"}>May</option>
-                                        <option value={"06"}>June</option>
-                                        <option value={"07"}>July</option>
-                                        <option value={"08"}>August</option>
-                                        <option value={"09"}>September</option>
-                                        <option value={"10"}>October</option>
-                                        <option value={"11"}>November</option>
-                                        <option value={"12"}>December</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={"col"}>
-                        </div>
-                    </div>
+                <div className={"col"}>
 
-                    <div className={"row mt-4"}>
+                    <div className={"row mt-4 pt-5"}>
                         <div className={"col"}>
                         </div>
                         <div className={"col-9"} style={{padding: '0 4%'}}>
                             <Row>
-                                {   //iterate cards - mapping
+                                {
                                     this.state.events.map(event =>
+
                                         <Col sm={4} className={"card-group mb-4"} key={event.eventId}>
                                             <Card className={"link shadowC"} style={{width: '18rem'}} key={event.eventId}
                                                   onClick={() => this.eventCardClicked(event.eventId)}>

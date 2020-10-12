@@ -50,7 +50,7 @@
 }
 
 /*Event List Table*/
-th{
+.event-table-header{
     background-color: #252c30;
     color: #fff;
 }
@@ -81,6 +81,24 @@ th{
 /*override original style by 1px*/
 .react-datepicker__input-time-container .react-datepicker-time__input-container .react-datepicker-time__input input {
     width: 90px !important;
+}
+
+.events-container-background {
+    background-image: url("../../Assets/white.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.event-desc-img {
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
 }
 
 

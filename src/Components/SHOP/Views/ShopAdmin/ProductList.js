@@ -244,8 +244,8 @@ class productList extends React.Component {
             <div>
 
 
-                <MDBRow center={true}>
-                    <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
+                <MDBRow center={true}  style={{background:"#45454559"}}>
+                    <MDBCard style={{width: "81rem", marginTop: "2rem",background:""}}>
                         <Navbar bg="dark" variant="dark">
                             <Nav className="mr-auto">
                             </Nav>
