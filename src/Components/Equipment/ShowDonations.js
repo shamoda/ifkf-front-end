@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import moment from 'moment'
 import {faStepBackward, faFastBackward, faStepForward, faFastForward} from '@fortawesome/free-solid-svg-icons';
 import SessionService from "../../API/SessionService";
+import StudentService from '../../API/StudentService';
 class ShowDonations extends Component {
     constructor(props){
     super(props);
@@ -14,7 +15,7 @@ class ShowDonations extends Component {
 
         
         quantity:'',
-        sessionID:'',
+        sessionID:1,
         equipmentID: '',
     
         donations:[],
@@ -34,15 +35,26 @@ class ShowDonations extends Component {
     
     componentDidMount(){
 
-        this.refreshQ();
 
+
+      EquipmentDataService.retrieveAllEquipment()
+      .then(
+          response => {
+              
+              this.setState({optionList:response.data.map(equipment =>
+                  <option value={this.equipmentID} id= {equipment.id}>
+                      {equipment.id}
+                  </option>
+              )})
+          }
+      )
 
       
     }
 
-   refreshQ(){
+   refreshQ(sessionID){
 
-        EquipmentDataService.retrieveSumquantityById()
+        EquipmentDataService.retrieveSumquantityById(parseInt(sessionID))
         .then(
 
             response => {
@@ -59,7 +71,7 @@ class ShowDonations extends Component {
 
      downloadReportClicked = () => {
      
-        EquipmentDataService. downloadDonationsFullreport()
+        EquipmentDataService. downloadDonationsFullreport(this.state.sessionID)
             .then(
                 response => {
                     this.setState({message : response.data,Errormessage:''})
@@ -98,9 +110,10 @@ class ShowDonations extends Component {
         
             cancelSearch = () => {
                 this.setState({
-                    search: '',
+                    sessionID: '',
                     searchMessage: null,
-                    fMessage: null
+                    fMessage: null,
+                   
                 })
                 this.refreshQ();
             }
@@ -117,6 +130,16 @@ class ShowDonations extends Component {
             [event.target.name] : event.target.value
         });
         
+    };
+
+    SessionChange = event =>{
+        this.setState({
+            [event.target.name] : event.target.value,
+            donations:[]
+        });
+    
+       this.refreshQ(this.state.sessionID)
+       console.log(this.state.sessionID)
     };
 
 
@@ -169,7 +192,7 @@ class ShowDonations extends Component {
 
       
         
-        const {id,date,quantity,sessionID, equipmentID,search,optionList,fsession} = this.state;
+        const {id,date,quantity,sessionID, equipmentID,search,fsession} = this.state;
         const{donations} = this.state;
         // const lastIndex = currentPage * donationsPerPage;
         // const firstIndex = lastIndex - donationsPerPage;
@@ -212,12 +235,27 @@ class ShowDonations extends Component {
         <Card className={"border border-dark bg-dark text-white"}>
         <Card.Header><FontAwesomeIcon icon={faList} /> List
         <div style={{ float: "right" }}>
-                <InputGroup size="sm">
+                {/* <InputGroup size="sm" style={{width:250,marginLeft:300}}>
                     <FormControl style={searchBox} autoComplete="off" placeholder="Search" name="search" value={search} className="bg-dark text-white" onChange={this.searchChange} />&nbsp;
                         <InputGroup.Append>
                             <Button size="sm" variant="outline-primary" type="button" onClick={this.searchData}><FontAwesomeIcon icon={faSearch} /></Button>&nbsp;
                             <Button size="sm" variant="outline-danger" type="button" onClick={this.cancelSearch}><FontAwesomeIcon icon={faTimes} /></Button>
                         </InputGroup.Append>
+                </InputGroup> */}
+
+            
+                   <InputGroup size="sm" style={{width:250,marginLeft:-200,marginTop:0}}>
+                    <FormControl  className="bg-dark text-white" type="number" name="sessionID" value={sessionID} onChange={this.searchChange} placeholder="Search by your session ID" autoComplete="off">
+                    
+                        
+                    </FormControl>&nbsp;
+
+                    <InputGroup.Append>
+                            <Button size="sm" variant="outline-primary" type="button" onClick={this.refreshQ(sessionID)}><FontAwesomeIcon icon={faSearch} /></Button>&nbsp;
+                            <Button size="sm" variant="outline-danger" type="button" onClick={this.cancelSearch}><FontAwesomeIcon icon={faTimes} /></Button>
+                        </InputGroup.Append>
+                    
+       
                 </InputGroup>
          </div>
          </Card.Header>
@@ -240,7 +278,7 @@ class ShowDonations extends Component {
 
                 </tr> :
               donations.map((donations) => (
-                <tr key={donations.sessionId} align="center">
+                <tr key={donations.donateID} align="center">
                 <td>{donations.sessionId}</td>
                 <td>{donations.type}</td>
                 <td>{donations.quantity}</td>
@@ -251,7 +289,7 @@ class ShowDonations extends Component {
     </tr>
 ))
 
-}
+              }
        
 
          
@@ -259,7 +297,7 @@ class ShowDonations extends Component {
          </Table>
          </Card.Body>
          <Card.Footer style={{"textAlign":"right"}}>
-         <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginBottom:10}} onClick={ this.downloadReportClicked.bind()} >
+         <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginBottom:10}} onClick={ this.downloadReportClicked.bind(sessionID)} >
             <FontAwesomeIcon icon={faFilePdf} /> Download Report
         </Button>
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EquipmentDataService from '../../API/EquipmentDataService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faSave, faUndo,faTimes,faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo,faTimes,faSearch,faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Alert, ControlLabel, FormGroup } from 'react-bootstrap';
 import { faStepBackward, faFastBackward, faStepForward, faFastForward } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
@@ -33,6 +33,8 @@ class Requests extends Component {
 
         this.refreshRequests = this.refreshRequests.bind(this);
         this.onSubmitRequests = this.onSubmitRequests.bind(this);
+        this.resetERecord = this.resetERecord.bind(this);
+        this.resetERecordValue =this.resetERecordValue.bind(this);
     }
 
 
@@ -187,12 +189,17 @@ class Requests extends Component {
                                 searchMessage: null,
                                 fMessage: null
                             })
+                           
+
                         }
                         else {
                             this.setState({
                                 message: "No Matching Record Found",
-                                fMessage: null
+                                fMessage: null,
+                               
                             })
+
+                           
                         }
                     }
                 )
@@ -208,6 +215,17 @@ class Requests extends Component {
         this.refreshRequests();
     }
 
+
+    
+    resetERecord(){
+        this.setState({type:'',  quantity:'', requestDate:moment(new Date()).format('YYYY-MM-DD'), status:"Pending",sessionID:'',  description:'',message:'',Errormessage:''}) }
+
+
+
+    resetERecordValue(){
+            this.setState({ type:'Gloves',  quantity:'678', requestDate:moment(new Date()).format('YYYY-MM-DD'), status:"Pending",sessionID:1,  description:'I need some gloves please'}) }
+    
+    
 
 
     render() {
@@ -390,7 +408,7 @@ class Requests extends Component {
                                     <Form.Group as={Col} controlId="formGridTitle">
                                         <Form.Label style={{  }}>Equipment Type</Form.Label>
                                         <Form.Control name="type" as="select" value={type} required autoComplete="off" onChange={this.EquiChange} placeholder="Equipment " className={"bg-dark text-white"} style={{ }} >
-                                           <option value="">-- Select --</option>
+                                        
                                             <option>Gloves</option>
                                             <option>HeadGears</option>
                                             <option>Rebreakable Boards</option>
@@ -416,7 +434,7 @@ class Requests extends Component {
                                     
                                     <Form.Group as={Col} controlId="formGridTitle">
                                         <Form.Label style={{ marginLeft: 50 }}>Session ID</Form.Label>
-                                        <Form.Control type="text" name="sessionID" values={sessionID} required autoComplete="off"  onChange={this.EquiChange} placeholder="Session ID" className={"bg-dark text-white"} style={{ width: 300 }} />
+                                        <Form.Control type="text" name="sessionID" value={sessionID} required autoComplete="off"  onChange={this.EquiChange} placeholder="Session ID" className={"bg-dark text-white"} style={{ width: 300 }} />
                                     </Form.Group>
 
                                 </Form.Row>
@@ -437,12 +455,16 @@ class Requests extends Component {
 
                             </Card.Body>
                             <Card.Footer style={{ "textAlign": "right" }}>
-                                <Button variant="success" size="sm" type="submit">
-                                    <FontAwesomeIcon icon={faSave} />
-                                </Button>{' '}
-                                <Button variant="info" size="sm" type="reset">
-                                    <FontAwesomeIcon icon={faUndo} /> Reset
-                          </Button>
+                            <Button variant="success" size="sm" type="submit">
+                                Save  <FontAwesomeIcon icon={faPlusSquare} /> 
+                            </Button>{' '}
+                            <Button variant="info" size="sm" type="reset" onClick={this.resetERecord}>
+                            <FontAwesomeIcon icon={faUndo} /> Reset
+                            </Button>
+
+                            <Button style={{marginLeft:5}} variant="info" size="sm" type="reset" onClick={this.resetERecordValue}>
+                            <FontAwesomeIcon icon={faStepForward} /> DEMO
+                            </Button>
                                 {/* <Button variant="primary" size="sm" type="button" onClick={this.resultsList.bind()}>
                           <FontAwesomeIcon icon={faSave} /> Results
                           </Button> */}
