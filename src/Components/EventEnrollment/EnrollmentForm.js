@@ -23,7 +23,9 @@ class EnrollmentForm extends Component {
             email:'',
             guardianName:'',
             guardianPhone:'',
-            getId: null
+            getId: null,
+            eID: this.props.match.params.eid
+            // eID: 9
         }
         this.refreshUnregStudent = this.refreshUnregStudent.bind(this);
         this.addStudentClicked = this.addStudentClicked.bind(this);
@@ -48,10 +50,11 @@ class EnrollmentForm extends Component {
             phone:response.data.phone,
             email: response.data.email,
             guardianName: response.data.guardianName,
-            guardianPhone: response.data.guardianPhone
+            guardianPhone: response.data.guardianPhone,
+            eID: response.data.eid
         }))
 
-        
+        // console.log(`respons${}`)
 
         return
 
@@ -69,7 +72,7 @@ class EnrollmentForm extends Component {
     addStudentClicked(event) {
         event.preventDefault();
 
-        
+        // console.log("LLEID"+this.state.eID)
         //const getId = +this.props.match.params.id;
 
         if(this.state.id === -1){
@@ -84,7 +87,8 @@ class EnrollmentForm extends Component {
             phone:this.state.phone,
             email: this.state.email,
             guardianName: this.state.guardianName,
-            guardianPhone: this.state.guardianPhone
+            guardianPhone: this.state.guardianPhone,
+            eID: this.state.eID
         };
 
             swal({
@@ -92,8 +96,9 @@ class EnrollmentForm extends Component {
                 icon: "success",
                 button: "Ok",
             });
-            EnrollStudentService.insertEnrollment(stud)
-            .then(() => this.props.history.push('/enrollments'))
+            
+            EnrollStudentService.insertEnrollment(this.state.eID,stud)
+            .then(() => this.props.history.push(`/enrollments/${stud.eID}`))
         }
 
         else{
@@ -109,16 +114,18 @@ class EnrollmentForm extends Component {
                 phone:this.state.phone,
                 email: this.state.email,
                 guardianName: this.state.guardianName,
-                guardianPhone: this.state.guardianPhone
+                guardianPhone: this.state.guardianPhone,
+                eID: this.state.eID
             };
 
             swal({
                 title: "Record Successfully Updated!",
                 icon: "success",
                 button: "Ok",
-              });
-              EnrollStudentService.updateEnrollment(stud)
-            .then(()=> this.props.history.push('/enrollments'))
+            });
+            console.log("update eid:"+stud.eID)
+            EnrollStudentService.updateEnrollment(this.state.eID,stud)
+            .then(()=> this.props.history.push(`/enrollments/${stud.eID}`))
         }
     }
 
@@ -136,16 +143,17 @@ class EnrollmentForm extends Component {
             nic: '0000000000V',
             weight: '50kg',
             kyu: '10,9,8,7',
-            phone:'0111111111',
+            phone:'1234567890',
             email: 'demo@gmail.com',
             guardianName: 'Demo Guardian',
-            guardianPhone: '0222222222'
+            guardianPhone: '1789456230',
+            eID: this.state.eID
         })
     }
     render() { 
 
 
-        const {name,address,nic,dob,weight,kyu,phone,email,guardianName,guardianPhone} = this.state
+        const {name,address,nic,dob,weight,kyu,phone,email,guardianName,guardianPhone,eID} = this.state
 
         return ( 
             <div>

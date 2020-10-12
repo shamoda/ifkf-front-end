@@ -16,7 +16,8 @@ class RegStudentForm extends Component {
             weight:'',
             name:'',
             kyu:'',
-            dob:moment(new Date()).format('YYYY-MM-DD')
+            dob:moment(new Date()).format('YYYY-MM-DD'),
+            eID: this.props.match.params.id
         }
         //this.refreshRegStudent = this.refreshRegStudent.bind(this);
         this.addStudentClicked = this.addStudentClicked.bind(this);
@@ -30,7 +31,8 @@ class RegStudentForm extends Component {
             weight: this.state.weight,
             name: this.state.name,
             kyu: this.state.kyu,
-            dob: this.state.dob
+            dob: this.state.dob,
+            eID: this.state.eID
         };
 
         swal({
@@ -38,8 +40,8 @@ class RegStudentForm extends Component {
             icon: "success",
             button: "Ok",
         });
-        EnrollStudentService.insertRegStudent(regStudent)
-        .then(() => this.props.history.push('/enrollments'))
+        EnrollStudentService.insertRegStudent(this.state.eID, regStudent)
+        .then(() => this.props.history.push(`/enrollments/${this.state.eID}`))
         // console.log("Push")
     }
 
@@ -54,7 +56,8 @@ class RegStudentForm extends Component {
             studId: '00',
             name: 'Demo',
             weight: '50kg',
-            kyu: '10,9,8,7'
+            kyu: '10,9,8,7',
+            eID: this.state.eID
         })
     }
     render() { 

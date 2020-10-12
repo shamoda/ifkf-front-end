@@ -250,9 +250,9 @@ export default class EventList extends Component {
         this.props.history.push(`/events/add/-1`)
     }
 
-    userAddBtnClicked = (eventId) => {
+    userAddBtnClicked(eventId){
         console.log(eventId)
-        this.props.history.push('/Enrollments/'+eventId)
+        this.props.history.push(`/Enrollments/`+eventId)
     }
 
     getReport = () => {

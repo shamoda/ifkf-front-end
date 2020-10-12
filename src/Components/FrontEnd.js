@@ -149,10 +149,11 @@ class FrontEnd extends Component {
                         <Route path="/addPayment" component={PaymentForm}/>
                         <Route path="/studentList" component={PaymentStatus}/>
 
-                        <Route path="/Enrollments" component={Enrollments} />
-                        <Route path="/EnrollmentForm/:id" component={EnrollmentForm} />
-                        <Route path="/EnrollmentForm" component={EnrollmentForm} />
-                        <Route path="/RegStudentForm" component={RegStudentForm}/>
+                        {/* <Route path="/Enrollments" component={Enrollments} /> */}
+                        <Route path="/EnrollmentForm/:eid/:id" component={EnrollmentForm} />
+                        <Route path="/EnrollmentForm/:eid" component={EnrollmentForm} />
+                        {/* <Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
+                        <Route path="/RegStudentForm/:id" component={RegStudentForm}/>
                         
 
                         <Route path="/students" component={StudentTableComponent}/>
