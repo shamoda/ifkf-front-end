@@ -298,7 +298,8 @@ class Enrollments extends Component {
 
         return ( 
             <div>
-                <Container className="mb-3" fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                 <br></br>
+                 <Container className="mb-3" fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
                     <Card className={"border border-dark bg-dark text-white"}>
                         <Card.Body>
                             <Form.Row>

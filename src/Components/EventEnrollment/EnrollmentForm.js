@@ -149,6 +149,7 @@ class EnrollmentForm extends Component {
 
         return ( 
             <div>
+                <br></br>
                 <Container>
                     <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header style={{fontSize:'30px'}}>
