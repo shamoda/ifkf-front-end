@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Home.css';
-import {Carousel, Card, ListGroup, CardDeck, Container, Row, Col} from 'react-bootstrap';
+import {Carousel, Card, CardDeck, Container} from 'react-bootstrap';
 import Image from "react-bootstrap/Image";
 
 export default class Home extends Component {
@@ -93,7 +93,7 @@ export default class Home extends Component {
                                         President of the International Karate Federation
                                     </Card.Subtitle>
                                 </Card.Body>
-                                <Card.Body style={{padding: 0, backgroundColor: '#eee'}}>
+                                <Card.Body style={{padding: 0, backgroundColor: '#f5f5f5'}}>
                                     <Card.Subtitle className={"text-muted"} style={{padding: '20px 25px'}}>
                                         Rank qualification
                                     </Card.Subtitle>
@@ -127,7 +127,7 @@ export default class Home extends Component {
                                     {/*    President of the International Karate Federation*/}
                                     {/*</Card.Subtitle>*/}
                                 </Card.Body>
-                                <Card.Body style={{padding: 0, backgroundColor: '#eee'}}>
+                                <Card.Body style={{padding: 0, backgroundColor: '#f5f5f5'}}>
                                     <Card.Subtitle className={"text-muted"} style={{padding: '20px 25px'}}>
                                         Rank qualification
                                     </Card.Subtitle>
@@ -170,7 +170,7 @@ export default class Home extends Component {
                                     {/*    President of the International Karate Federation*/}
                                     {/*</Card.Subtitle>*/}
                                 </Card.Body>
-                                <Card.Body style={{padding: 0, backgroundColor: '#eee'}}>
+                                <Card.Body style={{padding: 0, backgroundColor: '#f5f5f5'}}>
                                     <Card.Subtitle className={"text-muted"} style={{padding: '20px 25px'}}>
                                         Rank qualification
                                     </Card.Subtitle>

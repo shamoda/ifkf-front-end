@@ -175,9 +175,6 @@ class GetInTouch extends Component {
                     {/*    <h2>Country</h2>*/}
                     {/*</div>*/}
 
-
-
-
                     <CardDeck>
                         <Card className={"country-card"}>
                             <div className={"country-badge"}>

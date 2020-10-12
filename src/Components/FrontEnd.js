@@ -170,7 +170,8 @@ class FrontEnd extends Component {
                    
                         {/* <Route path="/shop" component={ShopHome} /> */}
                         {/*<Route path="/EnrolEvenrs" component={EnrolEvents} />*/}
-                        {/*<Route path="/Enrollments" component={Enrollments} />*/}
+                        <Route path="/Enrollments/:id" component={Enrollments} />
+                        <Route path="/Enrollments" component={Enrollments} />
                         {/*<Route path="/EnrollmentForm/:id" component={EnrollmentForm} />*/}
                         {/*<Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
 

@@ -43,7 +43,7 @@ class Header extends Component {
                         <Nav className="ml-auto">
                         <Link className="nav-link" to="/"><FontAwesomeIcon icon={faHome} /> Home</Link>
                         <Link className="nav-link" to="/history"><FontAwesomeIcon icon={faBook} /> History</Link>
-                        <Link className="nav-link" to="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Link>
+                        {/*<Link className="nav-link" to="gallery"><FontAwesomeIcon icon={faImages} /> Gallery</Link>*/}
                         <Link className="nav-link" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                         <Link className="nav-link" to="/getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Link>
                         {loggedAsOperator && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 

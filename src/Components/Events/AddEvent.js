@@ -182,7 +182,7 @@ export default class AddEvent extends Component {
                             <Card.Body>
                                 <Form.Group controlId={"formEventName"}>
                                     <Form.Label>Event name</Form.Label>
-                                    <Form.Control type={"text"} name={"eventName"} maxLength="100" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
+                                    <Form.Control autoComplete="off" type={"text"} name={"eventName"} maxLength="100" value={eventName} onChange={this.handleDataChange} placeholder={"Enter event name"} required />
                                 </Form.Group>
                                 <Form.Row>
                                     <Col className={"mr-3"}>
@@ -211,11 +211,11 @@ export default class AddEvent extends Component {
                                 </Form.Row>
                                 <Form.Group controlId={"formEventLocation"}>
                                     <Form.Label>Location</Form.Label>
-                                    <Form.Control type={"text"} name={"eventLocation"} maxLength="200" value={eventLocation} onChange={this.handleDataChange} placeholder={"Enter event location"} required/>
+                                    <Form.Control autoComplete="off" type={"text"} name={"eventLocation"} maxLength="200" value={eventLocation} onChange={this.handleDataChange} placeholder={"Enter event location"} required/>
                                 </Form.Group>
                                 <Form.Group controlId={"formEventOrganizer"}>
                                     <Form.Label>Organizer</Form.Label>
-                                    <Form.Control type={"text"} name={"organizer"} maxLength="200" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
+                                    <Form.Control autoComplete="off" type={"text"} name={"organizer"} maxLength="200" value={organizer} onChange={this.handleDataChange} placeholder={"Enter organizer's name"} required/>
                                 </Form.Group>
                                 <Form.Group controlId={"formEventDescription"}>
                                     <Form.Label>Description</Form.Label>
