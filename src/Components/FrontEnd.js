@@ -97,8 +97,12 @@ class FrontEnd extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Login}/>
                         <Route path="/ViewAll/logout" component={Login}/>
+
+                        <Route path="/ViewAll/login" component={Login}/>
+
                         <Route path="/history" component={History}/>
                         <Route path="/getintouch" component={GetInTouch}/>
+
 
                         <Route path="/shop" component={ShopHome}/>
                         <Route path="/AdminDashboard" component={AdminDashboard}/>
