@@ -1,29 +1,36 @@
-tr {
-  text-align: center;
-}
-.button {
-  padding-bottom: 15px;
-}
-
-h1 {
-  padding: 35px;
-  font-weight: 700;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-size: 25px;
-  letter-spacing: 2px;
-  word-spacing: 2px;
-  color: #000000;
-  font-weight: normal;
-  text-decoration: none;
-  font-style: normal;
-  font-variant: small-caps;
-  text-transform: capitalize;
+.contact-container-background {
+  background-image: url("../../Assets/white.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  margin: auto;
+  vertical-align: middle;
 }
 
-i {
-  padding-right: 7px;
+.country-card {
+  border-radius: 20px;
+  border-color: #e5e5e5;
+  border-width: 10px;
+  box-shadow: 0 0 8px 1px #e5e5e5;
 }
-h3 {
-  padding-top: 10px;
-  text-decoration: underline;
+
+.country-badge {
+  height: 75px;
+  width: 75px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  top: -40px;
+  border-radius: 100px;
+  box-shadow: 0 0 0 10px #e5e5e5;
+}
+
+.country-badge-img {
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100px;
 }
