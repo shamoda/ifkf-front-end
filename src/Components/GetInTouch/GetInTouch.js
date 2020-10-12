@@ -178,32 +178,6 @@ class GetInTouch extends Component {
                     <CardDeck>
                         <Card className={"country-card"}>
                             <div className={"country-badge"}>
-                                <Image className={"country-badge-img"} src={require(`../../Assets/usa.jpg`)}
-                                       style={{backgroundColor:'#8D8D8D'}} roundedCircle />
-                            </div>
-                            <Card.Body style={{textAlign:'center', paddingTop:0 }}>
-                                <Card.Title>San Francisco, USA</Card.Title>
-                                <Card.Text className={"text-muted"}>
-                                    San Bruno, CA 94066 <br/>
-                                    Office: +1 650 513 0514
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className={"country-card"}>
-                            <div className={"country-badge"}>
-                                <Image className={"country-badge-img"} src={require(`../../Assets/uk.jpg`)}
-                                       style={{backgroundColor:'#8D8D8D'}} roundedCircle />
-                            </div>
-                            <Card.Body style={{textAlign:'center', paddingTop:0 }}>
-                                <Card.Title>London, UK</Card.Title>
-                                <Card.Text className={"text-muted"}>
-                                    London, EC3M 3JY <br/>
-                                    Office: +44 189 280 5040
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className={"country-card"}>
-                            <div className={"country-badge"}>
                                 <Image className={"country-badge-img"} src={require(`../../Assets/japan.jpg`)}
                                        style={{backgroundColor:'#8D8D8D'}} roundedCircle />
                             </div>
@@ -215,6 +189,35 @@ class GetInTouch extends Component {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+
+                        <Card className={"country-card"}>
+                            <div className={"country-badge"}>
+                                <Image className={"country-badge-img"} src={require(`../../Assets/sl.jpg`)}
+                                       style={{backgroundColor:'#8D8D8D'}} roundedCircle />
+                            </div>
+                            <Card.Body style={{textAlign:'center', paddingTop:0 }}>
+                                <Card.Title>Colombo, Sri lanka</Card.Title>
+                                <Card.Text className={"text-muted"}>
+                                    Colombo, EC3M 3JY <br/>
+                                    Office: +94 112 280 5040
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+
+                        <Card className={"country-card"}>
+                            <div className={"country-badge"}>
+                                <Image className={"country-badge-img"} src={require(`../../Assets/india.jpg`)}
+                                       style={{backgroundColor:'#8D8D8D'}} roundedCircle />
+                            </div>
+                            <Card.Body style={{textAlign:'center', paddingTop:0 }}>
+                                <Card.Title>Chennai, India</Card.Title>
+                                <Card.Text className={"text-muted"}>
+                                    SP Infocity, Block B,<br/>
+                                    Office: +91 44 6667 8040
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+
                     </CardDeck>
 
                 </Container>
@@ -225,7 +228,7 @@ class GetInTouch extends Component {
 
                     {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
                     {this.state.searchMessage && <Alert variant="danger">{this.state.searchMessage}</Alert>}
-                    <Card className={"border border-dark bg-dark text-white"}>
+                    <Card className={"border bg-light"}>
                         <Card.Header>
                             <Row>
                                 <Col>
@@ -238,7 +241,7 @@ class GetInTouch extends Component {
                                 <Col sm={5}>
                                     <div style={{"float": "right"}}>
                                         <InputGroup size="sm">
-                                            <Form.Control className="bg-dark text-white"
+                                            <Form.Control className="bg-light"
                                                           style={{"border": "1px solid #17A2BB"}} name="search"
                                                           placeholder="Search Instructor Name" autoComplete="off"
                                                           value={search} onChange={this.searchChange}/>
@@ -261,7 +264,7 @@ class GetInTouch extends Component {
                                 striped
                                 borderless
                                 hover
-                                variant="dark"
+                                variant="light"
                                 style={{textAlign: "center"}}
                             >
                                 <thead>
@@ -318,7 +321,7 @@ class GetInTouch extends Component {
                                         </Button>
                                     </InputGroup.Prepend>
 
-                                    <FormControl style={pageNumCss} className={"bg-dark"} name="currentPage"
+                                    <FormControl style={pageNumCss} className={"bg-light"} name="currentPage"
                                                  value={currentPage}
                                                  onChange={this.changePage}/>
 
