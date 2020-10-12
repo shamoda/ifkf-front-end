@@ -43,5 +43,8 @@ class RequestsDataService{
       return axios.get(`http://localhost:8080/IFKF/searchReq/${searchText}`)
 
     }
+
+  
+
 }
 export default new RequestsDataService();
