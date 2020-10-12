@@ -47,39 +47,39 @@ class Header extends Component {
                         <Link className="nav-link" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
                         <Link className="nav-link" to="/getintouch"><FontAwesomeIcon icon={faHandshake} /> Get in touch</Link>
                         {loggedAsOperator && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
-                            <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
-                            <Link className="dropdown-item" to="sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</Link>
-                            <Link className="dropdown-item" to="studentperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
-                            <Link className="dropdown-item" to="equipment"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
-                            <Link className="dropdown-item" to="events/list"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
-                            <Link className="dropdown-item" to="attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
-                            <Link className="dropdown-item" to="Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="/users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
+                            <Link className="dropdown-item" to="/sessions"><FontAwesomeIcon icon={faCalendarAlt} /> Sessions</Link>
+                            <Link className="dropdown-item" to="/studentperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="/equipment"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
+                            <Link className="dropdown-item" to="/events/list"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="/attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
+                            <Link className="dropdown-item" to="/Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
 
                         {loggedAsInstructor && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
-                            <Link className="dropdown-item" to="users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
-                            <Link className="dropdown-item" to="studentperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
-                            <Link className="dropdown-item" to="events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
-                            <Link className="dropdown-item" to="attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
-                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="/users"><FontAwesomeIcon icon={faUsers} /> Users</Link>
+                            <Link className="dropdown-item" to="/studentperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="/events"><FontAwesomeIcon icon={faCalendarCheck} /> Events</Link>
+                            <Link className="dropdown-item" to="/attendanceList"><FontAwesomeIcon icon={faCheck} /> Attendance</Link>
+                            <Link className="dropdown-item" to="/shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
-                            <Link className="dropdown-item" to="showDonations"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
+                            <Link className="dropdown-item" to="/showDonations"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
 
                         {loggedAsStudent && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown">
-                            <Link className="dropdown-item" to="myperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
-                            <Link className="dropdown-item" to="shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
+                            <Link className="dropdown-item" to="/myperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
+                            <Link className="dropdown-item" to="/shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
                         </NavDropdown>}
 
-                        {!isUserLoggedIn && <Link className="nav-link" to="login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
-                        {isUserLoggedIn && <Link className="nav-link" to="login" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
+                        {!isUserLoggedIn && <Link className="nav-link" to="/login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
+                        {isUserLoggedIn && <Link className="nav-link" to="/login" onClick={AuthenticationService.logout} ><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link>}
                         </Nav>
                     </Navbar.Collapse>
                     </Navbar>
