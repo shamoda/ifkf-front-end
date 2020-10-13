@@ -23,7 +23,9 @@ class ShowDonations extends Component {
        
         optionList:[],
         message: null,
-        search:''
+        search:'',
+        currentPage : 1,
+        donationsPerPage : 4
 
     }
 
@@ -143,45 +145,45 @@ class ShowDonations extends Component {
     };
 
 
-    // changePage = event => {
+    changePage = event => {
 
-    //     this.setState({
-    //         [event.target.name] : parseInt(event.target.value)
-    //     })
-    // }
+        this.setState({
+            [event.target.name] : parseInt(event.target.value)
+        })
+    }
 
-    // firstPage = () => {
-    //     if(this.state.currentPage > 1) {
-    //         this.setState({
-    //             currentPage: 1
-    //         });
-    //     }
-    // };
+    firstPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: 1
+            });
+        }
+    };
 
-    // prevPage = () => {
-    //     if(this.state.currentPage > 1) {
-    //         this.setState({
-    //             currentPage: this.state.currentPage - 1
-    //         });
-    //     }
-    // };
+    prevPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: this.state.currentPage - 1
+            });
+        }
+    };
 
-    // lastPage = () => {
-    //     let donationsLength = this.state.donations.length;
-    //     if(this.state.currentPage < Math.ceil(donationsLength / this.state.donationsPerPage)) {
-    //         this.setState({
-    //             currentPage: Math.ceil(donationsLength / this.state.donationsPerPage)
-    //         });
-    //     }
-    // };
+    lastPage = () => {
+        let donationsLength = this.state.donations.length;
+        if(this.state.currentPage < Math.ceil(donationsLength / this.state.donationsPerPage)) {
+            this.setState({
+                currentPage: Math.ceil(donationsLength / this.state.donationsPerPage)
+            });
+        }
+    };
 
-    // nextPage = () => {
-    //     if(this.state.currentPage < Math.ceil(this.state.donations.length / this.state.donationsPerPage)) {
-    //         this.setState({
-    //             currentPage: this.state.currentPage + 1
-    //         });
-    //     }
-    // };
+    nextPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.donations.length / this.state.donationsPerPage)) {
+            this.setState({
+                currentPage: this.state.currentPage + 1
+            });
+        }
+    };
 
    
 
@@ -192,12 +194,12 @@ class ShowDonations extends Component {
 
       
         
-        const {id,date,quantity,sessionID, equipmentID,search,fsession} = this.state;
+        const {id,date,quantity,sessionID, equipmentID,search,fsession,currentPage,donationsPerPage} = this.state;
         const{donations} = this.state;
-        // const lastIndex = currentPage * donationsPerPage;
-        // const firstIndex = lastIndex - donationsPerPage;
-        // const currentDonations = donations.slice(firstIndex, lastIndex);
-        // const totalPages = donations.length / donationsPerPage;
+        const lastIndex = currentPage * donationsPerPage;
+        const firstIndex = lastIndex - donationsPerPage;
+        const currentDonations = donations.slice(firstIndex, lastIndex);
+        const totalPages = donations.length / donationsPerPage;
 
         const pageNumCss = {
 
@@ -301,11 +303,11 @@ class ShowDonations extends Component {
             <FontAwesomeIcon icon={faFilePdf} /> Download Report
         </Button>
 
-         {/* <div style={{"float":"left"}}>
+         <div style={{"float":"left"}}>
              Showing Page {currentPage} of {Math.ceil(totalPages)}
 
-        </div> */}
-        {/* <div style={{"float":"right"}}>
+        </div>
+        <div style={{"float":"right"}}>
             <InputGroup>
                 <InputGroup.Prepend>
                     <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
@@ -337,7 +339,7 @@ class ShowDonations extends Component {
             
             </InputGroup>
 
-        </div> */}
+        </div>
 
 
       

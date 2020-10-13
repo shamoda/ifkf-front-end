@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import EquipmentDataService from '../../API/EquipmentDataService';
 import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes,faFilePdf,faPlusSquare,faStepForward} from '@fortawesome/free-solid-svg-icons';
-import moment from 'moment'
+
 import "./box.css"
 class EquipmentDashboard extends Component {
     constructor(props){
@@ -256,7 +256,7 @@ class EquipmentDashboard extends Component {
         }
       
         resetERecord(){
-            this.setState({  id :-1,type :'', supplier : '', brand:'', quantity:'',Errormessage:'',message:''})
+            this.setState({  id :-1,type :'', supplier : '', brand:'', quantity:'',Errormessage:'',message:'',Availablequantity:'',Avquantity:''})
         }
 
         resetERecordDemo(){
@@ -397,6 +397,7 @@ class EquipmentDashboard extends Component {
                         <div className = "card-texts">
                         <h4  style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>{equipment.type}</h4>
                         <div style={{fontFamily:"Comic Sans MS, Comic Sans, cursive"}}>
+                         Equipment ID : {equipment.id}<br/>
                         Supplier :  {equipment.supplier} <br/>
                         Brand    :   {equipment.brand}  <br/>
                         Quantity  :   {equipment.quantity} <br/>

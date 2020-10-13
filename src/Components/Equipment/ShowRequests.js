@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EquipmentDataService from '../../API/EquipmentDataService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faSave, faUndo,faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo,faTimes,faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Alert, ControlLabel, FormGroup } from 'react-bootstrap';
 import { faStepBackward, faFastBackward, faStepForward, faFastForward, faSearch } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
@@ -111,8 +111,8 @@ class Requests extends Component {
             status: this.state.status,
             requestDate: this.state.requestDate,
             description: this.state.description,
-            // sessions:
-            //     { sessionId: this.state.sessionID },
+            sessions:
+                { sessionId: this.state.sessionID },
 
             instructor:
                 { instructorId: this.state.userID }
@@ -263,6 +263,17 @@ class Requests extends Component {
         this.refreshRequests();
     }
 
+
+    downloadReportClicked = () => {
+     
+        RequestsDataService.downloadReport()
+            .then(
+                response => {
+                    this.setState({message : response.data,Errormessage:''})
+                }
+            )
+    };
+
     render() {
 
 
@@ -282,7 +293,7 @@ class Requests extends Component {
         }
 
 
-
+      
         const { type, quantity, sessionID, requestDate, description, userID, status,search } = this.state;
         const { currentPage, RequestsPerPage, requests } = this.state;
         const lastIndex = currentPage * RequestsPerPage;
@@ -294,11 +305,11 @@ class Requests extends Component {
             <div>
 
             
-            <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:64}}>
+            <div style={{marginLeft: 100,fontSize:34}}>
                 Requests
                
            </div> 
-            <div style={{marginLeft: 100,fontFamily:" Times New Roman",fontSize:20}}>
+            <div style={{marginLeft: 100,fontSize:10}}>
 
             Please Update the Request Status Here.......
             </div>
@@ -426,6 +437,8 @@ class Requests extends Component {
                             </div>
 
 
+        <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginTop:50}} onClick={this.downloadReportClicked.bind()} >
+        <FontAwesomeIcon icon={faFilePdf} /> Download Report</Button>
 
 
                         </Card.Footer>
@@ -507,7 +520,7 @@ class Requests extends Component {
                             </Card.Body>
                             <Card.Footer style={{ "textAlign": "right" }}>
                                 <Button variant="success" size="sm" type="submit">
-                                    <FontAwesomeIcon icon={faSave} />
+                                   Save <FontAwesomeIcon icon={faSave} />
                                 </Button>{' '}
                                 <Button variant="info" size="sm" type="reset">
                                     <FontAwesomeIcon icon={faUndo} /> Reset

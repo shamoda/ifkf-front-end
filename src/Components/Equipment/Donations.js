@@ -27,7 +27,10 @@ class Donations extends Component {
         message: null,
         search:'',
         Errormessage:null,
-        repmessage:null
+        repmessage:null,
+        Availablequantity:null,
+        Avquantity:null,
+        Totquantity:null
 
     }
 
@@ -43,6 +46,7 @@ class Donations extends Component {
     componentDidMount(){
 
         this.refreshDonations();
+    
 
 
 
@@ -59,9 +63,11 @@ class Donations extends Component {
         )
     
 
-    
+     
         
       }
+
+
 
    refreshDonations(){
 
@@ -123,7 +129,42 @@ class Donations extends Component {
      onSubmitDonations(event){
 
         event.preventDefault();
-       
+
+     
+        
+  
+
+            // EquipmentDataService.retrieveEquipment(this.state.equipmentID)
+    
+            // .then(response => this.setState({
+                  
+            //         Totquantity: response.data.quantity,
+                   
+            // }))  
+
+            
+    
+           
+        //     EquipmentDataService.getTotalquantity(this.state.equipmentID)
+        //     .then(response => this.setState({
+        //              Avquantity : response.data.quantity,
+              
+         
+    
+        //     }))
+         
+    
+        //     this.setState({Availablequantity : this.state.Totquantity - this.state.Avquantity});
+    
+        
+        //     console.log(this.state.Totquantity)
+        //     console.log(this.state.Avquantity)
+        //     console.log(this.state.Availablequantity)
+
+        // if( this.state.quantity > this.state.Availablequantity ){
+        //     this.setState({Errormessage:"Donated Quantity is exceeding the Available quantity in Stocks.",message:null})
+        //     return
+        // }
 
         if(this.state.equipmentID === ''){
             this.setState({Errormessage:'Please Select a Equipment Type to Proceed.',message:null,repmessage:null})
@@ -285,7 +326,7 @@ class Donations extends Component {
    
 
     resetERecord(){
-        this.setState({ id : -1, date:  moment(new Date()).format('YYYY-MM-DD'),  quantity:'',  sessionID:'', equipmentID: '', Errormessage:'',message:'',repmessage:''}) }
+        this.setState({ id : -1, date:  moment(new Date()).format('YYYY-MM-DD'),  quantity:'',  sessionID:'', equipmentID: '', Errormessage:'',message:'',repmessage:'',Availablequantity:0,Avquantity:0}) }
 
 
 
@@ -325,7 +366,7 @@ class Donations extends Component {
         return ( 
 
             <div>
-            <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:64}}>
+            <div style={{marginLeft: 100 ,fontSize:20}}>
             Donations
           </div> 
         
@@ -335,7 +376,7 @@ class Donations extends Component {
                 {this.state.Errormessage && <Alert variant="danger">{this.state.Errormessage}</Alert>}
                   
                     <Card className={"border border-dark bg-dark text-white"}>
-                    <Card.Header  style={{fontFamily:"Brush Script MT"}}>Donate Now!!!</Card.Header>
+                    <Card.Header ><FontAwesomeIcon icon={faPlusSquare} />  Donate Now!!!</Card.Header>
                     <Form onSubmit={this.onSubmitDonations} id="Id"  method ="post">
                     <Card.Body>
                     
