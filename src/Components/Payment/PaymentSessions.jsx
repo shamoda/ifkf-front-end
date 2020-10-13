@@ -21,7 +21,7 @@ class PaymentSessions extends Component{
         return (
             <div>
                 <Container>
-                <Card className ={"border border-dark bg-dark text-white"} >
+                <Card className ={"border border-dark bg-dark text-white"} style={{marginTop:20}}>
                     <Card.Header>Payments.</Card.Header>
                     <Card.Body>
                         <Table striped bordered hover variant="dark">

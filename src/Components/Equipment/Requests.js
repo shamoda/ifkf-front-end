@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EquipmentDataService from '../../API/EquipmentDataService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faSave, faUndo,faTimes,faSearch,faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo,faTimes,faSearch,faPlusSquare,faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, FormControl, Alert, ControlLabel, FormGroup } from 'react-bootstrap';
 import { faStepBackward, faFastBackward, faStepForward, faFastForward } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
@@ -16,7 +16,7 @@ class Requests extends Component {
         this.state = {
 
             id: -1,
-            type:'',
+            type:'Gloves',
             quantity:'',
             requestDate:moment(new Date()).format('YYYY-MM-DD'),
             status:"Pending",
@@ -27,7 +27,8 @@ class Requests extends Component {
             message:'',
             Errormessage:'',
             currentPage: 1,
-            RequestsPerPage: 4
+            RequestsPerPage: 4,
+         
 
         }
 
@@ -81,6 +82,7 @@ class Requests extends Component {
             this.setState({Errormessage:"Please type a description",message:null})
             return
         }
+        
     
 
 
@@ -225,9 +227,7 @@ class Requests extends Component {
     resetERecordValue(){
             this.setState({ type:'Gloves',  quantity:'678', requestDate:moment(new Date()).format('YYYY-MM-DD'), status:"Pending",sessionID:1,  description:'I need some gloves please'}) }
     
-    
-
-
+   
     render() {
 
         const pageNumCss = {
@@ -260,7 +260,7 @@ class Requests extends Component {
         return (
 
             <div>
-                 <div style={{marginLeft: 100 ,fontFamily:"Brush Script MT",fontSize:40}}>
+                 <div style={{marginLeft: 100 ,fontSize:40}}>
                 Requests
                
            </div> 
@@ -372,7 +372,7 @@ class Requests extends Component {
 
 </div>
 
-
+   
 
 
 </Card.Footer>
@@ -465,6 +465,7 @@ class Requests extends Component {
                             <Button style={{marginLeft:5}} variant="info" size="sm" type="reset" onClick={this.resetERecordValue}>
                             <FontAwesomeIcon icon={faStepForward} /> DEMO
                             </Button>
+                           
                                 {/* <Button variant="primary" size="sm" type="button" onClick={this.resultsList.bind()}>
                           <FontAwesomeIcon icon={faSave} /> Results
                           </Button> */}

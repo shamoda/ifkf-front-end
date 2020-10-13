@@ -45,6 +45,10 @@ class RequestsDataService{
     }
 
   
+    downloadReport(){
+      return axios.get('http://localhost:8080/IFKF/requestReport');
+  }
+
 
 }
 export default new RequestsDataService();
