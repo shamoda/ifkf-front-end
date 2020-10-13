@@ -29,6 +29,9 @@ class UserComponent extends Component {
 
             
             <div className="container" >
+                <br/>
+            <br/>
+            <br/>
                  <Card className={"border border-dark "} style={{marginTop:100}}s>
                     <Card.Header><FontAwesomeIcon icon={faEdit} />  USERS</Card.Header>
                     
@@ -41,6 +44,15 @@ class UserComponent extends Component {
                     <Button variant="dark" size="lg" block onClick={this.addInstructor}>INSTRUCTORS</Button>
                 </Card.Body>
             </Card>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            
         </div>
         );
     }

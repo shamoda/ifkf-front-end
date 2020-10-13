@@ -197,7 +197,7 @@ class FrontEnd extends Component {
 
                     </Switch>
 
-                    {/*<Footer />*/}
+                    {/* <Footer /> */}
 
                 </Router>
 
