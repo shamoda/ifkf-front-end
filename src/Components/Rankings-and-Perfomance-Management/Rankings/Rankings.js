@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, ButtonGroup, Button, Container, Alert, Col, Form } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare} from '@fortawesome/free-solid-svg-icons';
+import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare, faExclamation, faCheck} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import RankingsDataService from './RankingsDataService';
 import { withRouter} from 'react-router-dom';
@@ -27,6 +27,8 @@ class Rankings extends Component {
         this.refreshRankings = this.refreshRankings.bind(this);
         this.submitRankingRecord = this.submitRankingRecord.bind(this);
         this.resetRankingRecord = this.resetRankingRecord.bind(this);
+        this.errorDemo = this.errorDemo.bind(this);
+        this.Demo = this.Demo.bind(this);
 
     }
 
@@ -143,6 +145,27 @@ class Rankings extends Component {
     };
 
 
+    // =======================================================demo buttons ==============================================
+    
+    errorDemo(){
+        this.setState({
+            fRank:'01st Dan Black Belt',
+            fDate:moment('2019-05-16 05:30:00.000000').format('YYYY-MM-DD')
+        })
+    }
+
+    Demo(){
+        this.setState({
+            fRank:'03rd Dan Black Belt',
+            fDate:moment('2023-02-27 05:30:00.000000').format('YYYY-MM-DD')
+        })
+    }
+
+
+
+
+
+
     render() { 
 
         const {fRank, fDate, fStudentId} = this.state;
@@ -249,6 +272,12 @@ class Rankings extends Component {
                         
                     </Card.Body>
                         <Card.Footer style={{"textAlign":"right"}}>
+                        <Button variant="outline-danger" size="sm" type="button" onClick={this.errorDemo}>
+                            <FontAwesomeIcon icon={faExclamation} /> Demo
+                            </Button>{' '}
+                            <Button variant="outline-primary" size="sm" type="button" onClick={this.Demo}>
+                            <FontAwesomeIcon icon={faCheck} /> Demo
+                            </Button>{' '}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button variant="success" size="sm" type="submit">
                             <FontAwesomeIcon icon={faSave} /> {this.state.fId !== -1 ? "Update" : "Save"}
                             </Button>{' '}

@@ -22,6 +22,7 @@ import {
   faTrash,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import AttendanceService from '../../API/AttendanceService';
 
 class sessionListattendance extends Component {
   constructor(props) {
@@ -30,14 +31,16 @@ class sessionListattendance extends Component {
     this.state = {
 
       Sessions: [],
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
+      fMessage: null,
+      message: null
 
 
     };
 
     this.addSession = this.addSession.bind(this);
-  
     this.viewButtonClicked = this.viewButtonClicked.bind(this);
+    this.generateAttendanceReportClicked = this.generateAttendanceReportClicked.bind(this);
   }
 
   addSession() {
@@ -61,6 +64,16 @@ class sessionListattendance extends Component {
 
         this.props.history.push(`/attendanceList/${id}`)
 
+}
+
+generateAttendanceReportClicked(sessionId){
+  AttendanceService.downloadAttendanceReport(sessionId)
+      .then(
+          response => {
+              this.setState({message : response.data, fMessage:''})
+              this.refreshStudents();
+          }
+      )
 }
 
   render() {
@@ -111,6 +124,12 @@ class sessionListattendance extends Component {
                               this.viewButtonClicked(Session.sessionId)
                             }
                           >View
+                           </Button>&ensp; 
+                           <Button style={{height:35}}
+                            onClick={() =>
+                              this.generateAttendanceReportClicked(Session.sessionId)
+                            }
+                          >Report
                            </Button>
                           
                         </ButtonGroup>
@@ -118,6 +137,7 @@ class sessionListattendance extends Component {
                     </tr>
                   ))}
                 </tbody>
+                
               </Table>
             </Card.Body>
           </Card>

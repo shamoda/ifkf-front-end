@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, ButtonGroup, Button, Container, Alert, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare, faFilePdf, faFastBackward, faStepBackward, faStepForward, faFastForward, faSearch, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faList, faEdit, faTrash, faSave, faUndo, faPlusSquare, faFilePdf, faFastBackward, faStepBackward, faStepForward, faFastForward, faSearch, faTimes, faExclamation, faCheck} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 
 import GradingExaminationsDataService from './GradingExaminationsDataService';
@@ -33,6 +33,8 @@ class GradingExaminations extends Component {
         this.refreshExams = this.refreshExams.bind(this);
         this.submitExamRecord = this.submitExamRecord.bind(this);
         this.resetExamRecord = this.resetExamRecord.bind(this);
+        this.errorDemo = this.errorDemo.bind(this);
+        this.Demo = this.Demo.bind(this);
     }
 
     refreshExams(){
@@ -207,7 +209,25 @@ class GradingExaminations extends Component {
                 )
         }
     }
+
+    // =======================================================demo buttons ==============================================
     
+    errorDemo(){
+        this.setState({
+            fCode:'BB01',
+            fDescription:'Erroneous Description',
+            fDate:moment('2019-05-16 05:30:00.000000').format('YYYY-MM-DD')
+        })
+    }
+
+    Demo(){
+        this.setState({
+            fCode:'BB036',
+            fDescription:'Black Brown Examination 2022/2023.',
+            fDate:moment('2023-02-27 05:30:00.000000').format('YYYY-MM-DD')
+        })
+    }
+
 
 
 
@@ -356,6 +376,12 @@ class GradingExaminations extends Component {
                         
                     </Card.Body>
                         <Card.Footer style={{"textAlign":"right"}}>
+                            <Button variant="outline-danger" size="sm" type="button" onClick={this.errorDemo}>
+                            <FontAwesomeIcon icon={faExclamation} /> Demo
+                            </Button>{' '}
+                            <Button variant="outline-primary" size="sm" type="button" onClick={this.Demo}>
+                            <FontAwesomeIcon icon={faCheck} /> Demo
+                            </Button>{' '}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button variant="success" size="sm" type="submit">
                             <FontAwesomeIcon icon={faSave} /> {this.state.updateClicked !== null ? "Update" : "Save"}
                             </Button>{' '}

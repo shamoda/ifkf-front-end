@@ -34,11 +34,17 @@ class AdminDashboard extends Component {
 
 
             <Router>
+                <div  style={{ backgroundColor: "#a1a1a1"}}>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h1 style={{color:"#343a40",fontFamily:'sans-serif'}}><strong><MDBTypography tag="h3" variant="display-4" className="text-center" > Admin Dashboard</MDBTypography></strong></h1>
 
-                <MDBTypography tag="h4" variant="display-4" className="text-center"> Admin Dashboard</MDBTypography>
-                <hr></hr>
 
-                <MDBContainer>
+
+                <MDBContainer >
                     <MDBNavbar
                         style={{marginTop: '60px', backgroundColor: '#00000087', borderRadius: '10px', padding: '80px'}}
                         dark>
@@ -63,6 +69,7 @@ class AdminDashboard extends Component {
                         </MDBContainer>
                     </MDBNavbar>
                 </MDBContainer>
+                </div>
             </Router>
         );
     }

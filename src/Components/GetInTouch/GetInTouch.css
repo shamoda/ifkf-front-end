@@ -1,0 +1,36 @@
+.contact-container-background {
+  background-image: url("../../Assets/white.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.country-card {
+  border-radius: 20px;
+  border-color: #e5e5e5;
+  border-width: 10px;
+  box-shadow: 0 0 8px 1px #e5e5e5;
+}
+
+.country-badge {
+  height: 75px;
+  width: 75px;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+  top: -40px;
+  border-radius: 100px;
+  box-shadow: 0 0 0 10px #e5e5e5;
+}
+
+.country-badge-img {
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 100px;
+}

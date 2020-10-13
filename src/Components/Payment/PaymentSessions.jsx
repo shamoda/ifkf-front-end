@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import { withRouter} from 'react-router-dom';
 
 class PaymentSessions extends Component{
     constructor(props){
@@ -61,4 +62,4 @@ class PaymentSessions extends Component{
     }
 }
 
-export default PaymentSessions;
+export default withRouter(PaymentSessions);

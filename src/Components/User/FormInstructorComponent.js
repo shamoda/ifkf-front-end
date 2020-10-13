@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup } from 'react-bootstrap';
+import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup, FormGroup } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import InstructorService from '../../API/InstructorService';
@@ -19,7 +19,6 @@ class InstructorFormComponent extends Component {
             email:'',
             nic:'',
             dob: moment(new Date()).format('YYYY-MM-DD'),
-            session:'',
             phoneNo:'',
             qualifications:'',
             experience:''
@@ -58,7 +57,6 @@ componentDidMount(){
                 email:response.data.email,
                 nic:response.data.nic, 
                 dob:moment(response.data.dob).format('YYYY-MM-DD'),
-                session:response.data.session,
                 phoneNo:response.data.phoneNo,
                 qualifications:response.data.qualifications,
                 experience:response.data.experience
@@ -89,36 +87,10 @@ componentDidMount(){
                 email:this.state.email,
                 nic:this.state.nic,
                 dob:this.state.dob,
-                session:this.state.session,
                 phoneNo:this.state.phoneNo,
                 qualifications:this.state.qualifications,
                 experience:this.state.experience
             };
-
-        // if(this.state.instructorId === -1)
-        // {
-        //     swal({
-        //         title: "New Record Submitted!",
-        //         icon: "success",
-        //         button: "ok",
-        //     });
-
-        //    InstructorService.createInstructor(instructor)
-        //     .then(
-        //         response => {
-
-        //             this.props.history.push("/instructors")
-        //         }
-
-        //     )
-        //  }
-        // else{
-
-            swal({
-                title: "Record Updated!",
-                icon: "success",
-                button: "ok",
-            })
 
 
             InstructorService.createInstructor(instructor)
@@ -131,7 +103,7 @@ componentDidMount(){
             )
 
 
-        // }      
+        
 
     }
     
@@ -144,13 +116,26 @@ componentDidMount(){
         
         }
     
-
+    demoClicked(){
+            this.setState({
+            
+                name:'Palitha Silva',
+                gender:'Male',
+                address:'Colombo 10',
+                email:'palithas@gmail.com',
+                nic:'674286175V',
+                dob: '1967-03-01',
+                phoneNo:'0776489275',
+                qualifications:'Degree',
+                experience:'16years'
+            })
+        }    
     
     render() {
 
-        const{instructorId,name,gender,address,email,nic,dob,session,phoneNo,qualifications,experience} = this.state
+        const{instructorId,name,gender,address,email,nic,dob,phoneNo,qualifications,experience} = this.state
         return (
-            <div className = "container">
+            <div className = "container" style ={{marginTop:30}}>
 
                     <Card className={"border border-dark "}>
                     <Card.Header><FontAwesomeIcon icon={faEdit} /> Add Instructor</Card.Header>
@@ -174,31 +159,23 @@ componentDidMount(){
                     <Form.Control type="text" name ="name" placeholder="Name" value ={name} onChange ={this.InstructorChange} />
                     </Col>
                 </Form.Group>
-                {/* <fieldset>
-                    <Form.Group as={Row}>
-                    <Form.Label as="legend" column sm={2}>
-                        Gender
-                    </Form.Label>
-                    <Col sm={10}>
-                        <Form.Check
-                        type="radio"
-                        label="Male"
-                        name="gender"
-                        value = {gender}
-                        id="male"
-                        />
-                        <Form.Check
-                        type="radio"
-                        label="Female"
-                        name="gender"
-                        value ={gender}
-                        id="female"
-                        />
-                       
-                    </Col>
-                    </Form.Group>
-                </fieldset> */}
-
+               
+<FormGroup  as={Row} controlId="formHorizontalGender">
+                <Form.Label column sm={2}>Gender :</Form.Label>
+                <Col sm={10}>
+                  <Form.Control
+                    as="select"
+                    value={gender}
+                    name="gender"
+                    onChange={this.InstructorChange}
+                    required
+                  >
+                      <option value={"gender"}>Select Gender</option>
+                      <option value={"male"}>Male</option>
+                      <option value={"female"}>Female</option>
+                 </Form.Control>
+                </Col>
+                </FormGroup>
                 <Form.Group as={Row} controlId="formHorizontalAddress">
                     <Form.Label column sm={2}>
                     Address
@@ -231,20 +208,13 @@ componentDidMount(){
                     <Form.Control type="date" name ="dob" placeholder="Date of Birth"  value ={dob} onChange ={this.InstructorChange} />
                     </Col>
                 </Form.Group>
-                {/* <Form.Group as={Row} controlId="formHorizontalSession">
-                    <Form.Label column sm={2}>
-                    Session
-                    </Form.Label>
-                    <Col sm={10}>
-                    <Form.Control type="text" name = "session" placeholder="Session" value ={session} onChange ={this.InstructorChange}/>
-                    </Col>
-                </Form.Group> */}
+               
                 <Form.Group as={Row} controlId="formHorizontalPhoneNo">
                     <Form.Label column sm={2}>
                     Contact No
                     </Form.Label>
                     <Col sm={10}>
-                    <Form.Control type="text" name = "phoneNo" placeholder="Contact No" value ={phoneNo} onChange ={this.InstructorChange}/>
+                    <Form.Control type="text" name = "phoneNo" placeholder="Contact No" value ={phoneNo} onChange ={this.InstructorChange} pattern="[0-9]{10}" required/>
                     </Col>
                 </Form.Group>
 
@@ -270,15 +240,16 @@ componentDidMount(){
                 </Card.Body>
 
                 <Card.Footer style={{"textAlign":"right"}}>
-                            <Button variant="success" size="sm" type="submit" //{onClick={this.saveStudent}
+                            <Button variant="success" size="sm" type="submit" 
                             >
                             <FontAwesomeIcon icon={faSave} /> Submit
                             </Button> {' '}
-                            <Button variant="info" size="sm" type="reset" //onClick={this.cancel.bind(this)}
+                            <Button variant="info" size="sm" type="reset" 
                             >
                             <FontAwesomeIcon icon={faUndo} /> Reset
                             </Button>{' '}
                             
+                            <Button size = "sm" onClick={() => this.demoClicked()}>Demo</Button>
                     </Card.Footer>
                 </Form>
                 </Card> 

@@ -16,6 +16,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import axios from "axios";
 import swal from "sweetalert";
 import QTY from "./Qtychanger";
+import * as Swal from "sweetalert2";
+import AuthenticationService from "../../../Authentication/AuthenticationService";
 
 
 class ShoppingCart extends React.Component {
@@ -38,7 +40,7 @@ class ShoppingCart extends React.Component {
             data: [],
             value: 1,
             total: '',
-
+            id1:AuthenticationService.loggedUserId(),
 
             //coulomns declare here
             columns: [
@@ -95,7 +97,7 @@ class ShoppingCart extends React.Component {
     getCartItemsbyId() {
 
 
-        axios.get('http://localhost:8080/CartController/GetCartItems').then(response => {
+        axios.get('http://localhost:8080/CartController/GetCartItems/'+this.state.id1).then(response => {
 
             this.setState({
                 Product: response.data,
@@ -109,32 +111,81 @@ class ShoppingCart extends React.Component {
         })
 
 
+
     }
 
     deleteItem(id) {
+
         console.log(id)
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+        // swal({
+        //     title: "Are you sure?",
+        //     text: "Once deleted, you will not be able to recover this imaginary file!",
+        //     icon: "warning",
+        //     buttons: true,
+        //     dangerMode: true,
+        // })
+        //     .then((willDelete) => {
+        //         if (willDelete) {
+        //             axios.delete('http://localhost:8080/CartController/deleteItem/' + id).then(response => {
+        //                 this.getCartItemsbyId();
+        //
+        //             })
+        //             swal("Poof! Your imaginary file has been deleted!", {
+        //                 icon: "success",
+        //
+        //
+        //             });
+        //         } else {
+        //             swal("Your imaginary file is safe!");
+        //         }
+        //     });
+//
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
         })
-            .then((willDelete) => {
-                if (willDelete) {
-                    axios.delete('http://localhost:8080/CartController/deleteItem/' + id).then(response => {
-                        this.getCartItemsbyId();
 
-                    })
-                    swal("Poof! Your imaginary file has been deleted!", {
-                        icon: "success",
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success',
+                axios.delete('http://localhost:8080/CartController/deleteItem/' + id).then(response => {
+                    this.getCartItemsbyId();
+
+                })
 
 
-                    });
-                } else {
-                    swal("Your imaginary file is safe!");
-                }
-            });
+
+
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })
+
+
+
+
 
 
     }
@@ -164,9 +215,7 @@ class ShoppingCart extends React.Component {
     }
 
     decrease = () => {
-
         // console.log(this.state.value)
-
         this.setState({value: this.state.value - 1});
 
         if (this.state.value <= 0) {
@@ -179,8 +228,6 @@ class ShoppingCart extends React.Component {
 
 
     increase = () => {
-
-
         // console.log(this.state.value)
         this.setState({value: this.state.value + 1});
 
@@ -192,13 +239,12 @@ class ShoppingCart extends React.Component {
         const total = [];
         const {columns, Product} = this.state;
 
-
-
         return Product.map((Product) =>
 
             <div key={Product.id}>
 
                 <MDBRow center={true}>
+
                     <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
                         <MDBCardBody>
                             <MDBTable className="product-table" striped hover responsive>

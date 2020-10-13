@@ -17,6 +17,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import * as Swal from "sweetalert2";
+import AuthenticationService from "../../../Authentication/AuthenticationService";
 
 
 class EcommercePage extends React.Component {
@@ -28,7 +30,8 @@ class EcommercePage extends React.Component {
         this.state = {
             id:'',
             Product: [],
-            customerId:'C001',
+            customerId:AuthenticationService.loggedUserId(),
+            repeat:'',
 
         }
 
@@ -49,8 +52,18 @@ class EcommercePage extends React.Component {
         console.log(id)
         console.log(this.state.customerId)
 
+        Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Check the Cart ,Successfully Added',
+            showConfirmButton: false,
+            timer: 1500
+        })
 
         axios.post(`http://localhost:8080/CartController/CartItems/${id}/${this.state.customerId}`);
+        axios.post('http://localhost:8080/CartController/saveCustomer/'+this.state.customerId);
+        console.log("current user"+this.state.customerId)
+
 
 
 
@@ -71,18 +84,6 @@ class EcommercePage extends React.Component {
 
 
 
-    //
-    // getAllProducts() {
-    //     axios.get('http://localhost:8080/CartController/getAll').then(response => {
-    //
-    //         this.setState({
-    //             Product: response.data,
-    //             id:response.data.id,
-    //         });
-    //     }).catch(function (error) {
-    //         console.log(error);
-    //     })
-    // }
 
 
 

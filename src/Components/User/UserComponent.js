@@ -4,6 +4,7 @@ import { Card, Form, Col,Row, Container, Table, ButtonGroup } from 'react-bootst
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
+
 class UserComponent extends Component {
     constructor(props){
         super(props)
@@ -28,17 +29,30 @@ class UserComponent extends Component {
 
             
             <div className="container" >
+                <br/>
+            <br/>
+            <br/>
                  <Card className={"border border-dark "} style={{marginTop:100}}s>
                     <Card.Header><FontAwesomeIcon icon={faEdit} />  USERS</Card.Header>
                     
-                    <Card.Body>
-                <Button variant="secondary" size="lg" block onClick={this.addStudent}> STUDENTS</Button>
-                <br/>
-                <br/>
-                
-                <Button variant="secondary" size="lg" block onClick={this.addInstructor}>INSTRUCTORS</Button>
+                <Card.Body>
+                  
+                    <Button variant="dark" size="lg" block onClick={this.addStudent}> STUDENTS</Button>
+                    <br/>
+                    <br/>
+                    
+                    <Button variant="dark" size="lg" block onClick={this.addInstructor}>INSTRUCTORS</Button>
                 </Card.Body>
             </Card>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            
         </div>
         );
     }

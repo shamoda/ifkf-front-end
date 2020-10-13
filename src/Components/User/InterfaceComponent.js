@@ -22,20 +22,36 @@ class InterfaceComponent extends Component {
         if(this.state.role == 'student'){
         UserService.getStudentId()
         .then(response => {
-            let temp = parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
-            this.setState({
-                userId:'ST0'+temp
-            })
+            if(parseInt(response.data.studentId.replace(/[^0-9]/g,'')) < 9){
+                let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+                this.setState({
+                    userId:'ST0'+temp
+                })
+            }
+            else{
+                let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+                this.setState({
+                    userId:'ST'+temp
+                })
+            }
         })
         }
 
         else if(this.state.role == 'instructor'){
             UserService.getInstructorId()
             .then(response => {
-            let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
-            this.setState({
-                userId:'IN0'+temp
-            })
+                if(response.data.instructorId.replace(/[^0-9]/g,'') < 9){
+                    let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+                    this.setState({
+                    userId:'IN0'+temp
+                    })
+                }else{
+                    let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+                    this.setState({
+                    userId:'IN'+temp
+                    })
+                }
+            
         })
         }
     }
@@ -93,13 +109,27 @@ class InterfaceComponent extends Component {
             }); 
             
             }
+
+        demoClicked(){
+                this.setState({
+                    password:'user123'  
+                })
+            }   
+        // demo2Clicked(){
+        //         this.setState({
+        //             password:'in123'  
+        //         })
+        //     }         
     
     render() {
         const{userId,password,role} = this.state
 
         return (
             <div>
-            <div className = "container" >  
+                <br/>
+            <br/>
+            <br/><br/>
+            <div className = "container" style ={{marginTop:40}}>  
 
             
                 <Card className={"border border-dark "}>
@@ -137,12 +167,19 @@ class InterfaceComponent extends Component {
                              Register User
                             </Button> {' '}
                             
-                            
+                            <Button size = "sm" onClick={() => this.demoClicked()}>Demo</Button>
+                            {/* <Button size = "sm" onClick={() => this.demo2Clicked()}>Demo2</Button>     */}
                     </Card.Footer>
                         </Form>
                     </Card>
                 
             </div>
+
+            <br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/>
             
             </div>
         );

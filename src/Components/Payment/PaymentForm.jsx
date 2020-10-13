@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col, Container, Table, ButtonGroup } from 'react-bootstrap';
+import { Card, Form, Button, Col, Container, Table, ButtonGroup} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSave, faUndo, faList, faEdit, faTrash, faRemoveFormat} from '@fortawesome/free-solid-svg-icons'
 import PaymentService from '../../API/PaymentService';
+import moment from 'moment'
+import { withRouter} from 'react-router-dom';
 
 class PaymentForm extends Component{
     constructor(props){
         super(props);
         this.state = {
+            payments: [], 
+
             // studentID:this.props.match.params.id,
-            studentID: -1,
-            studentName: '',
+            studentid: this.props.match.params.id,
             amount: '',
-            session:'',
-            sessionTime:'',
-            date:'',
-            paymentStatus:'',
-            paymentID:'',
-            sessionId:''
+            date: moment(new Date()).format('YYYY-MM-DD'),
+            paymentid: '',
+            month:'',
+            
 
         }
-        //this.updatePayment = this.updatePayment.bind(this);
+        this.updatePayment = this.updatePayment.bind(this);
         this.submitPayment = this.submitPayment.bind(this);
-
+        this.refreshPayment = this.refreshPayment.bind(this);
+        this.deletePayment = this.deletePayment.bind(this)
     }
 
     componentDidMount(){
@@ -30,60 +32,41 @@ class PaymentForm extends Component{
     }
 
     refreshPayment() {
-        const getId = +this.props.match.params.id;
-        if (getId != null){
-        PaymentService.retrievePayment(getId)
+        // const getId = +this.props.match.params.id;
+        // if (getId != null){
+        PaymentService.retrievePayment(this.state.studentid)
         .then((response) => {
-            this.setState({
-                studentID:  response.data.studentID,
-                paymentID: response.data.paymentID,
-                studentName: response.data.studentName,
-                amount: response.data.amount,
-                session:response.data.session,
-                sessionTime:response.data.sessionTime,
-                date:response.data.date,
-                paymentStatus:response.data.paymentStatus,
-                sessionId:response.data.sessionId
+                this.setState({
+                    payments: response.data
+                })
             })
-        })
-        
-        
-        }}
+        }
+
+
 
       submitPayment(event){
         event.preventDefault();
 
-        if (this.state.studentID === -1){
+        if (this.state.studentid === -1){
         let payment={
-            studentID : this.state.studentID,
-            studentName : this.state.studentName,
+            studentID : this.state.studentid,
             amount : this.state.amount,
-            session : this.state.session,
-            sessionTime : this.state.sessionTime,
             date : this.state.date,
-            paymentStatus : this.state.paymentStatus,
-            sessionId : this.state.sessionId
-
+            month : this.state.month
         };
 
         PaymentService.addPayments(payment).then((response)=> {
             this.props.history.push("/studentList");
         })
-
       }
         else{
 
             let payment={
-            paymentID: this.state.paymentID,
-            studentID : this.state.studentID,
-            studentName : this.state.studentName,
+            paymentID: this.state.paymentid,
+            studentID : this.state.studentid,
             amount : this.state.amount,
-            session : this.state.session,
-            sessionTime : this.state.sessionTime,
             date : this.state.date,
-            paymentStatus : this.state.paymentStatus,
-            sessionId : this.state.sessionId
-
+            month : this.state.month
         };
 
         PaymentService.addPayments(payment).then((response)=> {
@@ -92,7 +75,16 @@ class PaymentForm extends Component{
 
         }
 
+     }
+
+
+     deletePayment(paymentID) {
+        PaymentService.deletePayment(paymentID)
+            .then(response => {
+                this.refreshPayment()
+            })
     }
+    
 
 
     inputChange = event => {
@@ -101,23 +93,40 @@ class PaymentForm extends Component{
         });
     }
 
-  //  updatePayment = (e) => {
-  //      e.preventDefault();
- //       let payments = {studentID: this.state.studentID,
-  //          studentName: this.state.studentName,
- //           amount: this.state.amount,
- //           session: this.state.session,
- //           sessionTime: this.state.sessionTime,
- //           date: this.state.date};
- //       console.log('payments => ' + JSON.stringify(payments));
- //       this.props.history.push('/Payments')
- //   }
+
+   updatePayment(id){
+       PaymentService.getPayment(id)
+       .then(response => {
+           console.log(id)
+           this.setState({
+               paymentid:response.data.paymentID,
+               studentid:response.data.studentID,
+               amount:response.data.amount,
+               date:moment(response.data.date).format('YYYY-MM-DD'),
+               month:response.data.month
+           })
+       })
+   }
+
+
 
     cancel(){
         this.props.history.push('/Payments')
+    } 
+
+    demoClicked(){
+        this.setState({
+            amount: '2000.00',
+            month:'DemoMonth',
+        })
     }
+
+
     render(){
+        
         return(
+            <div>
+<br/>
             <div>
                 <Container>
                 <Card className={"border border-dark bg-dark text-white"}>
@@ -129,84 +138,42 @@ class PaymentForm extends Component{
                                 <Form.Control required type="text"
                                 className={"bg-dark text-white"}
                                 placeholder="Enter Student ID"
-                                name="studentID"
-                                value={this.state.studentID} onChange={this.inputChange}
+                                name="studentid"
+                                value={this.state.studentid} onChange={this.inputChange}
                                 required />
                             </Form.Group>
 
-                            <Form.Group>
-                                <Form.Label>Name : </Form.Label>
+                            
+                            <Form.Group as={Col}>
+                                <Form.Label>Amount : </Form.Label>
                                 <Form.Control required type="text"
                                 className={"bg-dark text-white"}
-                                 placeholder="Enter Student Name"
-                                 name="studentName" 
-                                 value={this.state.studentName} onChange={this.inputChange}
-                                 required/>
+                                placeholder="Enter Amount" 
+                                name="amount"
+                                min="100"
+                                value={this.state.amount} onChange={this.inputChange}
+                                required/>
                             </Form.Group>
-                            <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Amount : </Form.Label>
-                                    <Form.Control required type="text"
-                                    className={"bg-dark text-white"}
-                                    placeholder="Enter Amount" 
-                                    name="amount"
-                                    min="100"
-                                    value={this.state.amount} onChange={this.inputChange}
-                                    required/>
-                                </Form.Group>
 
-                                <Form.Group as={Col}>
-                                    <Form.Label>Payment Status : </Form.Label>
-                                    <Form.Control required as="select" defaultValue="Choose..."
-                                    className={"bg-dark text-white"}
-                                    name="paymentStatus"
-                                    required
-                                    value={this.state.paymentStatus} onChange={this.inputChange} 
-                                    >
-                                    <option>Choose...</option>
-                                    <option>Unpaid</option>
-                                    <option>Paid</option>
-                                    </Form.Control>
-                                </Form.Group>
-                                
-                            </Form.Row>
-
-                            <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Session : </Form.Label>
-                                    <Form.Control
-                                    type="text"
-                                    className={"bg-dark text-white"}
-                                    placeholder="Enter Session"
-                                    name="session"
-                                    value={this.state.session} onChange={this.inputChange} required/>
-                                </Form.Group>
-
-                                <Form.Group as={Col}>
-                                    <Form.Label>Session Time : </Form.Label>
-                                    <Form.Control required as="select" defaultValue="Choose..."
-                                    className={"bg-dark text-white"}
-                                    name="sessionTime"
-                                    required
-                                    value={this.state.sessionTime} onChange={this.inputChange} 
-                                    >
-                                    <option>Choose...</option>
-                                    <option>8.30</option>
-                                    <option>10.30</option>
-                                    <option>12.30</option>
-                                    <option>2.30</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Form.Row>
-
-                            {/* <Form.Group>
+                            <Form.Group as={Col}>
                                 <Form.Label>Date : </Form.Label>
-                                <Form.Control required type="date"
+                                <Form.Control required type="Date"
                                 className={"bg-dark text-white"}
-                                 placeholder="Enter Date"
-                                 name="date" 
-                                 value={this.state.date} onChange={this.inputChange}/>
-                            </Form.Group> */}
+                                placeholder="Enter Amount" 
+                                name="date"
+                                value={this.state.date} onChange={this.inputChange}
+                                required/>
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Form.Label>Month : </Form.Label>
+                                <Form.Control required type="text"
+                                className={"bg-dark text-white"}
+                                placeholder="Enter Month" 
+                                name="month"
+                                value={this.state.month} onChange={this.inputChange}
+                                required/>
+                            </Form.Group>
                             
                             <Button size="sm" className="btn btn-success" varient="sucess" type="submit">
                                 Submit
@@ -217,10 +184,62 @@ class PaymentForm extends Component{
                         </Form>
                     </Card.Body>
                 </Card>
-                </Container>  
+                </Container> 
+                <br/> 
+                <Container>
+                    <Button size="sm" variant="outline-info" onClick={() => this.demoClicked()} >Demo</Button>
+                </Container>
+            </div>
+<br/>
+<br/>
+
+            <Container>
+                    <Card className={"border border-dark bg-dark text-white"}>
+                        <Card.Header>
+                            <div style={{float:"left"}}>
+                            <FontAwesomeIcon icon={faList} /> Payment Records
+                            </div>
+                        </Card.Header>
+                        <Card.Body>
+                            <Table bordered hover striped variant="dark">
+                            <thead>
+                                <tr>
+                                <th>Payment ID</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Month</th>
+                                <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.state.payments.map((payment) => (
+                                    <tr key={payment.paymentID}>
+                                        <td>{payment.paymentID}</td>
+                                        <td>{payment.amount}</td>
+                                        <td>{moment(payment.date).format('YYYY-MM-DD')}</td>
+                                        <td>{payment.month}</td>
+                                        <td>      
+                                            <Button size="sm" variant="outline-info" onClick={() => this.updatePayment(payment.paymentID)}>Update  <FontAwesomeIcon icon={faEdit} /></Button>&ensp;       
+                                            <Button size="sm" variant="outline-danger" onClick={() => this.deletePayment(payment.paymentID)} >Delete <FontAwesomeIcon icon={faTrash} /></Button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                            </Table>
+                        </Card.Body>
+                    </Card>
+                </Container>
+                <br/>
+                {/* <Container fluid style={{paddingRight:"15%", paddingLeft:"15%"}}>
+                        <Button style={{textAlign:"center"}} onClick={() => this.demoClicked()}>Demo</Button>
+                </Container>  */}
+                
+            
             </div>
               
         )
     }
 }
-export default PaymentForm;
+export default withRouter(PaymentForm);
