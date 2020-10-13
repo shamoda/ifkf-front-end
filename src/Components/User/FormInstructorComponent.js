@@ -92,31 +92,6 @@ componentDidMount(){
                 experience:this.state.experience
             };
 
-        // if(this.state.instructorId === -1)
-        // {
-        //     swal({
-        //         title: "New Record Submitted!",
-        //         icon: "success",
-        //         button: "ok",
-        //     });
-
-        //    InstructorService.createInstructor(instructor)
-        //     .then(
-        //         response => {
-
-        //             this.props.history.push("/instructors")
-        //         }
-
-        //     )
-        //  }
-        // else{
-
-            // swal({
-            //     title: "Record Updated!",
-            //     icon: "success",
-            //     button: "ok",
-            // })
-
 
             InstructorService.createInstructor(instructor)
             .then(
@@ -128,7 +103,7 @@ componentDidMount(){
             )
 
 
-        // }      
+        
 
     }
     
@@ -184,31 +159,7 @@ componentDidMount(){
                     <Form.Control type="text" name ="name" placeholder="Name" value ={name} onChange ={this.InstructorChange} />
                     </Col>
                 </Form.Group>
-                {/* <fieldset>
-                    <Form.Group as={Row}>
-                    <Form.Label as="legend" column sm={2}>
-                        Gender
-                    </Form.Label>
-                    <Col sm={10}>
-                        <Form.Check
-                        type="radio"
-                        label="Male"
-                        name="gender"
-                        value = {gender}
-                        id="male"
-                        />
-                        <Form.Check
-                        type="radio"
-                        label="Female"
-                        name="gender"
-                        value ={gender}
-                        id="female"
-                        />
-                       
-                    </Col>
-                    </Form.Group>
-                </fieldset> */}
-
+               
 <FormGroup  as={Row} controlId="formHorizontalGender">
                 <Form.Label column sm={2}>Gender :</Form.Label>
                 <Col sm={10}>
@@ -257,20 +208,13 @@ componentDidMount(){
                     <Form.Control type="date" name ="dob" placeholder="Date of Birth"  value ={dob} onChange ={this.InstructorChange} />
                     </Col>
                 </Form.Group>
-                {/* <Form.Group as={Row} controlId="formHorizontalSession">
-                    <Form.Label column sm={2}>
-                    Session
-                    </Form.Label>
-                    <Col sm={10}>
-                    <Form.Control type="text" name = "session" placeholder="Session" value ={session} onChange ={this.InstructorChange}/>
-                    </Col>
-                </Form.Group> */}
+               
                 <Form.Group as={Row} controlId="formHorizontalPhoneNo">
                     <Form.Label column sm={2}>
                     Contact No
                     </Form.Label>
                     <Col sm={10}>
-                    <Form.Control type="text" name = "phoneNo" placeholder="Contact No" value ={phoneNo} onChange ={this.InstructorChange}/>
+                    <Form.Control type="text" name = "phoneNo" placeholder="Contact No" value ={phoneNo} onChange ={this.InstructorChange} pattern="[0-9]{10}" required/>
                     </Col>
                 </Form.Group>
 
@@ -296,11 +240,11 @@ componentDidMount(){
                 </Card.Body>
 
                 <Card.Footer style={{"textAlign":"right"}}>
-                            <Button variant="success" size="sm" type="submit" //{onClick={this.saveStudent}
+                            <Button variant="success" size="sm" type="submit" 
                             >
                             <FontAwesomeIcon icon={faSave} /> Submit
                             </Button> {' '}
-                            <Button variant="info" size="sm" type="reset" //onClick={this.cancel.bind(this)}
+                            <Button variant="info" size="sm" type="reset" 
                             >
                             <FontAwesomeIcon icon={faUndo} /> Reset
                             </Button>{' '}

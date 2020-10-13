@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup, InputGroup, FormControl } from 'react-bootstrap';
+import { Card, Form, Button, Col,Row, Container, Table, ButtonGroup, InputGroup, FormControl ,Alert} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSave, faUndo, faList, faEdit, faTrash, faSearch, faTimes, faFilePdf} from '@fortawesome/free-solid-svg-icons'
+import {faSave, faUndo, faList, faEdit, faTrash, faSearch, faTimes, faFilePdf ,faStepBackward,faFastBackward,faStepForward,faFastForward} from '@fortawesome/free-solid-svg-icons'
 import StudentService from '../../API/StudentService';
-
+import swal from "sweetalert";
 
 class StudentTableComponent extends Component {
 
@@ -13,8 +13,12 @@ class StudentTableComponent extends Component {
         this.state = {
             students : [],
             search : "",
+            currentPage:1,
+            studentsPerPage:10,
             fMessage: null,
             message : null,
+            searchMessage:null,
+            fErrorMessage: null
            
         }
         this.addStudent = this.addStudent.bind(this)
@@ -53,8 +57,17 @@ class StudentTableComponent extends Component {
     
 
     deleteStudentClicked(id){
-        StudentService.deleteStudent(id)
-        .then(() => this.refreshStudent())
+        StudentService.deleteStudent(id).then((response) => {
+     
+            swal({
+              title:"Student Deleted Successfully",
+              icon:"warning",
+              button:"ok"
+            })
+      
+            this.refreshStudent()
+          });
+        
     }
 
     searchChange = event => {
@@ -92,13 +105,68 @@ class StudentTableComponent extends Component {
       }
     }
 
+    //...............................................................
+ changePage = event => {
+    this.setState({
+      [event.target.name]: parseInt(event.target.value) //converting to int
+    });
+  };
+
+  firstPage = ()=>{
+    if(this.state.currentPage > 1){
+      this.setState({
+        currentPage: 1
+      });
+    }
+  };
+
+  prevPage = () =>{
+    if(this.state.currentPage > 1){
+      this.setState({
+        currentPage:this.state.currentPage -1
+      });
+    }
+  };
+
+  lastPage = ()=>{
+    if(this.state.currentPage < Math.ceil(this.state.students.length /this.state.studentsPerPage)){
+      this.setState({
+        currentPage:Math.ceil(this.state.students.length /this.state.studentsPerPage)
+      });
+    }
+  };
+  nextPage = ()=>{
+    if(this.state.currentPage < Math.ceil(this.state.students.length /this.state.studentsPerPage)){
+      this.setState({
+        currentPage:this.state.currentPage + 1
+      });
+    }
+  };
 
     
     render() {
-        const {search} = this.state;
+        const {
+            search,currentPage,studentsPerPage,students} = this.state;
+            //pagination
+          const lastIndex = currentPage * studentsPerPage;
+          const firstIndex = lastIndex - studentsPerPage;
+          const currentStudents =students.slice(firstIndex,lastIndex);
+          const totalPages = students.length / studentsPerPage;
+            
+          
+          const pageNumCss ={
+            width: "45px",
+            border:"1px solid #17A2B8",
+            color:"#17A2B8",
+            textAlign:"center",
+            fontWeight:"bold"
+          };
+          
         return (
-            <div className="container " style ={{marginTop:30}}>
-               
+            <div style ={{marginTop:30,marginRight:40,marginLeft:40}}>
+             <Container fluid>
+        {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
+        {this.state.searchMessage && <Alert variant="danger">{this.state.searchMessage}</Alert>}  
                 
                
                  <Card className={"border border-dark "}>
@@ -146,10 +214,13 @@ class StudentTableComponent extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                                this.state.students.map(
-                                    student =>
-                                    <tr key = {student.studentId}>
+                    {students.length === 0 ?
+                  <tr align ="center">
+                    <td colSpan ="8">No students Available</td>
+                  </tr>:
+                
+                currentStudents.map((student) => (
+                    <tr key={student.studentId}>
                                         <td>{student.studentId}</td>
                                         <td>{student.name}</td>
                                         <td>{student.address}</td>
@@ -170,15 +241,53 @@ class StudentTableComponent extends Component {
                                     </tr>
 
                                 )
+                                )
                             }
                             
                     </tbody>
                     </Table>
                 </Card.Body>
+                <Card.Footer>
+              <div style={{"float":"left"}}>
+                  Showing Page {currentPage} of {totalPages}
+              </div>
+              <div style={{"float":"right"}}>
+                    <InputGroup size="sm">
+                    <InputGroup.Prepend>
+                   
+                    <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true :false}
+                    onClick={this.firstPage}>
+                         <FontAwesomeIcon icon={faFastBackward}/> First
+                    </Button>
+                    
+                    <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true :false}
+                     onClick={this.prevPage}>
+                    <FontAwesomeIcon icon={faStepBackward}/>  Prev
+                    </Button>
+                    </InputGroup.Prepend>
+
+                    <FormControl style={pageNumCss} className={"bg-light"} name="currentPage" value={currentPage}
+                    onChange={this.changePage}/>
+                   
+                    <InputGroup.Append>
+                    <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true :false}
+                     onClick={this.nextPage}>
+                    <FontAwesomeIcon icon={faStepForward}/>  Next
+                    </Button>
+                   
+                    <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true :false}
+                     onClick={this.lastPage}>
+                    <FontAwesomeIcon icon={faFastForward}/>  Last
+                    </Button>
+                    
+                    </InputGroup.Append>
+                    </InputGroup>
+              </div>
+            </Card.Footer>
             </Card>
 
 
-                
+            </Container>    
             </div>
         );
     }
