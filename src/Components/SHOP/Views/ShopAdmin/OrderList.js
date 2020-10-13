@@ -216,10 +216,9 @@ class OrderList extends React.Component {
 
         return (
             <div>
-                <MDBRow center={true}>
-                    <MDBCard style={{width: "75rem", marginTop: "2rem"}}>
-                        <MDBBtn color={"warning"} style={{color: 'white'}} onClick={() => this.exportPDF()}><i
-                            className="fas fa-plus"></i> Genrate A Report</MDBBtn>
+                <MDBRow center={true} >
+                    <MDBCard style={{width: "82rem", marginTop: "2rem"}}>
+                        <MDBBtn color={"warning"} style={{color: 'white'}} onClick={() => this.exportPDF()}><MDBIcon far icon="file-pdf" /> Genrate A Report</MDBBtn>
                         <MDBCardBody>
                             <MDBTable className="product-table" striped hover responsive>
                                 <caption>List of All Product</caption>

@@ -3,7 +3,7 @@ import { Card, Form, Button, Col, Container, Table, ButtonGroup, InputGroup, For
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import EquipmentDataService from '../../API/EquipmentDataService';
-import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faSave, faUndo ,faSearch,faTimes,faFilePdf,faPlusSquare,faStepForward} from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment'
 import "./box.css"
 class EquipmentDashboard extends Component {
@@ -15,7 +15,7 @@ class EquipmentDashboard extends Component {
             type :'',
             supplier : '',
             brand:'',
-            quantity:'',
+            quantity:0,
 
             equipments:[],
             search:'',
@@ -26,19 +26,24 @@ class EquipmentDashboard extends Component {
             Errormessage:'',
             searchMessage: '',
             fMessage: '',
+            Avquantity:0,
+            Availablequantity:0
+
 
            
            
           
          
-      
-     }
+         } 
+     
 
      this.refreshEquipments=this.refreshEquipments.bind(this);
      this.onSubmitRecords=this.onSubmitRecords.bind(this);
      this.deleteEquipmentClicked=this.deleteEquipmentClicked.bind(this);
      this.UpdateEquipmentClicked=this.UpdateEquipmentClicked.bind(this);
-   
+     this.resetERecord = this.resetERecord.bind(this);
+     this.resetERecordDemo = this.resetERecordDemo.bind(this);
+    //  this.Subquantity = this.Subquantity.bind(this);
 
     }
 
@@ -50,7 +55,7 @@ class EquipmentDashboard extends Component {
 
     }
 
-
+ 
     downloadReportClicked = () => {
      
         EquipmentDataService.downloadEquipmentreport()
@@ -63,7 +68,7 @@ class EquipmentDashboard extends Component {
 
     UpdateEquipmentClicked(id){  
 
-
+      
 
             EquipmentDataService.retrieveEquipment(id)
 
@@ -75,8 +80,23 @@ class EquipmentDashboard extends Component {
                      supplier : response.data.supplier
              }))  
 
-        }
+          
+             EquipmentDataService.getTotalquantity(id)
+               .then(response => this.setState({
+                        Avquantity : response.data.quantity,
+            
+ 
+            
+     }))  
 
+     let Availablequantity = this.state.quantity - this.state.Avquantity;
+     this.setState({Availablequantity});
+       
+    }
+
+    
+       
+      
         
         refreshEquipments(){
             
@@ -91,6 +111,8 @@ class EquipmentDashboard extends Component {
                 }    
               
             )
+
+         
 
          
         }
@@ -233,11 +255,17 @@ class EquipmentDashboard extends Component {
             this.refreshEquipments();
         }
       
-          
+        resetERecord(){
+            this.setState({  id :-1,type :'', supplier : '', brand:'', quantity:'',Errormessage:'',message:''})
+        }
+
+        resetERecordDemo(){
+            this.setState({ type :'Gloves', supplier : 'CA Sports', brand:'FILLA', quantity:'345',Errormessage:'',message:''})
+        }
     render() { 
     
 
-        const {type,supplier,quantity,brand,search} = this.state
+        const {type,supplier,quantity,brand,search,Avquantity,Availablequantity} = this.state
 
         
         const searchBox = {
@@ -286,16 +314,31 @@ class EquipmentDashboard extends Component {
                       </Form.Row>
 
                       <Form.Row>
-                          <Form.Group as={Col} controlId="formGridTitle" style={{marginLeft:100}}>
+                          <Form.Group as={Col} controlId="formGridTitle" style={{marginLeft:80}}>
                           <Form.Label>Quantity</Form.Label>
-                          <Form.Control type="text" name="quantity" value={quantity}  onChange={this.EquiChange} style={{width:300}}  autoComplete="off" placeholder="Quantity" className={"bg-dark text-white"} style={{ width:200}}/>
+                          <Form.Control type="text" name="quantity"  value={quantity}  onChange={this.EquiChange} style={{width:300}}  autoComplete="off" placeholder="Quantity" className={"bg-dark text-white"} style={{ width:200}}/>
                    
                           </Form.Group>
 
-                          <Form.Group as={Col} controlId="formGridTitle" >
+                          <Form.Group as={Col} controlId="formGridTitle" style={{marginLeft:200,width:50}}>
                           <Form.Label style={{marginLeft: -200}}>Brand</Form.Label>
                           <Form.Control type="text" name="brand" value={brand}  onChange={this.EquiChange} style={{marginLeft: -200}} required autoComplete="off" placeholder="Brand" className={"bg-dark text-white"} />
                           </Form.Group>
+                 
+                     
+                        <Form.Group  style={{marginLeft:-50}}>
+                           <Form.Label style={{marginRight:70}}>Donated Quantity:</Form.Label>
+                           
+                            <h5>{Avquantity}</h5>
+                       </Form.Group>
+
+                       <Form.Group  style={{marginLeft:-50}}>
+                           <Form.Label style={{marginRight:70}}>Available Quantity:</Form.Label>
+                           
+                            <h5>{Availablequantity}</h5>
+                       </Form.Group>
+                      
+                      
                       </Form.Row>
 
                     
@@ -304,12 +347,17 @@ class EquipmentDashboard extends Component {
                   </Card.Body>
                       <Card.Footer style={{"textAlign":"right"}}>
                      
-                          <Button variant="success" size="sm" type="submit">
-                          <FontAwesomeIcon icon={faSave} /> 
-                          </Button>{' '}
-                          <Button variant="info" size="sm" type="reset">
-                          <FontAwesomeIcon icon={faUndo} /> Reset
-                          </Button>
+                           <Button variant="success" size="sm" type="submit">
+                                Save  <FontAwesomeIcon icon={faPlusSquare} /> 
+                            </Button>{' '}
+                            <Button variant="info" size="sm" type="reset" onClick={this.resetERecord}>
+                            <FontAwesomeIcon icon={faUndo} /> Reset 
+                            </Button>
+
+                            <Button style={{marginLeft:5}} variant="info" size="sm" type="reset" onClick={this.resetERecordDemo}>
+                            <FontAwesomeIcon icon={faStepForward} /> DEMO
+                            </Button>
+                           
                           <Button variant="outline-light" size="sm" type="button" block style={{fontWeight:600, fontSize:17,marginTop:10}} onClick={ this.downloadReportClicked.bind()} >
                             <FontAwesomeIcon icon={faFilePdf} /> Download Report</Button>
                       </Card.Footer>
@@ -355,7 +403,7 @@ class EquipmentDashboard extends Component {
                         </div>
                         </div>
                         <div className= "card-btn" style={{marginTop:10}}>
-                        <Button size="sm" variant="outline-primary" onClick={()=> this.UpdateEquipmentClicked(equipment.id)}><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Button size="sm" variant="outline-primary" onClick={()=> this.UpdateEquipmentClicked(equipment.id)} ><FontAwesomeIcon icon={faEdit} /></Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Button size="sm" variant="outline-danger" onClick={() => this.deleteEquipmentClicked(equipment.id)}><FontAwesomeIcon icon={faTrash} /></Button>
                         </div>
                     </div>

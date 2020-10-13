@@ -173,9 +173,9 @@ class UploadItems extends React.Component {
 
     render() {
         return (
-            <div>
-                <MDBContainer>
-                    <MDBRow className={"justify-content-center"}>
+            <div style={{background:"#45454559"}}>
+                <MDBContainer >
+                    <MDBRow className={"justify-content-center"}  >
                         <MDBCol size={8}>
                             <MDBCard style={{marginTop: "1rem"}}>
                                 <MDBCardHeader className="text-center"

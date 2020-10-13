@@ -90,7 +90,7 @@ class Requests extends Component {
                  quantity: response.data.quantity,
                  type:response.data.type,
                  userID: response.data.instructor.instructorId,
-                //  sessionID   : response.data.sessions.session,
+                 sessionID   : response.data.sessions.sessionId,
                  description : response.data.description,
                  status: response.data.status
             }

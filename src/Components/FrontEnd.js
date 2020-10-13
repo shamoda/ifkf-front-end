@@ -97,8 +97,12 @@ class FrontEnd extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Login}/>
                         <Route path="/ViewAll/logout" component={Login}/>
+
+                        <Route path="/ViewAll/login" component={Login}/>
+
                         <Route path="/history" component={History}/>
                         <Route path="/getintouch" component={GetInTouch}/>
+
 
                         <Route path="/shop" component={ShopHome}/>
                         <Route path="/AdminDashboard" component={AdminDashboard}/>
@@ -145,10 +149,11 @@ class FrontEnd extends Component {
                         <Route path="/addPayment" component={PaymentForm}/>
                         <Route path="/studentList" component={PaymentStatus}/>
 
-                        <Route path="/Enrollments" component={Enrollments} />
-                        <Route path="/EnrollmentForm/:id" component={EnrollmentForm} />
-                        <Route path="/EnrollmentForm" component={EnrollmentForm} />
-                        <Route path="/RegStudentForm" component={RegStudentForm}/>
+                        {/* <Route path="/Enrollments" component={Enrollments} /> */}
+                        <Route path="/EnrollmentForm/:eid/:id" component={EnrollmentForm} />
+                        <Route path="/EnrollmentForm/:eid" component={EnrollmentForm} />
+                        {/* <Route path="/EnrollmentForm" component={EnrollmentForm} /> */}
+                        <Route path="/RegStudentForm/:id" component={RegStudentForm}/>
                         
 
                         <Route path="/students" component={StudentTableComponent}/>
@@ -192,7 +197,7 @@ class FrontEnd extends Component {
 
                     </Switch>
 
-                    {/*<Footer />*/}
+                    {/* <Footer /> */}
 
                 </Router>
 

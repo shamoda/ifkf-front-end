@@ -17,7 +17,8 @@ class Enrollments extends Component {
             regStudent: [],
             filterkyu: '',
             search: '',
-            eID: this.props.match.params.id
+            eID:this.props.match.params.id
+            // eID: 9
 
             // dob: moment(new Date()).format('YYYY-MM-DD')
             //btnValue: 1
@@ -33,7 +34,8 @@ class Enrollments extends Component {
 
     refreshRegStudents() {
 
-        EnrollStudentService.retrieveRegStudent()
+        console.log(this.state.eID)
+        EnrollStudentService.retrieveRegStudent(this.state.eID)
             .then(
                 response => {
                     this.setState({regStudent: response.data})
@@ -44,7 +46,8 @@ class Enrollments extends Component {
 
     refreshEnrollment() {
 
-        EnrollStudentService.retrieveAllEnrollments()
+        console.log(this.state.eID)
+        EnrollStudentService.retrieveAllEnrollments(this.state.eID)
             .then(
                 response => {
                     this.setState({unregStudent: response.data})
@@ -94,9 +97,9 @@ class Enrollments extends Component {
             .then(() => this.refreshRegStudents())
     }
 
-    updateStudentClicked(id) {
-        this.props.history.push(`/enrollmentform/${id}`)
-    }
+    // updateStudentClicked(id) {
+    //     this.props.history.push(`/enrollmentform/${id}`)
+    // }
 
     searchData = () => {
         this.searchDataReg()
@@ -198,6 +201,22 @@ class Enrollments extends Component {
         this.componentDidMount();
     }
 
+    regUserAdd = (eID) =>{
+        console.log(eID)
+        this.props.history.push(`/regStudentform/${eID}`)
+    }
+
+    unregUserAdd = (eID) =>{
+        console.log(eID)
+        this.props.history.push(`/enrollmentform/${eID}`)
+    }
+
+    unregUserUpdate(eID, id){
+        console.log("eid"+eID)
+        console.log("id"+id)
+        this.props.history.push(`/enrollmentform/${eID}/${id}`)
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -252,7 +271,7 @@ class Enrollments extends Component {
 
         const unit = "pt";
         const size = "A3";
-        const orientation = "landscape";
+        const orientation = "portrait";
         const marginLeft = 40;
         const doc = new jsPDF(orientation, unit, size);
 
@@ -367,7 +386,7 @@ class Enrollments extends Component {
                             <Table bordered hover striped variant="dark" style={{textAlign: "center"}}>
                                 <thead>
                                 <tr>
-                                    <th>UserId</th>
+                                    {/* <th>UserId</th> */}
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>NIC</th>
@@ -384,9 +403,9 @@ class Enrollments extends Component {
                                 <tbody>
                                 {
                                     this.state.unregStudent.map(
-                                        std =>
+                                        (std) =>
                                             <tr key={std.id}>
-                                                <td>{std.id}</td>
+                                                {/* <td>{std.id}</td> */}
                                                 <td>{std.name}</td>
                                                 <td>{std.address}</td>
                                                 <td>{std.nic}</td>
@@ -399,7 +418,7 @@ class Enrollments extends Component {
                                                 <td>{std.guardianPhone}</td>
                                                 <ButtonGroup>
                                                     <Button size="sm" variant="outline-primary"
-                                                            onClick={() => this.updateStudentClicked(std.id)}><FontAwesomeIcon
+                                                            onClick={() => this.unregUserUpdate(this.state.eID, std.id)}><FontAwesomeIcon
                                                         icon={faEdit}/></Button> {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
                                                     <Button size="sm" variant="outline-danger"
                                                             onClick={() => this.deleteStudentsClick(std.id)}><FontAwesomeIcon
@@ -417,14 +436,12 @@ class Enrollments extends Component {
                 <br>
                 </br>
                 <Container fluid style={{paddingRight: "15%", paddingLeft: "15%"}}>
-                    <Button style={{textAlign: "center"}} onClick={() => this.props.history.push('/enrollmentform')}>Add
-                        New Unregistered Student</Button>
-                </Container>
-                <br>
-                </br>
-                <Container fluid style={{paddingRight: "15%", paddingLeft: "15%"}}>
-                    <Button style={{textAlign: "center"}} onClick={() => this.exportUnregStudPDF()}>Unregistered Student
-                        Report Download Here</Button>
+                    <ButtonGroup>
+                        <Button className={"border border-dark bg-dark text-white"}
+                           onClick={() => this.unregUserAdd(this.state.eID)}>Add New Unregistered Students</Button>
+                        <Button className={"border border-dark bg-dark text-white"} fluid
+                             onClick={() => this.exportUnregStudPDF()}>Unregistered Student Report Download Here</Button>
+                    </ButtonGroup>
                 </Container>
                 <br>
                 </br>
@@ -437,7 +454,7 @@ class Enrollments extends Component {
                             <Table bordered hover striped variant="dark" style={{textAlign: "center"}}>
                                 <thead>
                                 <tr>
-                                    <th>Enrollment Id</th>
+                                    {/* <th>Enrollment Id</th> */}
                                     <th>Student Id</th>
                                     <th>Name</th>
                                     <th>DOB</th>
@@ -451,7 +468,7 @@ class Enrollments extends Component {
                                     this.state.regStudent.map(
                                         regstd =>
                                             <tr key={regstd.enrollId}>
-                                                <td>{regstd.enrollId}</td>
+                                                {/* <td>{regstd.enrollId}</td> */}
                                                 <td>{regstd.studId}</td>
                                                 <td>{regstd.name}</td>
                                                 <td>{moment(regstd.dob).format('YYYY-MM-DD')}</td>
@@ -474,14 +491,12 @@ class Enrollments extends Component {
                 <br>
                 </br>
                 <Container fluid style={{paddingRight: "15%", paddingLeft: "15%"}}>
-                    <Button style={{textAlign: "center"}} onClick={() => this.props.history.push('/RegStudentForm')}>Add
-                        New Registered Students</Button>
-                </Container>
-                <br>
-                </br>
-                <Container fluid style={{paddingRight: "15%", paddingLeft: "15%"}}>
-                    <Button style={{textAlign: "center"}} onClick={() => this.exportRegStudPDF()}>Registered Student
-                        Report Download Here</Button>
+                    <ButtonGroup>
+                        <Button className={"border border-dark bg-dark text-white"}
+                            onClick={() => this.regUserAdd(this.state.eID)}>Add New Registered Students</Button>
+                        <Button className={"border border-dark bg-dark text-white"} paddingLeft='20px' 
+                            onClick={() => this.exportRegStudPDF()}>Registered Student Report Download Here</Button>
+                    </ButtonGroup>
                 </Container>
                 <br>
                 </br>

@@ -14,7 +14,7 @@ class StudentList extends Component {
             students:[],
 
             currentPage : 1,
-            entriesPerPage : 8,
+            entriesPerPage : 7,
             search:'',
             searchMessage:null
         }

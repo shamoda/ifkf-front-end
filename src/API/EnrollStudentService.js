@@ -5,9 +5,9 @@ class EnrollStudentService{
 
     //unregisterd students controller part starting from here
     //retrive all unreg students to the table.
-    retrieveAllEnrollments() {
+    retrieveAllEnrollments(eid) {
         //console.log('executed service')
-        return axios.get('http://localhost:8080/unregStudent');
+        return axios.get(`http://localhost:8080/unregStudent/all/${eid}`);
     }
 
     //load unreg student details to the update form
@@ -21,13 +21,13 @@ class EnrollStudentService{
     }
 
     //update unreg student
-    updateEnrollment(stud){
-        return axios.put('http://localhost:8080/unregStudent', stud)
+    updateEnrollment(eid,stud){
+        return axios.put(`http://localhost:8080/unregStudent/update/${eid}`, stud)
     }
 
     //insert unreg student
-    insertEnrollment(stud){
-        return axios.post('http://localhost:8080/unregStudent/insert', stud)
+    insertEnrollment(eid,stud){
+    return axios.post(`http://localhost:8080/unregStudent/insert/${eid}`, stud)
     }
 
     //Searching and filtering Part starting from here
@@ -50,8 +50,8 @@ class EnrollStudentService{
     //Register Student controller part starting from here
     //this part is not affected to the student manageent part
     //retrieve registerd student details
-    retrieveRegStudent(){
-        return axios.get('http://localhost:8080/regStudent');
+    retrieveRegStudent(eid){
+        return axios.get(`http://localhost:8080/regStudent/${eid}`);
     }
 
     //delete registert student from the evet enrollments
@@ -60,8 +60,8 @@ class EnrollStudentService{
     }
 
     //insert new registerd student details to the system database
-    insertRegStudent(RegStudent){
-        return axios.post('http://localhost:8080/regStudent/insert', RegStudent)
+    insertRegStudent(eid,RegStudent){
+        return axios.post(`http://localhost:8080/regStudent/insert/${eid}`, RegStudent)
     } 
 }
 

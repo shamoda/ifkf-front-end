@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Card, Form, Button, Col, Container, Table, ButtonGroup ,InputGroup, FormControl,Alert} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import EquipmentDataService from '../../API/EquipmentDataService'
-import {faSave, faList, faEdit, faTrash,faPlusSquare, faUndo,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons'
+import { faList, faEdit, faTrash,faPlusSquare, faUndo,faSearch,faTimes,faFilePdf} from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from "react-router-dom";
 import moment from 'moment'
 import {faStepBackward, faFastBackward, faStepForward, faFastForward} from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +26,8 @@ class Donations extends Component {
         optionList:[],
         message: null,
         search:'',
-        Errormessage:''
+        Errormessage:null,
+        repmessage:null
 
     }
 
@@ -34,6 +35,8 @@ class Donations extends Component {
     this.deleteDonationClicked = this.deleteDonationClicked.bind(this);
     this.retrieveDonations = this.retrieveDonations.bind(this);
     this.onSubmitDonations = this.onSubmitDonations.bind(this);
+    this.resetERecord = this.resetERecord.bind(this);
+    this.resetERecordValue =this.resetERecordValue.bind(this);
   }
 
     
@@ -41,6 +44,20 @@ class Donations extends Component {
 
         this.refreshDonations();
 
+
+
+        EquipmentDataService.retrieveAllEquipment()
+        .then(
+            response => {
+                
+                this.setState({optionList:response.data.map(equipment =>
+                    <option value={this.equipmentID} id= {equipment.id}>
+                        {equipment.id}
+                    </option>
+                )})
+            }
+        )
+    
 
     
         
@@ -68,7 +85,7 @@ class Donations extends Component {
          .then(
              response =>{
  
-             this.setState({message : `Delete of Donation ${id} Successful`,Errormessage:null});
+             this.setState({message : `Delete of Donation ${id} Successful`,Errormessage:null,repmessage:null});
              this.refreshDonations();
              }
  
@@ -77,10 +94,10 @@ class Donations extends Component {
 
      downloadReportClicked = () => {
      
-        EquipmentDataService. downloadReport()
+        EquipmentDataService.downloadReport()
             .then(
                 response => {
-                    this.setState({message : response.data,Errormessage:''})
+                    this.setState({repmessage : response.data, message:'',Errormessage:''})
                 }
             )
     };
@@ -109,13 +126,13 @@ class Donations extends Component {
        
 
         if(this.state.equipmentID === ''){
-            this.setState({Errormessage:'Please Select a Equipment Type to Proceed.',message:null})
+            this.setState({Errormessage:'Please Select a Equipment Type to Proceed.',message:null,repmessage:null})
             return
         }
 
         
         if(this.state.sessionID === ''){
-            this.setState({Errormessage:'Please Select a session to Proceed.',message:null})
+            this.setState({Errormessage:'Please Select a session to Proceed.',message:null,repmessage:null})
             return
         }
     
@@ -140,7 +157,7 @@ class Donations extends Component {
                 EquipmentDataService.CreateDonations(don)
                 .then(
                     response => {
-                         this.setState({message : "Donations Record Added Successfully.",Errormessage:null})
+                         this.setState({message : "Donations Record Added Successfully.",Errormessage:null,repmessage:null})
                          this.refreshDonations()
                     }
                  ) 
@@ -168,7 +185,7 @@ class Donations extends Component {
                 EquipmentDataService.UpdateDonations(this.state.id,don)
                 .then(
                     response => {
-                          this.setState({message : "Donations Record Updated Successfully.",Errormessage:null})
+                          this.setState({message : "Donations Record Updated Successfully.",Errormessage:null,repmessage:null})
                           this.refreshDonations()
                     }
                 )
@@ -186,7 +203,7 @@ class Donations extends Component {
                                     this.setState({
                                         donations: response.data,
                                         searchMessage: null,
-                                        fMessage: null
+                                        message: null
                                     })
                                 }
                                 else {
@@ -256,6 +273,7 @@ class Donations extends Component {
         }
     };
 
+
     nextPage = () => {
         if(this.state.currentPage < Math.ceil(this.state.donations.length / this.state.donationsPerPage)) {
             this.setState({
@@ -266,14 +284,20 @@ class Donations extends Component {
 
    
 
+    resetERecord(){
+        this.setState({ id : -1, date:  moment(new Date()).format('YYYY-MM-DD'),  quantity:'',  sessionID:'', equipmentID: '', Errormessage:'',message:'',repmessage:''}) }
+
+
+
+    resetERecordValue(){
+            this.setState({  date:  moment(new Date()).format('YYYY-MM-DD'),  quantity:'98',  sessionID:'1', equipmentID: 2, Errormessage:'',message:'',repmessage:''}) }
     
-
-
+    
     render() { 
 
       
         
-        const {id,date,quantity,sessionID, equipmentID,search} = this.state;
+        const {date,quantity,sessionID, equipmentID,search} = this.state;
         const{donations, currentPage, donationsPerPage} = this.state;
         const lastIndex = currentPage * donationsPerPage;
         const firstIndex = lastIndex - donationsPerPage;
@@ -307,6 +331,7 @@ class Donations extends Component {
         
        
                 <Container>
+         
                 {this.state.Errormessage && <Alert variant="danger">{this.state.Errormessage}</Alert>}
                   
                     <Card className={"border border-dark bg-dark text-white"}>
@@ -349,10 +374,14 @@ class Donations extends Component {
                     </Card.Body>
                         <Card.Footer style={{"textAlign":"right"}}>
                             <Button variant="success" size="sm" type="submit">
-                            <FontAwesomeIcon icon={faSave} /> 
+                                Save  <FontAwesomeIcon icon={faPlusSquare} /> 
                             </Button>{' '}
-                            <Button variant="info" size="sm" type="reset">
+                            <Button variant="info" size="sm" type="reset" onClick={this.resetERecord}>
                             <FontAwesomeIcon icon={faUndo} /> Reset
+                            </Button>
+
+                            <Button style={{marginLeft:5}} variant="info" size="sm" type="reset" onClick={this.resetERecordValue}>
+                            <FontAwesomeIcon icon={faStepForward} /> DEMO
                             </Button>
                            
                             {/* <Button variant="primary" size="sm" type="button" onClick={this.resultsList.bind()}>
@@ -375,6 +404,8 @@ class Donations extends Component {
 
 
         <Container>
+               
+        {this.state.repmessage && <Alert variant="danger">{this.state.repmessage}</Alert>}
         {this.state.message && <Alert variant="success">{this.state.message}</Alert>}
         <Card className={"border border-dark bg-dark text-white"}>
         <Card.Header><FontAwesomeIcon icon={faList} /> List
