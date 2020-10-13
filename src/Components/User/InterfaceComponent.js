@@ -22,20 +22,36 @@ class InterfaceComponent extends Component {
         if(this.state.role == 'student'){
         UserService.getStudentId()
         .then(response => {
-            let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
-            this.setState({
-                userId:'ST0'+temp
-            })
+            if(parseInt(response.data.studentId.replace(/[^0-9]/g,'')) < 9){
+                let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+                this.setState({
+                    userId:'ST0'+temp
+                })
+            }
+            else{
+                let temp =  parseInt(response.data.studentId.replace(/[^0-9]/g,''))+1
+                this.setState({
+                    userId:'ST'+temp
+                })
+            }
         })
         }
 
         else if(this.state.role == 'instructor'){
             UserService.getInstructorId()
             .then(response => {
-            let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
-            this.setState({
-                userId:'IN0'+temp
-            })
+                if(response.data.instructorId.replace(/[^0-9]/g,'') < 9){
+                    let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+                    this.setState({
+                    userId:'IN0'+temp
+                    })
+                }else{
+                    let temp = parseInt(response.data.instructorId.replace(/[^0-9]/g,''))+1
+                    this.setState({
+                    userId:'IN'+temp
+                    })
+                }
+            
         })
         }
     }
@@ -110,6 +126,9 @@ class InterfaceComponent extends Component {
 
         return (
             <div>
+                <br/>
+            <br/>
+            <br/><br/>
             <div className = "container" style ={{marginTop:40}}>  
 
             
@@ -155,6 +174,12 @@ class InterfaceComponent extends Component {
                     </Card>
                 
             </div>
+
+            <br/>
+            <br/>
+            <br/><br/>
+            <br/>
+            <br/>
             
             </div>
         );

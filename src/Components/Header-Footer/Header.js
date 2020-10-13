@@ -56,7 +56,7 @@ class Header extends Component {
                             <Link className="dropdown-item" to="/Admindashboard"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            {/* <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link> */}
                         </NavDropdown>}
 
                         {loggedAsInstructor && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown"> 
@@ -68,14 +68,14 @@ class Header extends Component {
                             <Link className="dropdown-item" to="/payments"><FontAwesomeIcon icon={faCreditCard} /> Payments</Link>
                             <Link className="dropdown-item" to="/showDonations"><FontAwesomeIcon icon={faPencilRuler} /> Equipments</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            {/* <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link> */}
                         </NavDropdown>}
 
                         {loggedAsStudent && <NavDropdown title={<FontAwesomeIcon icon={faBars} />} style={{marginRight:100}} id="basic-nav-dropdown">
                             <Link className="dropdown-item" to="/myperformance"><FontAwesomeIcon icon={faChartLine} /> Performance</Link>
                             <Link className="dropdown-item" to="/shop"><FontAwesomeIcon icon={faShoppingBag} /> Shop</Link>
                             <NavDropdown.Divider />
-                            <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link>
+                            {/* <Link  className="dropdown-item" to="/update"><FontAwesomeIcon icon={faUserCircle} /> Update</Link> */}
                         </NavDropdown>}
 
                         {!isUserLoggedIn && <Link className="nav-link" to="/login"><FontAwesomeIcon icon={faSignInAlt} /> Login</Link>}
